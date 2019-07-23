@@ -11,6 +11,7 @@ import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.utils.GlideApp
 import com.khrisna.filmdb.utils.Utils.formatDate
+import com.khrisna.filmdb.viewmodel.DetailViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
@@ -108,9 +109,13 @@ class DetailActivity : AppCompatActivity() {
             tv_release_date.text = formatDate(tvShow.firstAir)
             tv_rating.text = tvShow.rating.toString()
             tv_overview_body.text = tvShow.overview
-            ratingBar.numStars = 10
+            ratingBar.numStars = 5
             ratingBar.stepSize = 0.1f
-            ratingBar.rating = tvShow.rating
+            if (tvShow.rating > 5f) {
+                ratingBar.rating = tvShow.rating - 5
+            } else {
+                ratingBar.rating = tvShow.rating
+            }
 
             var genres = "| "
             for ((index, value) in tvShow.genres.withIndex()) {

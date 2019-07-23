@@ -1,4 +1,4 @@
-package com.khrisna.filmdb.ui.detail
+package com.khrisna.filmdb.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

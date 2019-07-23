@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.khrisna.filmdb.data.model.Movie
 import com.khrisna.filmdb.network.DataRepository
+import com.khrisna.filmdb.viewmodel.DetailViewModel
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
 import org.junit.Assert.assertNotEquals

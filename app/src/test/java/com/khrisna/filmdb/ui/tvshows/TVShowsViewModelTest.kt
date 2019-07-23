@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.khrisna.filmdb.data.model.Movies
 import com.khrisna.filmdb.network.DataRepository
+import com.khrisna.filmdb.viewmodel.TVShowsViewModel
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule

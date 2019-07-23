@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.adapter.TVShowListAdapter
 import com.khrisna.filmdb.data.model.TVShows
+import com.khrisna.filmdb.viewmodel.TVShowsViewModel
 import kotlinx.android.synthetic.main.fragment_tvshows.*
 
 
