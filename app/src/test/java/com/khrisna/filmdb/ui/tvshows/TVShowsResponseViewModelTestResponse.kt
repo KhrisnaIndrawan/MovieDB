@@ -3,7 +3,7 @@ package com.khrisna.filmdb.ui.tvshows
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.khrisna.filmdb.data.source.remote.network.RetrofitServices
-import com.khrisna.filmdb.data.source.remote.response.MoviesResponse
+import com.khrisna.filmdb.data.source.remote.response.MoviesEntity
 import com.khrisna.filmdb.viewmodel.TVShowsViewModel
 import org.junit.Assert.*
 import org.junit.Before
@@ -25,7 +25,7 @@ class TVShowsResponseViewModelTestResponse {
 
     @Test
     fun getAiringToday() {
-        val tvShows = MutableLiveData<MoviesResponse>()
+        val tvShows = MutableLiveData<MoviesEntity>()
 
         val networkServices = RetrofitServices.create()
         val response = networkServices
@@ -44,7 +44,7 @@ class TVShowsResponseViewModelTestResponse {
 
     @Test
     fun getOnTheAir() {
-        val tvShows = MutableLiveData<MoviesResponse>()
+        val tvShows = MutableLiveData<MoviesEntity>()
 
         val networkServices = RetrofitServices.create()
         val response = networkServices
@@ -63,7 +63,7 @@ class TVShowsResponseViewModelTestResponse {
 
     @Test
     fun getPopular() {
-        val tvShows = MutableLiveData<MoviesResponse>()
+        val tvShows = MutableLiveData<MoviesEntity>()
 
         val networkServices = RetrofitServices.create()
         val response = networkServices
@@ -82,7 +82,7 @@ class TVShowsResponseViewModelTestResponse {
 
     @Test
     fun getTopRated() {
-        val tvShows = MutableLiveData<MoviesResponse>()
+        val tvShows = MutableLiveData<MoviesEntity>()
 
         val networkServices = RetrofitServices.create()
         val response = networkServices

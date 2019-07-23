@@ -3,7 +3,7 @@ package com.khrisna.filmdb.ui.movies
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.khrisna.filmdb.data.source.remote.network.RetrofitServices
-import com.khrisna.filmdb.data.source.remote.response.MoviesResponse
+import com.khrisna.filmdb.data.source.remote.response.MoviesEntity
 import com.khrisna.filmdb.viewmodel.MoviesViewModel
 import org.junit.Assert.*
 import org.junit.Before
@@ -25,7 +25,7 @@ class MoviesResponseViewModelTest {
 
     @Test
     fun getNowPlaying() {
-        val movies = MutableLiveData<MoviesResponse>()
+        val movies = MutableLiveData<MoviesEntity>()
 
         val networkServices = RetrofitServices.create()
         val response = networkServices
@@ -44,7 +44,7 @@ class MoviesResponseViewModelTest {
 
     @Test
     fun getUpComing() {
-        val movies = MutableLiveData<MoviesResponse>()
+        val movies = MutableLiveData<MoviesEntity>()
 
         val networkServices = RetrofitServices.create()
         val response = networkServices
@@ -63,7 +63,7 @@ class MoviesResponseViewModelTest {
 
     @Test
     fun getPopular() {
-        val movies = MutableLiveData<MoviesResponse>()
+        val movies = MutableLiveData<MoviesEntity>()
 
         val networkServices = RetrofitServices.create()
         val response = networkServices
@@ -82,7 +82,7 @@ class MoviesResponseViewModelTest {
 
     @Test
     fun getTopRated() {
-        val movies = MutableLiveData<MoviesResponse>()
+        val movies = MutableLiveData<MoviesEntity>()
 
         val networkServices = RetrofitServices.create()
         val response = networkServices

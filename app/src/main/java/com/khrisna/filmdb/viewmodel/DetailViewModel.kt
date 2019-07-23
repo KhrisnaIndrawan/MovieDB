@@ -3,10 +3,10 @@ package com.khrisna.filmdb.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.khrisna.filmdb.data.source.remote.response.MovieResponse
-import com.khrisna.filmdb.data.source.remote.response.TVShowResponse
 import com.khrisna.filmdb.data.repository.MovieRepository
 import com.khrisna.filmdb.data.repository.TVShowRepository
+import com.khrisna.filmdb.data.source.remote.response.MovieResponse
+import com.khrisna.filmdb.data.source.remote.response.TVShowResponse
 
 class DetailViewModel : ViewModel() {
 

@@ -42,7 +42,7 @@ class DetailActivity : AppCompatActivity() {
 
             if (isMovie) {
                 supportActionBar.let {
-                    title = "MovieResponse Details"
+                    title = "MovieEntity Details"
                 }
                 val movie: String = intent.getStringExtra(EXTRA_DETAIL_DATA) as String
                 if (detailViewModel.movieResponse == null) {
@@ -51,7 +51,7 @@ class DetailActivity : AppCompatActivity() {
                 showMovieData()
             } else {
                 supportActionBar.let {
-                    title = "TVShowResponse Details"
+                    title = "TVShowEntity Details"
                 }
                 val tvShow: String = intent.getStringExtra(EXTRA_DETAIL_DATA) as String
                 if (detailViewModel.tvShowResponse == null) {

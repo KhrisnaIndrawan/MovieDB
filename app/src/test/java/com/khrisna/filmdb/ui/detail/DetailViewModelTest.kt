@@ -3,7 +3,7 @@ package com.khrisna.filmdb.ui.detail
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.khrisna.filmdb.data.source.remote.network.RetrofitServices
-import com.khrisna.filmdb.data.source.remote.response.MovieResponse
+import com.khrisna.filmdb.data.source.remote.response.MovieEntity
 import com.khrisna.filmdb.viewmodel.DetailViewModel
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
@@ -27,7 +27,7 @@ class DetailViewModelTest {
 
     @Test
     fun getMovie() {
-        val movie = MutableLiveData<MovieResponse>()
+        val movie = MutableLiveData<MovieEntity>()
 
         val networkServices = RetrofitServices.create()
         val response = networkServices
@@ -46,7 +46,7 @@ class DetailViewModelTest {
 
     @Test
     fun getTvShow() {
-        val movie = MutableLiveData<MovieResponse>()
+        val movie = MutableLiveData<MovieEntity>()
 
         val networkServices = RetrofitServices.create()
         val response = networkServices

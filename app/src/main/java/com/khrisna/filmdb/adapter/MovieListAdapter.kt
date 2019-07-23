@@ -22,7 +22,7 @@ class MovieListAdapter(
 
     private lateinit var snapHelper: SnapHelper
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : MoviesViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_list_poster, parent, false)
         val viewHolder = MoviesViewHolder(view)
         snapHelper = GravitySnapHelper(Gravity.START)

@@ -3,8 +3,8 @@ package com.khrisna.filmdb.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.khrisna.filmdb.data.source.remote.response.MoviesResponse
 import com.khrisna.filmdb.data.repository.MovieRepository
+import com.khrisna.filmdb.data.source.remote.response.MoviesResponse
 
 class MoviesViewModel : ViewModel() {
 

@@ -48,7 +48,7 @@ class HomeActivityTest {
 
         val tabView2 = onView(
             allOf(
-                withContentDescription("MoviesResponse"),
+                withContentDescription("MoviesEntity"),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.tabs),
