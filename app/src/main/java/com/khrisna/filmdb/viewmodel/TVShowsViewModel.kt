@@ -3,12 +3,13 @@ package com.khrisna.filmdb.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.khrisna.filmdb.data.source.MovieRepository
 import com.khrisna.filmdb.data.source.remote.response.TVShowsResponse
-import com.khrisna.filmdb.data.repository.TVShowRepository
 
-class TVShowsViewModel : ViewModel() {
+class TVShowsViewModel(
+    private val movieRepository: MovieRepository
+) : ViewModel() {
 
-    private val tvShowRepository = TVShowRepository()
     private var _airingToday: MutableLiveData<TVShowsResponse>? = null
     private var _onTheAir: MutableLiveData<TVShowsResponse>? = null
     private var _popular: MutableLiveData<TVShowsResponse>? = null
@@ -24,18 +25,18 @@ class TVShowsViewModel : ViewModel() {
         get() = _topRated
 
     fun getAiringToday() {
-        _airingToday = tvShowRepository.getAiringToday()
+        _airingToday = movieRepository.getTVShowsAiringToday()
     }
 
     fun getOnTheAir() {
-        _onTheAir = tvShowRepository.getOnTheAir()
+        _onTheAir = movieRepository.getTVShowsOnTheAir()
     }
 
     fun getPopular() {
-        _popular = tvShowRepository.getPopular()
+        _popular = movieRepository.getTVShowsPopular()
     }
 
     fun getTopRate() {
-        _topRated = tvShowRepository.getTopRated()
+        _topRated = movieRepository.getTVShowsTopRated()
     }
 }

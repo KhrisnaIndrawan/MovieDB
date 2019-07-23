@@ -3,12 +3,13 @@ package com.khrisna.filmdb.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.khrisna.filmdb.data.repository.MovieRepository
+import com.khrisna.filmdb.data.source.MovieRepository
 import com.khrisna.filmdb.data.source.remote.response.MoviesResponse
 
-class MoviesViewModel : ViewModel() {
+class MoviesViewModel(
+    private val movieRepository: MovieRepository
+) : ViewModel() {
 
-    private val movieRepository = MovieRepository()
     private var _nowPlaying: MutableLiveData<MoviesResponse>? = null
     private var _upComing: MutableLiveData<MoviesResponse>? = null
     private var _popular: MutableLiveData<MoviesResponse>? = null
@@ -24,18 +25,18 @@ class MoviesViewModel : ViewModel() {
         get() = _topRated
 
     fun getNowPlaying() {
-        _nowPlaying = movieRepository.getNowPlaying()
+        _nowPlaying = movieRepository.getMoviesNowPlaying()
     }
 
     fun getUpComing() {
-        _upComing = movieRepository.getUpComing()
+        _upComing = movieRepository.getMoviesUpComing()
     }
 
     fun getPopular() {
-        _popular = movieRepository.getPopular()
+        _popular = movieRepository.getMoviesPopular()
     }
 
     fun getTopRate() {
-        _topRated = movieRepository.getTopRated()
+        _topRated = movieRepository.getMoviesTopRated()
     }
 }

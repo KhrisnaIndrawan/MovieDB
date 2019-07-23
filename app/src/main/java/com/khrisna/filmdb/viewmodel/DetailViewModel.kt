@@ -3,15 +3,13 @@ package com.khrisna.filmdb.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.khrisna.filmdb.data.repository.MovieRepository
-import com.khrisna.filmdb.data.repository.TVShowRepository
+import com.khrisna.filmdb.data.source.MovieRepository
 import com.khrisna.filmdb.data.source.remote.response.MovieResponse
 import com.khrisna.filmdb.data.source.remote.response.TVShowResponse
 
-class DetailViewModel : ViewModel() {
-
-    private val movieRepository = MovieRepository()
-    private val tvShowRepository = TVShowRepository()
+class DetailViewModel(
+    private val movieRepository: MovieRepository
+) : ViewModel() {
 
     private var _movieResponse: MutableLiveData<MovieResponse>? = null
     private var _tvShowResponse: MutableLiveData<TVShowResponse>? = null
@@ -26,6 +24,6 @@ class DetailViewModel : ViewModel() {
     }
 
     fun getTVShow(id: String) {
-        _tvShowResponse = tvShowRepository.getTVShow(id)
+        _tvShowResponse = movieRepository.getTVShow(id)
     }
 }

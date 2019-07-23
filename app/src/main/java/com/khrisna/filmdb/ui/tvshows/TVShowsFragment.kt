@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.adapter.TVShowListAdapter
 import com.khrisna.filmdb.data.source.remote.response.TVShowsResponse
+import com.khrisna.filmdb.di.Injection
 import com.khrisna.filmdb.viewmodel.TVShowsViewModel
+import com.khrisna.filmdb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_tvshows.*
 
 
@@ -35,7 +38,7 @@ class TVShowsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) {
-            model = ViewModelProviders.of(this).get(TVShowsViewModel::class.java)
+            model = obtainViewModel(activity as AppCompatActivity)
             if (model.airingToday == null) {
                 model.getAiringToday()
             }
@@ -86,6 +89,12 @@ class TVShowsFragment : Fragment() {
                 LinearLayoutManager(context as AppCompatActivity, RecyclerView.VERTICAL, false)
             adapter = tvShowListAdapter
         }
+    }
+
+    private fun obtainViewModel(activity: FragmentActivity): TVShowsViewModel {
+        // Use a Factory to inject dependencies into the ViewModel
+        val factory = ViewModelFactory(Injection.provideRepository())
+        return ViewModelProviders.of(activity, factory).get(TVShowsViewModel::class.java)
     }
 
     companion object {

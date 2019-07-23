@@ -9,10 +9,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
 import com.khrisna.filmdb.R
+import com.khrisna.filmdb.di.Injection
 import com.khrisna.filmdb.utils.GlideApp
 import com.khrisna.filmdb.utils.Utils.formatDate
 import com.khrisna.filmdb.viewmodel.DetailViewModel
+import com.khrisna.filmdb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail.*
+
 
 class DetailActivity : AppCompatActivity() {
 
@@ -31,7 +34,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        detailViewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
+        detailViewModel = obtainViewModel(this)
 
         if (intent != null) {
             isMovie = intent.getBooleanExtra(EXTRA_IS_MOVIE, false)
@@ -126,6 +129,13 @@ class DetailActivity : AppCompatActivity() {
             }
             tv_genres.text = genres
         })
+    }
+
+    private fun obtainViewModel(activity: AppCompatActivity): DetailViewModel {
+        // Use a Factory to inject dependencies into the ViewModel
+        val factory = ViewModelFactory(Injection.provideRepository())
+
+        return ViewModelProviders.of(activity, factory).get(DetailViewModel::class.java)
     }
 
     private fun setViewVisible(visibility: Boolean) {

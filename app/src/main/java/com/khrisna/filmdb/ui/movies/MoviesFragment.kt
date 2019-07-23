@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.adapter.MovieListAdapter
 import com.khrisna.filmdb.data.source.remote.response.MoviesResponse
+import com.khrisna.filmdb.di.Injection
 import com.khrisna.filmdb.viewmodel.MoviesViewModel
+import com.khrisna.filmdb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_movies.*
 
 
@@ -35,7 +38,7 @@ class MoviesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) {
-            model = ViewModelProviders.of(this).get(MoviesViewModel::class.java)
+            model = obtainViewModel(activity as AppCompatActivity)
             if (model.nowPlaying == null) {
                 model.getNowPlaying()
             }
@@ -87,6 +90,12 @@ class MoviesFragment : Fragment() {
                 LinearLayoutManager(context as AppCompatActivity, RecyclerView.VERTICAL, false)
             adapter = movieListAdapter
         }
+    }
+
+    private fun obtainViewModel(activity: FragmentActivity): MoviesViewModel {
+        // Use a Factory to inject dependencies into the ViewModel
+        val factory = ViewModelFactory(Injection.provideRepository())
+        return ViewModelProviders.of(activity, factory).get(MoviesViewModel::class.java)
     }
 
     companion object {
