@@ -42,19 +42,19 @@ class DetailActivity : AppCompatActivity() {
 
             if (isMovie) {
                 supportActionBar.let {
-                    title = "Movie Details"
+                    title = "MovieResponse Details"
                 }
                 val movie: String = intent.getStringExtra(EXTRA_DETAIL_DATA) as String
-                if (detailViewModel.movie == null) {
+                if (detailViewModel.movieResponse == null) {
                     detailViewModel.getMovie(movie)
                 }
                 showMovieData()
             } else {
                 supportActionBar.let {
-                    title = "TVShow Details"
+                    title = "TVShowResponse Details"
                 }
                 val tvShow: String = intent.getStringExtra(EXTRA_DETAIL_DATA) as String
-                if (detailViewModel.tvShow == null) {
+                if (detailViewModel.tvShowResponse == null) {
                     detailViewModel.getTVShow(tvShow)
                 }
                 showTVShowData()
@@ -64,7 +64,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun showMovieData() {
 
-        detailViewModel.movie?.observe(this, Observer { movie ->
+        detailViewModel.movieResponse?.observe(this, Observer { movie ->
             setViewVisible(true)
 
             GlideApp.with(this)
@@ -84,7 +84,7 @@ class DetailActivity : AppCompatActivity() {
             }
 
             var genres = "| "
-            for ((index, value) in movie.genres.withIndex()) {
+            for ((index, value) in movie.genreResponses.withIndex()) {
                 genres += "${value.name} | "
                 if (index == 2) {
                     genres += "\n"
@@ -97,7 +97,7 @@ class DetailActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun showTVShowData() {
 
-        detailViewModel.tvShow?.observe(this, Observer { tvShow ->
+        detailViewModel.tvShowResponse?.observe(this, Observer { tvShow ->
             setViewVisible(true)
 
             GlideApp.with(this)
@@ -118,7 +118,7 @@ class DetailActivity : AppCompatActivity() {
             }
 
             var genres = "| "
-            for ((index, value) in tvShow.genres.withIndex()) {
+            for ((index, value) in tvShow.genreResponses.withIndex()) {
                 genres += "${value.name} | "
                 if (index == 2) {
                     genres += "\n"

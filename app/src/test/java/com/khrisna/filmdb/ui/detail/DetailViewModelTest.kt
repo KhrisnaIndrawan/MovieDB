@@ -2,8 +2,8 @@ package com.khrisna.filmdb.ui.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import com.khrisna.filmdb.data.model.Movie
-import com.khrisna.filmdb.network.DataRepository
+import com.khrisna.filmdb.data.source.remote.network.RetrofitServices
+import com.khrisna.filmdb.data.source.remote.response.MovieResponse
 import com.khrisna.filmdb.viewmodel.DetailViewModel
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
@@ -27,9 +27,9 @@ class DetailViewModelTest {
 
     @Test
     fun getMovie() {
-        val movie = MutableLiveData<Movie>()
+        val movie = MutableLiveData<MovieResponse>()
 
-        val networkServices = DataRepository.create()
+        val networkServices = RetrofitServices.create()
         val response = networkServices
             .getMovie("429617")
             .execute()
@@ -46,9 +46,9 @@ class DetailViewModelTest {
 
     @Test
     fun getTvShow() {
-        val movie = MutableLiveData<Movie>()
+        val movie = MutableLiveData<MovieResponse>()
 
-        val networkServices = DataRepository.create()
+        val networkServices = RetrofitServices.create()
         val response = networkServices
             .getTVShow("62745")
             .execute()

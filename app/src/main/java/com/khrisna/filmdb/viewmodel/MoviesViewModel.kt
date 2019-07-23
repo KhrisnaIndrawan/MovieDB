@@ -3,24 +3,24 @@ package com.khrisna.filmdb.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.khrisna.filmdb.data.model.Movies
+import com.khrisna.filmdb.data.source.remote.response.MoviesResponse
 import com.khrisna.filmdb.data.repository.MovieRepository
 
 class MoviesViewModel : ViewModel() {
 
     private val movieRepository = MovieRepository()
-    private var _nowPlaying: MutableLiveData<Movies>? = null
-    private var _upComing: MutableLiveData<Movies>? = null
-    private var _popular: MutableLiveData<Movies>? = null
-    private var _topRated: MutableLiveData<Movies>? = null
+    private var _nowPlaying: MutableLiveData<MoviesResponse>? = null
+    private var _upComing: MutableLiveData<MoviesResponse>? = null
+    private var _popular: MutableLiveData<MoviesResponse>? = null
+    private var _topRated: MutableLiveData<MoviesResponse>? = null
 
-    val nowPlaying: LiveData<Movies>?
+    val nowPlaying: LiveData<MoviesResponse>?
         get() = _nowPlaying
-    val upComing: LiveData<Movies>?
+    val upComing: LiveData<MoviesResponse>?
         get() = _upComing
-    val popular: LiveData<Movies>?
+    val popular: LiveData<MoviesResponse>?
         get() = _popular
-    val topRated: LiveData<Movies>?
+    val topRated: LiveData<MoviesResponse>?
         get() = _topRated
 
     fun getNowPlaying() {

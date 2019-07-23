@@ -2,28 +2,30 @@ package com.khrisna.filmdb.data.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.khrisna.filmdb.data.model.TVShow
-import com.khrisna.filmdb.data.model.TVShows
-import com.khrisna.filmdb.network.DataRepository
+import com.khrisna.filmdb.data.source.remote.network.RetrofitServices
+import com.khrisna.filmdb.data.source.remote.response.TVShowResponse
+import com.khrisna.filmdb.data.source.remote.response.TVShowsResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class TVShowRepository {
 
-    fun getTVShow(id: String): MutableLiveData<TVShow> {
+    private val retrofitServices = RetrofitServices
 
-        val tvShow = MutableLiveData<TVShow>()
+    fun getTVShow(id: String): MutableLiveData<TVShowResponse> {
 
-        val networkServices = DataRepository.create()
+        val tvShow = MutableLiveData<TVShowResponse>()
+
+        val networkServices = retrofitServices.create()
         networkServices
             .getTVShow(id)
-            .enqueue(object : Callback<TVShow> {
-                override fun onFailure(call: Call<TVShow>, t: Throwable) {
+            .enqueue(object : Callback<TVShowResponse> {
+                override fun onFailure(call: Call<TVShowResponse>, t: Throwable) {
                     Log.d("onFailure", t.toString())
                 }
 
-                override fun onResponse(call: Call<TVShow>, response: Response<TVShow>) {
+                override fun onResponse(call: Call<TVShowResponse>, response: Response<TVShowResponse>) {
                     if (response.isSuccessful) {
                         val data = response.body()
                         tvShow.postValue(data)
@@ -35,19 +37,19 @@ class TVShowRepository {
         return tvShow
     }
 
-    fun getAiringToday(): MutableLiveData<TVShows> {
+    fun getAiringToday(): MutableLiveData<TVShowsResponse> {
 
-        val tvShows = MutableLiveData<TVShows>()
+        val tvShows = MutableLiveData<TVShowsResponse>()
 
-        val networkServices = DataRepository.create()
+        val networkServices = retrofitServices.create()
         networkServices
             .getTVAiringToday()
-            .enqueue(object : Callback<TVShows> {
-                override fun onFailure(call: Call<TVShows>, t: Throwable) {
+            .enqueue(object : Callback<TVShowsResponse> {
+                override fun onFailure(call: Call<TVShowsResponse>, t: Throwable) {
                     Log.d("OnFailure", t.toString())
                 }
 
-                override fun onResponse(call: Call<TVShows>, response: Response<TVShows>) {
+                override fun onResponse(call: Call<TVShowsResponse>, response: Response<TVShowsResponse>) {
                     if (response.isSuccessful) {
                         val data = response.body()
                         data?.header = "Airing Today"
@@ -59,19 +61,19 @@ class TVShowRepository {
         return tvShows
     }
 
-    fun getOnTheAir(): MutableLiveData<TVShows> {
+    fun getOnTheAir(): MutableLiveData<TVShowsResponse> {
 
-        val tvShows = MutableLiveData<TVShows>()
+        val tvShows = MutableLiveData<TVShowsResponse>()
 
-        val networkServices = DataRepository.create()
+        val networkServices = retrofitServices.create()
         networkServices
             .getTVOnTheAir()
-            .enqueue(object : Callback<TVShows> {
-                override fun onFailure(call: Call<TVShows>, t: Throwable) {
+            .enqueue(object : Callback<TVShowsResponse> {
+                override fun onFailure(call: Call<TVShowsResponse>, t: Throwable) {
                     Log.d("OnFailure", t.toString())
                 }
 
-                override fun onResponse(call: Call<TVShows>, response: Response<TVShows>) {
+                override fun onResponse(call: Call<TVShowsResponse>, response: Response<TVShowsResponse>) {
                     if (response.isSuccessful) {
                         val data = response.body()
                         data?.header = "On The Air"
@@ -83,19 +85,19 @@ class TVShowRepository {
         return tvShows
     }
 
-    fun getPopular(): MutableLiveData<TVShows> {
+    fun getPopular(): MutableLiveData<TVShowsResponse> {
 
-        val tvShows = MutableLiveData<TVShows>()
+        val tvShows = MutableLiveData<TVShowsResponse>()
 
-        val networkServices = DataRepository.create()
+        val networkServices = retrofitServices.create()
         networkServices
             .getTVPopular()
-            .enqueue(object : Callback<TVShows> {
-                override fun onFailure(call: Call<TVShows>, t: Throwable) {
+            .enqueue(object : Callback<TVShowsResponse> {
+                override fun onFailure(call: Call<TVShowsResponse>, t: Throwable) {
                     Log.d("OnFailure", t.toString())
                 }
 
-                override fun onResponse(call: Call<TVShows>, response: Response<TVShows>) {
+                override fun onResponse(call: Call<TVShowsResponse>, response: Response<TVShowsResponse>) {
                     if (response.isSuccessful) {
                         val data = response.body()
                         data?.header = "Popular"
@@ -107,19 +109,19 @@ class TVShowRepository {
         return tvShows
     }
 
-    fun getTopRated(): MutableLiveData<TVShows> {
+    fun getTopRated(): MutableLiveData<TVShowsResponse> {
 
-        val tvShows = MutableLiveData<TVShows>()
+        val tvShows = MutableLiveData<TVShowsResponse>()
 
-        val networkServices = DataRepository.create()
+        val networkServices = retrofitServices.create()
         networkServices
             .getTVTopRated()
-            .enqueue(object : Callback<TVShows> {
-                override fun onFailure(call: Call<TVShows>, t: Throwable) {
+            .enqueue(object : Callback<TVShowsResponse> {
+                override fun onFailure(call: Call<TVShowsResponse>, t: Throwable) {
                     Log.d("OnFailure", t.toString())
                 }
 
-                override fun onResponse(call: Call<TVShows>, response: Response<TVShows>) {
+                override fun onResponse(call: Call<TVShowsResponse>, response: Response<TVShowsResponse>) {
                     if (response.isSuccessful) {
                         val data = response.body()
                         data?.header = "Top Rated"

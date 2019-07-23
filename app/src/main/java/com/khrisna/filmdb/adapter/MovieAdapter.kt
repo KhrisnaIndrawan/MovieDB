@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
 import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.data.model.Movie
+import com.khrisna.filmdb.data.source.remote.response.MovieResponse
 import com.khrisna.filmdb.ui.detail.DetailActivity
 import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_DETAIL_DATA
 import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_IS_MOVIE
 import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_POSTER
 import com.khrisna.filmdb.utils.GlideApp
 
-class MovieAdapter(private val context: Context, private val items: MutableList<Movie>) :
+class MovieAdapter(private val context: Context, private val items: MutableList<MovieResponse>) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -35,7 +35,7 @@ class MovieAdapter(private val context: Context, private val items: MutableList<
     inner class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val imgPoster = view.findViewById<ImageView>(R.id.img_poster)
 
-        fun bind(item: Movie) {
+        fun bind(item: MovieResponse) {
 
             imgPoster.setOnClickListener {
                 val intent = Intent(context, DetailActivity::class.java)

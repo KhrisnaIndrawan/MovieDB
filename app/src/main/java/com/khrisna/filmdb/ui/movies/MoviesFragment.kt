@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.adapter.MovieListAdapter
-import com.khrisna.filmdb.data.model.Movies
+import com.khrisna.filmdb.data.source.remote.response.MoviesResponse
 import com.khrisna.filmdb.viewmodel.MoviesViewModel
 import kotlinx.android.synthetic.main.fragment_movies.*
 
@@ -22,7 +22,7 @@ class MoviesFragment : Fragment() {
 
     private lateinit var model: MoviesViewModel
     private lateinit var movieListAdapter: MovieListAdapter
-    private lateinit var movies: MutableList<Movies>
+    private lateinit var movies: MutableList<MoviesResponse>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

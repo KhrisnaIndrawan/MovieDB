@@ -2,28 +2,30 @@ package com.khrisna.filmdb.data.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.khrisna.filmdb.data.model.Movie
-import com.khrisna.filmdb.data.model.Movies
-import com.khrisna.filmdb.network.DataRepository
+import com.khrisna.filmdb.data.source.remote.network.RetrofitServices
+import com.khrisna.filmdb.data.source.remote.response.MovieResponse
+import com.khrisna.filmdb.data.source.remote.response.MoviesResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MovieRepository {
 
-    fun getMovie(id: String): MutableLiveData<Movie> {
+    private val retrofitServices = RetrofitServices
 
-        val movie = MutableLiveData<Movie>()
+    fun getMovie(id: String): MutableLiveData<MovieResponse> {
 
-        val networkServices = DataRepository.create()
+        val movie = MutableLiveData<MovieResponse>()
+
+        val networkServices = retrofitServices.create()
         networkServices
             .getMovie(id)
-            .enqueue(object : Callback<Movie> {
-                override fun onFailure(call: Call<Movie>, t: Throwable) {
+            .enqueue(object : Callback<MovieResponse> {
+                override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     Log.d("onFailure", t.toString())
                 }
 
-                override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+                override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                     if (response.isSuccessful) {
                         val data = response.body()
                         movie.postValue(data)
@@ -35,19 +37,19 @@ class MovieRepository {
         return movie
     }
 
-    fun getNowPlaying(): MutableLiveData<Movies> {
+    fun getNowPlaying(): MutableLiveData<MoviesResponse> {
 
-        val movies = MutableLiveData<Movies>()
+        val movies = MutableLiveData<MoviesResponse>()
 
-        val networkServices = DataRepository.create()
+        val networkServices = retrofitServices.create()
         networkServices
             .getMovieNowPlaying()
-            .enqueue(object : Callback<Movies> {
-                override fun onFailure(call: Call<Movies>, t: Throwable) {
+            .enqueue(object : Callback<MoviesResponse> {
+                override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
                     Log.d("OnFailure", t.toString())
                 }
 
-                override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
+                override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>) {
                     if (response.isSuccessful) {
                         val data = response.body()
                         data?.header = "Now Playing"
@@ -59,19 +61,19 @@ class MovieRepository {
         return movies
     }
 
-    fun getUpComing(): MutableLiveData<Movies> {
+    fun getUpComing(): MutableLiveData<MoviesResponse> {
 
-        val movies = MutableLiveData<Movies>()
+        val movies = MutableLiveData<MoviesResponse>()
 
-        val networkServices = DataRepository.create()
+        val networkServices = retrofitServices.create()
         networkServices
             .getMovieUpComing()
-            .enqueue(object : Callback<Movies> {
-                override fun onFailure(call: Call<Movies>, t: Throwable) {
+            .enqueue(object : Callback<MoviesResponse> {
+                override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
                     Log.d("OnFailure", t.toString())
                 }
 
-                override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
+                override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>) {
                     if (response.isSuccessful) {
                         val data = response.body()
                         data?.header = "Up Coming"
@@ -83,19 +85,19 @@ class MovieRepository {
         return movies
     }
 
-    fun getPopular(): MutableLiveData<Movies> {
+    fun getPopular(): MutableLiveData<MoviesResponse> {
 
-        val movies = MutableLiveData<Movies>()
+        val movies = MutableLiveData<MoviesResponse>()
 
-        val networkServices = DataRepository.create()
+        val networkServices = retrofitServices.create()
         networkServices
             .getMoviePopular()
-            .enqueue(object : Callback<Movies> {
-                override fun onFailure(call: Call<Movies>, t: Throwable) {
+            .enqueue(object : Callback<MoviesResponse> {
+                override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
                     Log.d("OnFailure", t.toString())
                 }
 
-                override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
+                override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>) {
                     if (response.isSuccessful) {
                         val data = response.body()
                         data?.header = "Popular"
@@ -107,19 +109,19 @@ class MovieRepository {
         return movies
     }
 
-    fun getTopRated(): MutableLiveData<Movies> {
+    fun getTopRated(): MutableLiveData<MoviesResponse> {
 
-        val movies = MutableLiveData<Movies>()
+        val movies = MutableLiveData<MoviesResponse>()
 
-        val networkServices = DataRepository.create()
+        val networkServices = retrofitServices.create()
         networkServices
             .getMovieTopRated()
-            .enqueue(object : Callback<Movies> {
-                override fun onFailure(call: Call<Movies>, t: Throwable) {
+            .enqueue(object : Callback<MoviesResponse> {
+                override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
                     Log.d("OnFailure", t.toString())
                 }
 
-                override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
+                override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>) {
                     if (response.isSuccessful) {
                         val data = response.body()
                         data?.header = "Top Rated"

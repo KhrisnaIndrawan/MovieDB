@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.data.model.Movies
+import com.khrisna.filmdb.data.source.remote.response.MoviesResponse
 
 class MovieListAdapter(
-    private val context: Context, private val items: MutableList<Movies>,
+    private val context: Context, private val items: MutableList<MoviesResponse>,
     private val rvViewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
 ) :
     RecyclerView.Adapter<MovieListAdapter.MoviesViewHolder>() {
@@ -39,10 +39,10 @@ class MovieListAdapter(
         private val tvHeader = view.findViewById<TextView>(R.id.tv_header)
         private val rvPoster = view.findViewById<RecyclerView>(R.id.rv_poster)
 
-        fun bind(item: Movies) {
+        fun bind(item: MoviesResponse) {
             tvHeader.text = item.header
 
-            val adapter = MovieAdapter(context as AppCompatActivity, item.movies)
+            val adapter = MovieAdapter(context as AppCompatActivity, item.movieResponses)
             rvPoster.apply {
                 setHasFixedSize(true)
                 layoutManager =
