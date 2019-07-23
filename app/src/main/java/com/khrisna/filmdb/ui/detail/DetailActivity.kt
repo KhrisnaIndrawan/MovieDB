@@ -74,9 +74,13 @@ class DetailActivity : AppCompatActivity() {
             tv_release_date.text = formatDate(movie.releaseDate)
             tv_rating.text = movie.rating.toString()
             tv_overview_body.text = movie.overview
-            ratingBar.numStars = 10
+            ratingBar.numStars = 5
             ratingBar.stepSize = 0.1f
-            ratingBar.rating = movie.rating
+            if (movie.rating > 5f) {
+                ratingBar.rating = movie.rating - 5
+            } else {
+                ratingBar.rating = movie.rating
+            }
 
             var genres = "| "
             for ((index, value) in movie.genres.withIndex()) {
@@ -121,6 +125,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun setViewVisible(visibility: Boolean) {
         if (visibility) {
+            cv_backdrop.visibility = View.VISIBLE
             img_backdrop.visibility = View.VISIBLE
             ratingBar.visibility = View.VISIBLE
             tv_release_date_text.visibility = View.VISIBLE
