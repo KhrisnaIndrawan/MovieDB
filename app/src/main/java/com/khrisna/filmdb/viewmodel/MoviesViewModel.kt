@@ -6,7 +6,7 @@ import com.khrisna.filmdb.data.source.MovieRepository
 import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
 
 class MoviesViewModel(
-    movieRepository: MovieRepository
+    private val movieRepository: MovieRepository
 ) : ViewModel() {
 
     private var _nowPlaying: LiveData<MoviesEntity>? = null
@@ -23,10 +23,19 @@ class MoviesViewModel(
     val topRated: LiveData<MoviesEntity>?
         get() = _topRated
 
-    init {
+    fun getNowPlaying() {
         _nowPlaying = movieRepository.getMoviesNowPlaying()
+    }
+
+    fun getUpComing() {
         _upComing = movieRepository.getMoviesUpComing()
+    }
+
+    fun getPopular() {
         _popular = movieRepository.getMoviesPopular()
+    }
+
+    fun getTopRate() {
         _topRated = movieRepository.getMoviesTopRated()
     }
 }

@@ -6,7 +6,7 @@ import com.khrisna.filmdb.data.source.MovieRepository
 import com.khrisna.filmdb.data.source.local.entity.TVShowsEntity
 
 class TVShowsViewModel(
-    movieRepository: MovieRepository
+    private val movieRepository: MovieRepository
 ) : ViewModel() {
 
     private var _airingToday: LiveData<TVShowsEntity>? = null
@@ -23,10 +23,19 @@ class TVShowsViewModel(
     val topRated: LiveData<TVShowsEntity>?
         get() = _topRated
 
-    init {
+    fun getAiringToday() {
         _airingToday = movieRepository.getTVShowsAiringToday()
+    }
+
+    fun getOnTheAir() {
         _onTheAir = movieRepository.getTVShowsOnTheAir()
+    }
+
+    fun getPopular() {
         _popular = movieRepository.getTVShowsPopular()
+    }
+
+    fun getTopRate() {
         _topRated = movieRepository.getTVShowsTopRated()
     }
 }
