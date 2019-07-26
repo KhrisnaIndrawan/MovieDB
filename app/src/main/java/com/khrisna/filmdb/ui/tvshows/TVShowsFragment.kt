@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.adapter.TVShowListAdapter
-import com.khrisna.filmdb.data.source.remote.response.TVShowsResponse
+import com.khrisna.filmdb.data.source.local.entity.TVShowsEntity
 import com.khrisna.filmdb.di.Injection
 import com.khrisna.filmdb.viewmodel.TVShowsViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
@@ -25,7 +25,7 @@ class TVShowsFragment : Fragment() {
 
     private lateinit var model: TVShowsViewModel
     private lateinit var tvShowListAdapter: TVShowListAdapter
-    private lateinit var tvShowResponses: MutableList<TVShowsResponse>
+    private lateinit var tvShows: MutableList<TVShowsEntity>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +44,7 @@ class TVShowsFragment : Fragment() {
             }
             model.airingToday?.observe(this, Observer { data ->
                 if (data != null) {
-                    tvShowResponses.add(data)
+                    tvShows.add(data)
                     tvShowListAdapter.notifyDataSetChanged()
                 }
             })
@@ -53,7 +53,7 @@ class TVShowsFragment : Fragment() {
             }
             model.onTheAir?.observe(this, Observer { data ->
                 if (data != null) {
-                    tvShowResponses.add(data)
+                    tvShows.add(data)
                     tvShowListAdapter.notifyDataSetChanged()
                 }
             })
@@ -62,7 +62,7 @@ class TVShowsFragment : Fragment() {
             }
             model.popular?.observe(this, Observer { data ->
                 if (data != null) {
-                    tvShowResponses.add(data)
+                    tvShows.add(data)
                     tvShowListAdapter.notifyDataSetChanged()
                 }
             })
@@ -71,7 +71,7 @@ class TVShowsFragment : Fragment() {
             }
             model.topRated?.observe(this, Observer { data ->
                 if (data != null) {
-                    tvShowResponses.add(data)
+                    tvShows.add(data)
                     tvShowListAdapter.notifyDataSetChanged()
                 }
             })
@@ -80,8 +80,8 @@ class TVShowsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tvShowResponses = mutableListOf()
-        tvShowListAdapter = TVShowListAdapter(context as AppCompatActivity, tvShowResponses)
+        tvShows = mutableListOf()
+        tvShowListAdapter = TVShowListAdapter(context as AppCompatActivity, tvShows)
 
         rv_tv_shows.apply {
             setHasFixedSize(true)

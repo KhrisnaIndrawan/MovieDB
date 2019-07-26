@@ -42,7 +42,7 @@ class TVShowListAdapter(
         fun bind(item: TVShowsEntity) {
             tvHeader.text = item.header
 
-            val adapter = TVShowAdapter(context as AppCompatActivity, item.tvShow)
+            val adapter = item.tvShow?.let { TVShowAdapter(context as AppCompatActivity, it) }
             rvPoster.apply {
                 setHasFixedSize(true)
                 layoutManager =

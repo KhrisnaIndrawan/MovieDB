@@ -27,7 +27,7 @@ class MovieRepository(
                         )
                     }
 
-                    val movieEntity = parseToMovieEntity(response, genreEntityList)
+                    val movieEntity = parseToMovieEntityWithGenres(response, genreEntityList)
 
                     movie.postValue(movieEntity)
                 }
@@ -50,15 +50,8 @@ class MovieRepository(
 
                 if (response != null) {
                     for (movie in response.movies) {
-                        val genreResponse = movie.genres
-                        val genreEntityList = mutableListOf<GenreEntity>()
-                        for (genre in genreResponse) {
-                            genreEntityList.add(
-                                parseToGenre(genre)
-                            )
-                        }
 
-                        val movieEntity = parseToMovieEntity(movie, genreEntityList) as MovieEntity
+                        val movieEntity = parseToMovieEntity(movie) as MovieEntity
                         movieEntityList.add(movieEntity)
                     }
 
@@ -87,15 +80,8 @@ class MovieRepository(
 
                 if (response != null) {
                     for (movie in response.movies) {
-                        val genreResponse = movie.genres
-                        val genreEntityList = mutableListOf<GenreEntity>()
-                        for (genre in genreResponse) {
-                            genreEntityList.add(
-                                parseToGenre(genre)
-                            )
-                        }
 
-                        val movieEntity = parseToMovieEntity(movie, genreEntityList) as MovieEntity
+                        val movieEntity = parseToMovieEntity(movie) as MovieEntity
                         movieEntityList.add(movieEntity)
                     }
 
@@ -124,15 +110,8 @@ class MovieRepository(
 
                 if (response != null) {
                     for (movie in response.movies) {
-                        val genreResponse = movie.genres
-                        val genreEntityList = mutableListOf<GenreEntity>()
-                        for (genre in genreResponse) {
-                            genreEntityList.add(
-                                parseToGenre(genre)
-                            )
-                        }
 
-                        val movieEntity = parseToMovieEntity(movie, genreEntityList) as MovieEntity
+                        val movieEntity = parseToMovieEntity(movie) as MovieEntity
                         movieEntityList.add(movieEntity)
                     }
 
@@ -161,15 +140,8 @@ class MovieRepository(
 
                 if (response != null) {
                     for (movie in response.movies) {
-                        val genreResponse = movie.genres
-                        val genreEntityList = mutableListOf<GenreEntity>()
-                        for (genre in genreResponse) {
-                            genreEntityList.add(
-                                parseToGenre(genre)
-                            )
-                        }
 
-                        val movieEntity = parseToMovieEntity(movie, genreEntityList) as MovieEntity
+                        val movieEntity = parseToMovieEntity(movie) as MovieEntity
                         movieEntityList.add(movieEntity)
                     }
 
@@ -203,7 +175,7 @@ class MovieRepository(
                         )
                     }
 
-                    val tvShowEntity = parseToTVShowEntity(response, genreEntityList)
+                    val tvShowEntity = parseToTVShowEntityWithGenres(response, genreEntityList)
 
                     tvShow.postValue(tvShowEntity)
                 }
@@ -226,15 +198,8 @@ class MovieRepository(
 
                 if (response != null) {
                     for (tvShow in response.tvShows) {
-                        val genreResponse = tvShow.genres
-                        val genreEntityList = mutableListOf<GenreEntity>()
-                        for (genre in genreResponse) {
-                            genreEntityList.add(
-                                parseToGenre(genre)
-                            )
-                        }
 
-                        val tvShowEntity = parseToTVShowEntity(tvShow, genreEntityList) as TVShowEntity
+                        val tvShowEntity = parseToTVShowEntity(tvShow) as TVShowEntity
                         tvShowEntityList.add(tvShowEntity)
                     }
 
@@ -263,15 +228,8 @@ class MovieRepository(
 
                 if (response != null) {
                     for (tvShow in response.tvShows) {
-                        val genreResponse = tvShow.genres
-                        val genreEntityList = mutableListOf<GenreEntity>()
-                        for (genre in genreResponse) {
-                            genreEntityList.add(
-                                parseToGenre(genre)
-                            )
-                        }
 
-                        val tvShowEntity = parseToTVShowEntity(tvShow, genreEntityList) as TVShowEntity
+                        val tvShowEntity = parseToTVShowEntity(tvShow) as TVShowEntity
                         tvShowEntityList.add(tvShowEntity)
                     }
 
@@ -300,15 +258,8 @@ class MovieRepository(
 
                 if (response != null) {
                     for (tvShow in response.tvShows) {
-                        val genreResponse = tvShow.genres
-                        val genreEntityList = mutableListOf<GenreEntity>()
-                        for (genre in genreResponse) {
-                            genreEntityList.add(
-                                parseToGenre(genre)
-                            )
-                        }
 
-                        val tvShowEntity = parseToTVShowEntity(tvShow, genreEntityList) as TVShowEntity
+                        val tvShowEntity = parseToTVShowEntity(tvShow) as TVShowEntity
                         tvShowEntityList.add(tvShowEntity)
                     }
 
@@ -337,15 +288,8 @@ class MovieRepository(
 
                 if (response != null) {
                     for (tvShow in response.tvShows) {
-                        val genreResponse = tvShow.genres
-                        val genreEntityList = mutableListOf<GenreEntity>()
-                        for (genre in genreResponse) {
-                            genreEntityList.add(
-                                parseToGenre(genre)
-                            )
-                        }
 
-                        val tvShowEntity = parseToTVShowEntity(tvShow, genreEntityList) as TVShowEntity
+                        val tvShowEntity = parseToTVShowEntity(tvShow) as TVShowEntity
                         tvShowEntityList.add(tvShowEntity)
                     }
 
@@ -366,6 +310,21 @@ class MovieRepository(
     }
 
     private fun parseToMovieEntity(
+        movieResponse: MovieResponse
+    ): MovieEntity? {
+        return MovieEntity(
+            id = movieResponse.id,
+            title = movieResponse.title,
+            overview = movieResponse.overview,
+            poster = movieResponse.poster,
+            backdrop = movieResponse.backdrop,
+            genres = mutableListOf(),
+            rating = movieResponse.rating,
+            releaseDate = movieResponse.releaseDate
+        )
+    }
+
+    private fun parseToMovieEntityWithGenres(
         movieResponse: MovieResponse,
         genreEntityList: MutableList<GenreEntity>
     ): MovieEntity? {
@@ -382,6 +341,21 @@ class MovieRepository(
     }
 
     private fun parseToTVShowEntity(
+        tvShowResponse: TVShowResponse
+    ): TVShowEntity? {
+        return TVShowEntity(
+            id = tvShowResponse.id,
+            title = tvShowResponse.title,
+            overview = tvShowResponse.overview,
+            poster = tvShowResponse.poster,
+            backdrop = tvShowResponse.backdrop,
+            genres = mutableListOf(),
+            rating = tvShowResponse.rating,
+            firstAir = tvShowResponse.firstAir
+        )
+    }
+
+    private fun parseToTVShowEntityWithGenres(
         tvShowResponse: TVShowResponse,
         genreEntityList: MutableList<GenreEntity>
     ): TVShowEntity? {

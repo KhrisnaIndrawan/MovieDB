@@ -11,6 +11,7 @@
             android:layout_height="160dp"
             app:cardCornerRadius="8dp"
             android:elevation="8dp"
+            android:background="@color/colorPrimary"
             android:layout_marginStart="@dimen/item_movie_margin"
             android:layout_marginTop="@dimen/item_movie_margin"
             android:layout_marginBottom="@dimen/item_movie_margin">
@@ -18,7 +19,7 @@
         <ImageView
                 android:id="@+id/img_poster"
                 android:transitionName="poster"
-                android:src="@drawable/ic_launcher_background"
+                android:background="@color/colorPrimary"
                 android:scaleType="fitXY"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

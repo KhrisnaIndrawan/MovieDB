@@ -42,7 +42,7 @@ class MovieListAdapter(
         fun bind(item: MoviesEntity) {
             tvHeader.text = item.header
 
-            val adapter = MovieAdapter(context as AppCompatActivity, item.movies)
+            val adapter = item.movies?.let { MovieAdapter(context as AppCompatActivity, it) }
             rvPoster.apply {
                 setHasFixedSize(true)
                 layoutManager =

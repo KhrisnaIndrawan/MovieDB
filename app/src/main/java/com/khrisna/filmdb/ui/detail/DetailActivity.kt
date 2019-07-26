@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
 import com.khrisna.filmdb.R
+import com.khrisna.filmdb.data.source.local.entity.GenreEntity
 import com.khrisna.filmdb.di.Injection
 import com.khrisna.filmdb.utils.GlideApp
 import com.khrisna.filmdb.utils.Utils.formatDate
@@ -41,11 +42,12 @@ class DetailActivity : AppCompatActivity() {
             poster = intent.getStringExtra(EXTRA_POSTER) as String
             GlideApp.with(this)
                 .load(BASE_IMG_URL + poster)
+                .placeholder(R.color.colorPrimary)
                 .into(img_poster)
 
             if (isMovie) {
                 supportActionBar.let {
-                    title = "MovieEntity Details"
+                    title = "Movie Details"
                 }
                 val movie: String = intent.getStringExtra(EXTRA_DETAIL_DATA) as String
                 if (detailViewModel.movieResponse == null) {
@@ -54,7 +56,7 @@ class DetailActivity : AppCompatActivity() {
                 showMovieData()
             } else {
                 supportActionBar.let {
-                    title = "TVShowEntity Details"
+                    title = "TVShow Details"
                 }
                 val tvShow: String = intent.getStringExtra(EXTRA_DETAIL_DATA) as String
                 if (detailViewModel.tvShowResponse == null) {
@@ -75,19 +77,21 @@ class DetailActivity : AppCompatActivity() {
                 .into(img_backdrop)
 
             tv_title.text = movie.title
-            tv_release_date.text = formatDate(movie.releaseDate)
+            tv_release_date.text = movie.releaseDate?.let { formatDate(it) }
             tv_rating.text = movie.rating.toString()
             tv_overview_body.text = movie.overview
             ratingBar.numStars = 5
             ratingBar.stepSize = 0.1f
-            if (movie.rating > 5f) {
-                ratingBar.rating = movie.rating - 5
+            val rating: Float = movie.rating ?: 0f
+            if (rating > 5f) {
+                ratingBar.rating = rating - 5
             } else {
-                ratingBar.rating = movie.rating
+                ratingBar.rating = rating
             }
 
             var genres = "| "
-            for ((index, value) in movie.genreResponses.withIndex()) {
+            val movieGenres = movie.genres as MutableList<GenreEntity>
+            for ((index, value) in movieGenres.withIndex()) {
                 genres += "${value.name} | "
                 if (index == 2) {
                     genres += "\n"
@@ -109,19 +113,21 @@ class DetailActivity : AppCompatActivity() {
 
             tv_title.text = tvShow.title
             tv_release_date_text.text = "First air date: "
-            tv_release_date.text = formatDate(tvShow.firstAir)
+            tv_release_date.text = tvShow.firstAir?.let { formatDate(it) }
             tv_rating.text = tvShow.rating.toString()
             tv_overview_body.text = tvShow.overview
             ratingBar.numStars = 5
             ratingBar.stepSize = 0.1f
-            if (tvShow.rating > 5f) {
-                ratingBar.rating = tvShow.rating - 5
+            val rating: Float = tvShow.rating ?: 0f
+            if (rating > 5f) {
+                ratingBar.rating = rating - 5
             } else {
-                ratingBar.rating = tvShow.rating
+                ratingBar.rating = rating
             }
 
             var genres = "| "
-            for ((index, value) in tvShow.genreResponses.withIndex()) {
+            val tvShowGenres = tvShow.genres as MutableList<GenreEntity>
+            for ((index, value) in tvShowGenres.withIndex()) {
                 genres += "${value.name} | "
                 if (index == 2) {
                     genres += "\n"
