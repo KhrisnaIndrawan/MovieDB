@@ -1,30 +1,30 @@
 package com.khrisna.filmdb.data.source
 
-import androidx.lifecycle.MutableLiveData
-import com.khrisna.filmdb.data.source.remote.response.MovieResponse
+import androidx.lifecycle.LiveData
+import com.khrisna.filmdb.data.source.local.entity.MovieEntity
+import com.khrisna.filmdb.data.source.local.entity.TVShowEntity
 import com.khrisna.filmdb.data.source.remote.response.MoviesResponse
-import com.khrisna.filmdb.data.source.remote.response.TVShowResponse
 import com.khrisna.filmdb.data.source.remote.response.TVShowsResponse
 
 interface MovieDataSource {
 
-    fun getMovie(id: String): MutableLiveData<MovieResponse>
+    fun getMovie(id: String): LiveData<MovieEntity>
 
-    fun getMoviesNowPlaying(): MutableLiveData<MoviesResponse>
+    fun getMoviesNowPlaying(): LiveData<MoviesResponse>
 
-    fun getMoviesUpComing(): MutableLiveData<MoviesResponse>
+    fun getMoviesUpComing(): LiveData<MoviesResponse>
 
-    fun getMoviesPopular(): MutableLiveData<MoviesResponse>
+    fun getMoviesPopular(): LiveData<MoviesResponse>
 
-    fun getMoviesTopRated(): MutableLiveData<MoviesResponse>
+    fun getMoviesTopRated(): LiveData<MoviesResponse>
 
-    fun getTVShow(id: String): MutableLiveData<TVShowResponse>
+    fun getTVShow(id: String): LiveData<TVShowEntity>
 
-    fun getTVShowsAiringToday(): MutableLiveData<TVShowsResponse>
+    fun getTVShowsAiringToday(): LiveData<TVShowsResponse>
 
-    fun getTVShowsOnTheAir(): MutableLiveData<TVShowsResponse>
+    fun getTVShowsOnTheAir(): LiveData<TVShowsResponse>
 
-    fun getTVShowsPopular(): MutableLiveData<TVShowsResponse>
+    fun getTVShowsPopular(): LiveData<TVShowsResponse>
 
-    fun getTVShowsTopRated(): MutableLiveData<TVShowsResponse>
+    fun getTVShowsTopRated(): LiveData<TVShowsResponse>
 }
