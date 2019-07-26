@@ -12,7 +12,7 @@ class ViewModelFactory(private val movieRepository: MovieRepository) : ViewModel
             modelClass.isAssignableFrom(DetailViewModel::class.java) -> DetailViewModel(movieRepository) as T
             modelClass.isAssignableFrom(MoviesViewModel::class.java) -> MoviesViewModel(movieRepository) as T
             modelClass.isAssignableFrom(TVShowsViewModel::class.java) -> TVShowsViewModel(movieRepository) as T
-            else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName())
+            else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }
 }

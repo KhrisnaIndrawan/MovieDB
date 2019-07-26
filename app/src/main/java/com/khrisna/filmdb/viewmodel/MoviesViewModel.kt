@@ -1,42 +1,32 @@
 package com.khrisna.filmdb.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.khrisna.filmdb.data.source.MovieRepository
-import com.khrisna.filmdb.data.source.remote.response.MoviesResponse
+import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
 
 class MoviesViewModel(
-    private val movieRepository: MovieRepository
+    movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private var _nowPlaying: MutableLiveData<MoviesResponse>? = null
-    private var _upComing: MutableLiveData<MoviesResponse>? = null
-    private var _popular: MutableLiveData<MoviesResponse>? = null
-    private var _topRated: MutableLiveData<MoviesResponse>? = null
+    private var _nowPlaying: LiveData<MoviesEntity>? = null
+    private var _upComing: LiveData<MoviesEntity>? = null
+    private var _popular: LiveData<MoviesEntity>? = null
+    private var _topRated: LiveData<MoviesEntity>? = null
 
-    val nowPlaying: LiveData<MoviesResponse>?
+    val nowPlaying: LiveData<MoviesEntity>?
         get() = _nowPlaying
-    val upComing: LiveData<MoviesResponse>?
+    val upComing: LiveData<MoviesEntity>?
         get() = _upComing
-    val popular: LiveData<MoviesResponse>?
+    val popular: LiveData<MoviesEntity>?
         get() = _popular
-    val topRated: LiveData<MoviesResponse>?
+    val topRated: LiveData<MoviesEntity>?
         get() = _topRated
 
-    fun getNowPlaying() {
+    init {
         _nowPlaying = movieRepository.getMoviesNowPlaying()
-    }
-
-    fun getUpComing() {
         _upComing = movieRepository.getMoviesUpComing()
-    }
-
-    fun getPopular() {
         _popular = movieRepository.getMoviesPopular()
-    }
-
-    fun getTopRate() {
         _topRated = movieRepository.getMoviesTopRated()
     }
 }
