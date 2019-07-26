@@ -18,5 +18,5 @@ data class TVShowResponse(
     @SerializedName("first_air_date")
     var firstAir: String,
     @SerializedName("genres")
-    var genreResponses: MutableList<GenreResponse>
+    var genres: MutableList<GenreResponse>
 )

@@ -1,12 +1,10 @@
 package com.khrisna.filmdb.data.source
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.khrisna.filmdb.data.source.local.LocalRepository
-import com.khrisna.filmdb.data.source.local.entity.GenreEntity
-import com.khrisna.filmdb.data.source.local.entity.MovieEntity
-import com.khrisna.filmdb.data.source.local.entity.TVShowEntity
+import com.khrisna.filmdb.data.source.local.entity.*
 import com.khrisna.filmdb.data.source.remote.RemoteRepository
 import com.khrisna.filmdb.data.source.remote.response.*
 
@@ -16,117 +14,386 @@ class MovieRepository(
 ) : MovieDataSource {
 
     override fun getMovie(id: String): LiveData<MovieEntity> {
-
-        return Transformations.switchMap(
-            remoteRepository.getMovie(id)
-        ) {
-            switchToMovieEntity(it)
-        }
-    }
-
-    private fun switchToMovieEntity(response: MovieResponse): LiveData<MovieEntity> {
-
         val movie = MutableLiveData<MovieEntity>()
-        val genreResponse = response.genreResponses
-        val genreEntityList = mutableListOf<GenreEntity>()
-        for (genre in genreResponse) {
-            genreEntityList.add(
-                parseToGenre(genre)
-            )
-        }
 
-        movie.postValue(
-            parseToMovie(
-                response, genreEntityList
-            )
-        )
+        remoteRepository.getMovie(id, object : RemoteRepository.LoadMovieCallback {
+            override fun onResponse(response: MovieResponse?) {
+                if (response != null) {
+                    val genreResponse = response.genres
+                    val genreEntityList = mutableListOf<GenreEntity>()
+                    for (genre in genreResponse) {
+                        genreEntityList.add(
+                            parseToGenre(genre)
+                        )
+                    }
 
-        return MutableLiveData()
+                    val movieEntity = parseToMovieEntity(response, genreEntityList)
+
+                    movie.postValue(movieEntity)
+                }
+            }
+
+            override fun onFailure() {
+                Log.d("onFailure", "Get movie data failed.")
+            }
+        })
+
+        return movie
     }
 
-    override fun getMoviesNowPlaying(): LiveData<MoviesResponse> {
-        return remoteRepository.getMoviesNowPlaying()
+    override fun getMoviesNowPlaying(): LiveData<MoviesEntity> {
+        val movies = MutableLiveData<MoviesEntity>()
+
+        remoteRepository.getMoviesNowPlaying(object : RemoteRepository.LoadMoviesCallback {
+            override fun onResponse(response: MoviesResponse?) {
+                val movieEntityList = mutableListOf<MovieEntity>()
+
+                if (response != null) {
+                    for (movie in response.movies) {
+                        val genreResponse = movie.genres
+                        val genreEntityList = mutableListOf<GenreEntity>()
+                        for (genre in genreResponse) {
+                            genreEntityList.add(
+                                parseToGenre(genre)
+                            )
+                        }
+
+                        val movieEntity = parseToMovieEntity(movie, genreEntityList) as MovieEntity
+                        movieEntityList.add(movieEntity)
+                    }
+
+                    val moviesEntity = MoviesEntity(
+                        header = "Now Playing",
+                        movies = movieEntityList
+                    )
+                    movies.postValue(moviesEntity)
+                }
+            }
+
+            override fun onFailure() {
+                Log.d("onFailure", "Get movies now playing failed!")
+            }
+        })
+
+        return movies
     }
 
-    override fun getMoviesUpComing(): LiveData<MoviesResponse> {
-        return remoteRepository.getMoviesUpComing()
+    override fun getMoviesUpComing(): LiveData<MoviesEntity> {
+        val movies = MutableLiveData<MoviesEntity>()
+
+        remoteRepository.getMoviesUpComing(object : RemoteRepository.LoadMoviesCallback {
+            override fun onResponse(response: MoviesResponse?) {
+                val movieEntityList = mutableListOf<MovieEntity>()
+
+                if (response != null) {
+                    for (movie in response.movies) {
+                        val genreResponse = movie.genres
+                        val genreEntityList = mutableListOf<GenreEntity>()
+                        for (genre in genreResponse) {
+                            genreEntityList.add(
+                                parseToGenre(genre)
+                            )
+                        }
+
+                        val movieEntity = parseToMovieEntity(movie, genreEntityList) as MovieEntity
+                        movieEntityList.add(movieEntity)
+                    }
+
+                    val moviesEntity = MoviesEntity(
+                        header = "Up Coming",
+                        movies = movieEntityList
+                    )
+                    movies.postValue(moviesEntity)
+                }
+            }
+
+            override fun onFailure() {
+                Log.d("onFailure", "Get movies now playing failed!")
+            }
+        })
+
+        return movies
     }
 
-    override fun getMoviesPopular(): LiveData<MoviesResponse> {
-        return remoteRepository.getMoviesPopular()
+    override fun getMoviesPopular(): LiveData<MoviesEntity> {
+        val movies = MutableLiveData<MoviesEntity>()
+
+        remoteRepository.getMoviesPopular(object : RemoteRepository.LoadMoviesCallback {
+            override fun onResponse(response: MoviesResponse?) {
+                val movieEntityList = mutableListOf<MovieEntity>()
+
+                if (response != null) {
+                    for (movie in response.movies) {
+                        val genreResponse = movie.genres
+                        val genreEntityList = mutableListOf<GenreEntity>()
+                        for (genre in genreResponse) {
+                            genreEntityList.add(
+                                parseToGenre(genre)
+                            )
+                        }
+
+                        val movieEntity = parseToMovieEntity(movie, genreEntityList) as MovieEntity
+                        movieEntityList.add(movieEntity)
+                    }
+
+                    val moviesEntity = MoviesEntity(
+                        header = "Popular",
+                        movies = movieEntityList
+                    )
+                    movies.postValue(moviesEntity)
+                }
+            }
+
+            override fun onFailure() {
+                Log.d("onFailure", "Get movies now playing failed!")
+            }
+        })
+
+        return movies
     }
 
-    override fun getMoviesTopRated(): LiveData<MoviesResponse> {
-        return remoteRepository.getMoviesTopRated()
+    override fun getMoviesTopRated(): LiveData<MoviesEntity> {
+        val movies = MutableLiveData<MoviesEntity>()
+
+        remoteRepository.getMoviesTopRated(object : RemoteRepository.LoadMoviesCallback {
+            override fun onResponse(response: MoviesResponse?) {
+                val movieEntityList = mutableListOf<MovieEntity>()
+
+                if (response != null) {
+                    for (movie in response.movies) {
+                        val genreResponse = movie.genres
+                        val genreEntityList = mutableListOf<GenreEntity>()
+                        for (genre in genreResponse) {
+                            genreEntityList.add(
+                                parseToGenre(genre)
+                            )
+                        }
+
+                        val movieEntity = parseToMovieEntity(movie, genreEntityList) as MovieEntity
+                        movieEntityList.add(movieEntity)
+                    }
+
+                    val moviesEntity = MoviesEntity(
+                        header = "Top Rated",
+                        movies = movieEntityList
+                    )
+                    movies.postValue(moviesEntity)
+                }
+            }
+
+            override fun onFailure() {
+                Log.d("onFailure", "Get movies now playing failed!")
+            }
+        })
+
+        return movies
     }
 
     override fun getTVShow(id: String): LiveData<TVShowEntity> {
-        return Transformations.switchMap(
-            remoteRepository.getTVShow(id)
-        ) {
-            switchToTVShowEntity(it)
-        }
-    }
-
-    private fun switchToTVShowEntity(response: TVShowResponse): LiveData<TVShowEntity> {
-
         val tvShow = MutableLiveData<TVShowEntity>()
-        val genreResponse = response.genreResponses
-        val genreEntityList = mutableListOf<GenreEntity>()
-        for (genre in genreResponse) {
-            genreEntityList.add(
-                parseToGenre(genre)
-            )
-        }
 
-        tvShow.postValue(
-            parseToTVShow(
-                response, genreEntityList
-            )
-        )
+        remoteRepository.getTVShow(id, object : RemoteRepository.LoadTVShowCallback {
+            override fun onResponse(response: TVShowResponse?) {
+                if (response != null) {
+                    val genreResponse = response.genres
+                    val genreEntityList = mutableListOf<GenreEntity>()
+                    for (genre in genreResponse) {
+                        genreEntityList.add(
+                            parseToGenre(genre)
+                        )
+                    }
 
-        return MutableLiveData()
+                    val tvShowEntity = parseToTVShowEntity(response, genreEntityList)
+
+                    tvShow.postValue(tvShowEntity)
+                }
+            }
+
+            override fun onFailure() {
+                Log.d("onFailure", "Get tvShow data failed.")
+            }
+        })
+
+        return tvShow
     }
 
-    override fun getTVShowsAiringToday(): LiveData<TVShowsResponse> {
-        return remoteRepository.getTVShowsAiringToday()
+    override fun getTVShowsAiringToday(): LiveData<TVShowsEntity> {
+        val tvShows = MutableLiveData<TVShowsEntity>()
+
+        remoteRepository.getTVShowsAiringToday(object : RemoteRepository.LoadTVShowsCallback {
+            override fun onResponse(response: TVShowsResponse?) {
+                val tvShowEntityList = mutableListOf<TVShowEntity>()
+
+                if (response != null) {
+                    for (tvShow in response.tvShows) {
+                        val genreResponse = tvShow.genres
+                        val genreEntityList = mutableListOf<GenreEntity>()
+                        for (genre in genreResponse) {
+                            genreEntityList.add(
+                                parseToGenre(genre)
+                            )
+                        }
+
+                        val tvShowEntity = parseToTVShowEntity(tvShow, genreEntityList) as TVShowEntity
+                        tvShowEntityList.add(tvShowEntity)
+                    }
+
+                    val tvShowsEntity = TVShowsEntity(
+                        header = "Airing Today",
+                        tvShow = tvShowEntityList
+                    )
+                    tvShows.postValue(tvShowsEntity)
+                }
+            }
+
+            override fun onFailure() {
+                Log.d("onFailure", "Get movies now playing failed!")
+            }
+        })
+
+        return tvShows
     }
 
-    override fun getTVShowsOnTheAir(): LiveData<TVShowsResponse> {
-        return remoteRepository.getTVShowsOnTheAir()
+    override fun getTVShowsOnTheAir(): LiveData<TVShowsEntity> {
+        val tvShows = MutableLiveData<TVShowsEntity>()
+
+        remoteRepository.getTVShowsOnTheAir(object : RemoteRepository.LoadTVShowsCallback {
+            override fun onResponse(response: TVShowsResponse?) {
+                val tvShowEntityList = mutableListOf<TVShowEntity>()
+
+                if (response != null) {
+                    for (tvShow in response.tvShows) {
+                        val genreResponse = tvShow.genres
+                        val genreEntityList = mutableListOf<GenreEntity>()
+                        for (genre in genreResponse) {
+                            genreEntityList.add(
+                                parseToGenre(genre)
+                            )
+                        }
+
+                        val tvShowEntity = parseToTVShowEntity(tvShow, genreEntityList) as TVShowEntity
+                        tvShowEntityList.add(tvShowEntity)
+                    }
+
+                    val tvShowsEntity = TVShowsEntity(
+                        header = "On The Air",
+                        tvShow = tvShowEntityList
+                    )
+                    tvShows.postValue(tvShowsEntity)
+                }
+            }
+
+            override fun onFailure() {
+                Log.d("onFailure", "Get movies now playing failed!")
+            }
+        })
+
+        return tvShows
     }
 
-    override fun getTVShowsPopular(): LiveData<TVShowsResponse> {
-        return remoteRepository.getTVShowsPopular()
+    override fun getTVShowsPopular(): LiveData<TVShowsEntity> {
+        val tvShows = MutableLiveData<TVShowsEntity>()
+
+        remoteRepository.getTVShowsPopular(object : RemoteRepository.LoadTVShowsCallback {
+            override fun onResponse(response: TVShowsResponse?) {
+                val tvShowEntityList = mutableListOf<TVShowEntity>()
+
+                if (response != null) {
+                    for (tvShow in response.tvShows) {
+                        val genreResponse = tvShow.genres
+                        val genreEntityList = mutableListOf<GenreEntity>()
+                        for (genre in genreResponse) {
+                            genreEntityList.add(
+                                parseToGenre(genre)
+                            )
+                        }
+
+                        val tvShowEntity = parseToTVShowEntity(tvShow, genreEntityList) as TVShowEntity
+                        tvShowEntityList.add(tvShowEntity)
+                    }
+
+                    val tvShowsEntity = TVShowsEntity(
+                        header = "Popular",
+                        tvShow = tvShowEntityList
+                    )
+                    tvShows.postValue(tvShowsEntity)
+                }
+            }
+
+            override fun onFailure() {
+                Log.d("onFailure", "Get movies now playing failed!")
+            }
+        })
+
+        return tvShows
     }
 
-    override fun getTVShowsTopRated(): LiveData<TVShowsResponse> {
-        return remoteRepository.getTVShowsTopRated()
+    override fun getTVShowsTopRated(): LiveData<TVShowsEntity> {
+        val tvShows = MutableLiveData<TVShowsEntity>()
+
+        remoteRepository.getTVShowsTopRated(object : RemoteRepository.LoadTVShowsCallback {
+            override fun onResponse(response: TVShowsResponse?) {
+                val tvShowEntityList = mutableListOf<TVShowEntity>()
+
+                if (response != null) {
+                    for (tvShow in response.tvShows) {
+                        val genreResponse = tvShow.genres
+                        val genreEntityList = mutableListOf<GenreEntity>()
+                        for (genre in genreResponse) {
+                            genreEntityList.add(
+                                parseToGenre(genre)
+                            )
+                        }
+
+                        val tvShowEntity = parseToTVShowEntity(tvShow, genreEntityList) as TVShowEntity
+                        tvShowEntityList.add(tvShowEntity)
+                    }
+
+                    val tvShowsEntity = TVShowsEntity(
+                        header = "Top Rated",
+                        tvShow = tvShowEntityList
+                    )
+                    tvShows.postValue(tvShowsEntity)
+                }
+            }
+
+            override fun onFailure() {
+                Log.d("onFailure", "Get movies now playing failed!")
+            }
+        })
+
+        return tvShows
     }
 
-    private fun parseToMovie(response: MovieResponse, genreEntityList: MutableList<GenreEntity>): MovieEntity? {
+    private fun parseToMovieEntity(
+        movieResponse: MovieResponse,
+        genreEntityList: MutableList<GenreEntity>
+    ): MovieEntity? {
         return MovieEntity(
-            id = response.id,
-            title = response.title,
-            overview = response.overview,
-            poster = response.poster,
-            backdrop = response.backdrop,
-            releaseDate = response.releaseDate,
-            rating = response.rating,
-            genreResponses = genreEntityList
+            id = movieResponse.id,
+            title = movieResponse.title,
+            overview = movieResponse.overview,
+            poster = movieResponse.poster,
+            backdrop = movieResponse.backdrop,
+            genres = genreEntityList,
+            rating = movieResponse.rating,
+            releaseDate = movieResponse.releaseDate
         )
     }
 
-    private fun parseToTVShow(response: TVShowResponse, genreEntityList: MutableList<GenreEntity>): TVShowEntity? {
+    private fun parseToTVShowEntity(
+        tvShowResponse: TVShowResponse,
+        genreEntityList: MutableList<GenreEntity>
+    ): TVShowEntity? {
         return TVShowEntity(
-            id = response.id,
-            title = response.title,
-            overview = response.overview,
-            poster = response.poster,
-            backdrop = response.backdrop,
-            firstAir = response.firstAir,
-            rating = response.rating,
-            genreResponses = genreEntityList
+            id = tvShowResponse.id,
+            title = tvShowResponse.title,
+            overview = tvShowResponse.overview,
+            poster = tvShowResponse.poster,
+            backdrop = tvShowResponse.backdrop,
+            genres = genreEntityList,
+            rating = tvShowResponse.rating,
+            firstAir = tvShowResponse.firstAir
         )
     }
 

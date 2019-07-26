@@ -8,5 +8,5 @@ data class MovieEntity(
     var backdrop: String,
     var releaseDate: String,
     var rating: Float,
-    var genreResponses: MutableList<GenreEntity>
+    var genres: MutableList<GenreEntity>
 )

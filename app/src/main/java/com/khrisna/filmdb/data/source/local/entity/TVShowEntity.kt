@@ -8,5 +8,5 @@ data class TVShowEntity(
     var overview: String,
     var rating: Float,
     var firstAir: String,
-    var genreResponses: MutableList<GenreEntity>
+    var genres: MutableList<GenreEntity>
 )

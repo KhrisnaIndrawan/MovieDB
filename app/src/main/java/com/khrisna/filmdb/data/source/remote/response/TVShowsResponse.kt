@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class TVShowsResponse(
     var header: String,
     @SerializedName("results")
-    var tvShowResponses: MutableList<TVShowResponse>
+    var tvShows: MutableList<TVShowResponse>
 )

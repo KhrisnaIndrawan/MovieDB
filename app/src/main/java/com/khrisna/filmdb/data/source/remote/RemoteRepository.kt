@@ -1,7 +1,5 @@
 package com.khrisna.filmdb.data.source.remote
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.khrisna.filmdb.data.source.remote.network.RetrofitServices
 import com.khrisna.filmdb.data.source.remote.response.MovieResponse
 import com.khrisna.filmdb.data.source.remote.response.MoviesResponse
@@ -14,22 +12,22 @@ import retrofit2.Response
 class RemoteRepository(private val retrofitServices: RetrofitServices) {
 
     interface LoadMovieCallback {
-        fun onResponse(movieResponse: MovieResponse?)
+        fun onResponse(response: MovieResponse?)
         fun onFailure()
     }
 
     interface LoadMoviesCallback {
-        fun onResponse(movieResponse: MoviesResponse?)
+        fun onResponse(response: MoviesResponse?)
         fun onFailure()
     }
 
     interface LoadTVShowCallback {
-        fun onResponse(tvShowResponse: TVShowResponse?)
+        fun onResponse(response: TVShowResponse?)
         fun onFailure()
     }
 
     interface LoadTVShowsCallback {
-        fun onResponse(tvShowsResponse: TVShowsResponse?)
+        fun onResponse(response: TVShowsResponse?)
         fun onFailure()
     }
 
@@ -184,7 +182,7 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
             })
     }
 
-    fun getTVShowsPopular(callback: LoadTVShowsCallback){
+    fun getTVShowsPopular(callback: LoadTVShowsCallback) {
         val networkServices = retrofitServices.create()
         networkServices
             .getTVPopular()

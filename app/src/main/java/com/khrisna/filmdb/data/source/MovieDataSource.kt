@@ -2,29 +2,29 @@ package com.khrisna.filmdb.data.source
 
 import androidx.lifecycle.LiveData
 import com.khrisna.filmdb.data.source.local.entity.MovieEntity
+import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
 import com.khrisna.filmdb.data.source.local.entity.TVShowEntity
-import com.khrisna.filmdb.data.source.remote.response.MoviesResponse
-import com.khrisna.filmdb.data.source.remote.response.TVShowsResponse
+import com.khrisna.filmdb.data.source.local.entity.TVShowsEntity
 
 interface MovieDataSource {
 
     fun getMovie(id: String): LiveData<MovieEntity>
 
-    fun getMoviesNowPlaying(): LiveData<MoviesResponse>
+    fun getMoviesNowPlaying(): LiveData<MoviesEntity>
 
-    fun getMoviesUpComing(): LiveData<MoviesResponse>
+    fun getMoviesUpComing(): LiveData<MoviesEntity>
 
-    fun getMoviesPopular(): LiveData<MoviesResponse>
+    fun getMoviesPopular(): LiveData<MoviesEntity>
 
-    fun getMoviesTopRated(): LiveData<MoviesResponse>
+    fun getMoviesTopRated(): LiveData<MoviesEntity>
 
     fun getTVShow(id: String): LiveData<TVShowEntity>
 
-    fun getTVShowsAiringToday(): LiveData<TVShowsResponse>
+    fun getTVShowsAiringToday(): LiveData<TVShowsEntity>
 
-    fun getTVShowsOnTheAir(): LiveData<TVShowsResponse>
+    fun getTVShowsOnTheAir(): LiveData<TVShowsEntity>
 
-    fun getTVShowsPopular(): LiveData<TVShowsResponse>
+    fun getTVShowsPopular(): LiveData<TVShowsEntity>
 
-    fun getTVShowsTopRated(): LiveData<TVShowsResponse>
+    fun getTVShowsTopRated(): LiveData<TVShowsEntity>
 }
