@@ -10,19 +10,19 @@ class DetailViewModel(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private var _movieResponse: LiveData<MovieEntity>? = null
-    private var _tvShowResponse: LiveData<TVShowEntity>? = null
+    private var _movie: LiveData<MovieEntity>? = null
+    private var _tvShow: LiveData<TVShowEntity>? = null
 
-    val movieResponse: LiveData<MovieEntity>?
-        get() = _movieResponse
-    val tvShowResponse: LiveData<TVShowEntity>?
-        get() = _tvShowResponse
+    val movie: LiveData<MovieEntity>?
+        get() = _movie
+    val tvShow: LiveData<TVShowEntity>?
+        get() = _tvShow
 
     fun getMovie(id: String) {
-        _movieResponse = movieRepository.getMovie(id)
+        _movie = movieRepository.getMovie(id)
     }
 
     fun getTVShow(id: String) {
-        _tvShowResponse = movieRepository.getTVShow(id)
+        _tvShow = movieRepository.getTVShow(id)
     }
 }

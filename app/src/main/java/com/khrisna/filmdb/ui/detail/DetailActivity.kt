@@ -50,7 +50,7 @@ class DetailActivity : AppCompatActivity() {
                     title = "Movie Details"
                 }
                 val movie: String = intent.getStringExtra(EXTRA_DETAIL_DATA) as String
-                if (detailViewModel.movieResponse == null) {
+                if (detailViewModel.movie == null) {
                     detailViewModel.getMovie(movie)
                 }
                 showMovieData()
@@ -59,7 +59,7 @@ class DetailActivity : AppCompatActivity() {
                     title = "TVShow Details"
                 }
                 val tvShow: String = intent.getStringExtra(EXTRA_DETAIL_DATA) as String
-                if (detailViewModel.tvShowResponse == null) {
+                if (detailViewModel.tvShow == null) {
                     detailViewModel.getTVShow(tvShow)
                 }
                 showTVShowData()
@@ -69,7 +69,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun showMovieData() {
 
-        detailViewModel.movieResponse?.observe(this, Observer { movie ->
+        detailViewModel.movie?.observe(this, Observer { movie ->
             setViewVisible(true)
 
             GlideApp.with(this)
@@ -104,7 +104,7 @@ class DetailActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun showTVShowData() {
 
-        detailViewModel.tvShowResponse?.observe(this, Observer { tvShow ->
+        detailViewModel.tvShow?.observe(this, Observer { tvShow ->
             setViewVisible(true)
 
             GlideApp.with(this)

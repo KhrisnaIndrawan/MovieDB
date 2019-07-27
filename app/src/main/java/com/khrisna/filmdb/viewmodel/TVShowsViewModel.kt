@@ -35,7 +35,7 @@ class TVShowsViewModel(
         _popular = movieRepository.getTVShowsPopular()
     }
 
-    fun getTopRate() {
+    fun getTopRated() {
         _topRated = movieRepository.getTVShowsTopRated()
     }
 }

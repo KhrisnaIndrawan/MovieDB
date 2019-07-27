@@ -35,7 +35,7 @@ class MoviesViewModel(
         _popular = movieRepository.getMoviesPopular()
     }
 
-    fun getTopRate() {
+    fun getTopRated() {
         _topRated = movieRepository.getMoviesTopRated()
     }
 }

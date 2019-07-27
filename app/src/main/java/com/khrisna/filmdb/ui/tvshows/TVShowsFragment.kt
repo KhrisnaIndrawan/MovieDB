@@ -67,7 +67,7 @@ class TVShowsFragment : Fragment() {
                 }
             })
             if (model.topRated == null) {
-                model.getTopRate()
+                model.getTopRated()
             }
             model.topRated?.observe(this, Observer { data ->
                 if (data != null) {
