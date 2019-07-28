@@ -24,18 +24,18 @@ class MoviesViewModel(
         get() = _topRated
 
     fun getNowPlaying() {
-        _nowPlaying = movieRepository.getMoviesNowPlaying()
+        _nowPlaying = movieRepository.getMoviesNowPlaying("1")
     }
 
     fun getUpComing() {
-        _upComing = movieRepository.getMoviesUpComing()
+        _upComing = movieRepository.getMoviesUpComing("1")
     }
 
     fun getPopular() {
-        _popular = movieRepository.getMoviesPopular()
+        _popular = movieRepository.getMoviesPopular("1")
     }
 
     fun getTopRated() {
-        _topRated = movieRepository.getMoviesTopRated()
+        _topRated = movieRepository.getMoviesTopRated("1")
     }
 }

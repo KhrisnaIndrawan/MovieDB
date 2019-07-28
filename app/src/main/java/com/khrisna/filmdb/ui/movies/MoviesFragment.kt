@@ -42,7 +42,7 @@ class MoviesFragment : Fragment() {
             if (model.nowPlaying == null) {
                 model.getNowPlaying()
             }
-            model.nowPlaying?.observe(this, Observer { data ->
+            model.nowPlaying?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     movies.add(data)
                     movieListAdapter.notifyDataSetChanged()
@@ -51,7 +51,7 @@ class MoviesFragment : Fragment() {
             if (model.upComing == null) {
                 model.getUpComing()
             }
-            model.upComing?.observe(this, Observer { data ->
+            model.upComing?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     movies.add(data)
                     movieListAdapter.notifyDataSetChanged()
@@ -60,7 +60,7 @@ class MoviesFragment : Fragment() {
             if (model.popular == null) {
                 model.getPopular()
             }
-            model.popular?.observe(this, Observer { data ->
+            model.popular?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     movies.add(data)
                     movieListAdapter.notifyDataSetChanged()
@@ -69,7 +69,7 @@ class MoviesFragment : Fragment() {
             if (model.topRated == null) {
                 model.getTopRated()
             }
-            model.topRated?.observe(this, Observer { data ->
+            model.topRated?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     movies.add(data)
                     movieListAdapter.notifyDataSetChanged()

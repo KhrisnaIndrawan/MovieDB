@@ -10,21 +10,21 @@ interface MovieDataSource {
 
     fun getMovie(id: String): LiveData<MovieEntity>
 
-    fun getMoviesNowPlaying(): LiveData<MoviesEntity>
+    fun getMoviesNowPlaying(page: String): LiveData<MoviesEntity>
 
-    fun getMoviesUpComing(): LiveData<MoviesEntity>
+    fun getMoviesUpComing(page: String): LiveData<MoviesEntity>
 
-    fun getMoviesPopular(): LiveData<MoviesEntity>
+    fun getMoviesPopular(page: String): LiveData<MoviesEntity>
 
-    fun getMoviesTopRated(): LiveData<MoviesEntity>
+    fun getMoviesTopRated(page: String): LiveData<MoviesEntity>
 
     fun getTVShow(id: String): LiveData<TVShowEntity>
 
-    fun getTVShowsAiringToday(): LiveData<TVShowsEntity>
+    fun getTVShowsAiringToday(page: String): LiveData<TVShowsEntity>
 
-    fun getTVShowsOnTheAir(): LiveData<TVShowsEntity>
+    fun getTVShowsOnTheAir(page: String): LiveData<TVShowsEntity>
 
-    fun getTVShowsPopular(): LiveData<TVShowsEntity>
+    fun getTVShowsPopular(page: String): LiveData<TVShowsEntity>
 
-    fun getTVShowsTopRated(): LiveData<TVShowsEntity>
+    fun getTVShowsTopRated(page: String): LiveData<TVShowsEntity>
 }

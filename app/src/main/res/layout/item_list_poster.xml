@@ -20,17 +20,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 tools:text="Now Playing"
+                android:layout_gravity="top|start"
                 android:textStyle="bold"
                 android:textSize="16sp"/>
+
+        <TextView
+                android:id="@+id/tv_see_more"
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="end|top"
+                android:layout_marginEnd="24dp"
+                android:text="@string/see_more"
+                android:textStyle="bold"
+                android:textSize="14sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:background="@color/colorPrimary"
                 android:id="@+id/rv_poster"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_marginTop="24dp"/>
+                android:layout_height="220dp"
+                android:layout_marginTop="32dp"/>
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

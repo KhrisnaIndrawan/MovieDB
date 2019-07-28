@@ -41,10 +41,10 @@ class MovieRepository(
         return movie
     }
 
-    override fun getMoviesNowPlaying(): LiveData<MoviesEntity> {
+    override fun getMoviesNowPlaying(page: String): LiveData<MoviesEntity> {
         val movies = MutableLiveData<MoviesEntity>()
 
-        remoteRepository.getMoviesNowPlaying(object : RemoteRepository.LoadMoviesCallback {
+        remoteRepository.getMoviesNowPlaying(page, object : RemoteRepository.LoadMoviesCallback {
             override fun onResponse(response: MoviesResponse?) {
                 val movieEntityList = mutableListOf<MovieEntity>()
 
@@ -71,10 +71,10 @@ class MovieRepository(
         return movies
     }
 
-    override fun getMoviesUpComing(): LiveData<MoviesEntity> {
+    override fun getMoviesUpComing(page: String): LiveData<MoviesEntity> {
         val movies = MutableLiveData<MoviesEntity>()
 
-        remoteRepository.getMoviesUpComing(object : RemoteRepository.LoadMoviesCallback {
+        remoteRepository.getMoviesUpComing(page, object : RemoteRepository.LoadMoviesCallback {
             override fun onResponse(response: MoviesResponse?) {
                 val movieEntityList = mutableListOf<MovieEntity>()
 
@@ -101,10 +101,10 @@ class MovieRepository(
         return movies
     }
 
-    override fun getMoviesPopular(): LiveData<MoviesEntity> {
+    override fun getMoviesPopular(page: String): LiveData<MoviesEntity> {
         val movies = MutableLiveData<MoviesEntity>()
 
-        remoteRepository.getMoviesPopular(object : RemoteRepository.LoadMoviesCallback {
+        remoteRepository.getMoviesPopular(page, object : RemoteRepository.LoadMoviesCallback {
             override fun onResponse(response: MoviesResponse?) {
                 val movieEntityList = mutableListOf<MovieEntity>()
 
@@ -131,10 +131,10 @@ class MovieRepository(
         return movies
     }
 
-    override fun getMoviesTopRated(): LiveData<MoviesEntity> {
+    override fun getMoviesTopRated(page: String): LiveData<MoviesEntity> {
         val movies = MutableLiveData<MoviesEntity>()
 
-        remoteRepository.getMoviesTopRated(object : RemoteRepository.LoadMoviesCallback {
+        remoteRepository.getMoviesTopRated(page, object : RemoteRepository.LoadMoviesCallback {
             override fun onResponse(response: MoviesResponse?) {
                 val movieEntityList = mutableListOf<MovieEntity>()
 
@@ -189,10 +189,10 @@ class MovieRepository(
         return tvShow
     }
 
-    override fun getTVShowsAiringToday(): LiveData<TVShowsEntity> {
+    override fun getTVShowsAiringToday(page: String): LiveData<TVShowsEntity> {
         val tvShows = MutableLiveData<TVShowsEntity>()
 
-        remoteRepository.getTVShowsAiringToday(object : RemoteRepository.LoadTVShowsCallback {
+        remoteRepository.getTVShowsAiringToday(page, object : RemoteRepository.LoadTVShowsCallback {
             override fun onResponse(response: TVShowsResponse?) {
                 val tvShowEntityList = mutableListOf<TVShowEntity>()
 
@@ -219,10 +219,10 @@ class MovieRepository(
         return tvShows
     }
 
-    override fun getTVShowsOnTheAir(): LiveData<TVShowsEntity> {
+    override fun getTVShowsOnTheAir(page: String): LiveData<TVShowsEntity> {
         val tvShows = MutableLiveData<TVShowsEntity>()
 
-        remoteRepository.getTVShowsOnTheAir(object : RemoteRepository.LoadTVShowsCallback {
+        remoteRepository.getTVShowsOnTheAir(page, object : RemoteRepository.LoadTVShowsCallback {
             override fun onResponse(response: TVShowsResponse?) {
                 val tvShowEntityList = mutableListOf<TVShowEntity>()
 
@@ -249,10 +249,10 @@ class MovieRepository(
         return tvShows
     }
 
-    override fun getTVShowsPopular(): LiveData<TVShowsEntity> {
+    override fun getTVShowsPopular(page: String): LiveData<TVShowsEntity> {
         val tvShows = MutableLiveData<TVShowsEntity>()
 
-        remoteRepository.getTVShowsPopular(object : RemoteRepository.LoadTVShowsCallback {
+        remoteRepository.getTVShowsPopular(page, object : RemoteRepository.LoadTVShowsCallback {
             override fun onResponse(response: TVShowsResponse?) {
                 val tvShowEntityList = mutableListOf<TVShowEntity>()
 
@@ -279,10 +279,10 @@ class MovieRepository(
         return tvShows
     }
 
-    override fun getTVShowsTopRated(): LiveData<TVShowsEntity> {
+    override fun getTVShowsTopRated(page: String): LiveData<TVShowsEntity> {
         val tvShows = MutableLiveData<TVShowsEntity>()
 
-        remoteRepository.getTVShowsTopRated(object : RemoteRepository.LoadTVShowsCallback {
+        remoteRepository.getTVShowsTopRated(page, object : RemoteRepository.LoadTVShowsCallback {
             override fun onResponse(response: TVShowsResponse?) {
                 val tvShowEntityList = mutableListOf<TVShowEntity>()
 

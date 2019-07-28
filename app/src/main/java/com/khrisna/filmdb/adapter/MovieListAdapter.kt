@@ -1,6 +1,7 @@
 package com.khrisna.filmdb.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,9 @@ import androidx.recyclerview.widget.SnapHelper
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
+import com.khrisna.filmdb.ui.pagelist.ViewAllActivity
+import com.khrisna.filmdb.ui.pagelist.ViewAllActivity.Companion.EXTRA_HEADER
+import com.khrisna.filmdb.ui.pagelist.ViewAllActivity.Companion.EXTRA_IS_MOVIE
 
 class MovieListAdapter(
     private val context: Context, private val items: MutableList<MoviesEntity>,
@@ -38,6 +42,7 @@ class MovieListAdapter(
     inner class MoviesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val tvHeader = view.findViewById<TextView>(R.id.tv_header)
         private val rvPoster = view.findViewById<RecyclerView>(R.id.rv_poster)
+        private val tvViewAll = view.findViewById<TextView>(R.id.tv_see_more)
 
         fun bind(item: MoviesEntity) {
             tvHeader.text = item.header
@@ -51,6 +56,15 @@ class MovieListAdapter(
                 setRecycledViewPool(rvViewPool)
             }
             snapHelper.attachToRecyclerView(rvPoster)
+
+            tvViewAll.setOnClickListener {
+
+                val intent = Intent(context, ViewAllActivity::class.java)
+                intent.putExtra(EXTRA_IS_MOVIE, true)
+                intent.putExtra(EXTRA_HEADER, item.header)
+
+                it.context.startActivity(intent)
+            }
         }
     }
 }

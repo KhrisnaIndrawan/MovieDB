@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.request.RequestOptions
 import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.data.source.local.entity.GenreEntity
@@ -42,7 +43,7 @@ class DetailActivity : AppCompatActivity() {
             poster = intent.getStringExtra(EXTRA_POSTER) as String
             GlideApp.with(this)
                 .load(BASE_IMG_URL + poster)
-                .placeholder(R.color.colorPrimary)
+                .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                 .into(img_poster)
 
             if (isMovie) {

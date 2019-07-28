@@ -1,6 +1,7 @@
 package com.khrisna.filmdb.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.data.source.local.entity.TVShowsEntity
+import com.khrisna.filmdb.ui.pagelist.ViewAllActivity
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper as GravitySnapHelper1
 
 class TVShowListAdapter(
@@ -38,6 +40,7 @@ class TVShowListAdapter(
     inner class TVShowsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val tvHeader = view.findViewById<TextView>(R.id.tv_header)
         private val rvPoster = view.findViewById<RecyclerView>(R.id.rv_poster)
+        private val tvViewAll = view.findViewById<TextView>(R.id.tv_see_more)
 
         fun bind(item: TVShowsEntity) {
             tvHeader.text = item.header
@@ -51,6 +54,15 @@ class TVShowListAdapter(
                 setRecycledViewPool(rvViewPool)
             }
             snapHelper.attachToRecyclerView(rvPoster)
+
+            tvViewAll.setOnClickListener {
+
+                val intent = Intent(context, ViewAllActivity::class.java)
+                intent.putExtra(ViewAllActivity.EXTRA_IS_MOVIE, false)
+                intent.putExtra(ViewAllActivity.EXTRA_HEADER, item.header)
+
+                it.context.startActivity(intent)
+            }
         }
     }
 }

@@ -24,18 +24,18 @@ class TVShowsViewModel(
         get() = _topRated
 
     fun getAiringToday() {
-        _airingToday = movieRepository.getTVShowsAiringToday()
+        _airingToday = movieRepository.getTVShowsAiringToday("1")
     }
 
     fun getOnTheAir() {
-        _onTheAir = movieRepository.getTVShowsOnTheAir()
+        _onTheAir = movieRepository.getTVShowsOnTheAir("1")
     }
 
     fun getPopular() {
-        _popular = movieRepository.getTVShowsPopular()
+        _popular = movieRepository.getTVShowsPopular("1")
     }
 
     fun getTopRated() {
-        _topRated = movieRepository.getTVShowsTopRated()
+        _topRated = movieRepository.getTVShowsTopRated("1")
     }
 }

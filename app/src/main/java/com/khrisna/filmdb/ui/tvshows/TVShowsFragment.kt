@@ -42,7 +42,7 @@ class TVShowsFragment : Fragment() {
             if (model.airingToday == null) {
                 model.getAiringToday()
             }
-            model.airingToday?.observe(this, Observer { data ->
+            model.airingToday?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     tvShows.add(data)
                     tvShowListAdapter.notifyDataSetChanged()
@@ -51,7 +51,7 @@ class TVShowsFragment : Fragment() {
             if (model.onTheAir == null) {
                 model.getOnTheAir()
             }
-            model.onTheAir?.observe(this, Observer { data ->
+            model.onTheAir?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     tvShows.add(data)
                     tvShowListAdapter.notifyDataSetChanged()
@@ -60,7 +60,7 @@ class TVShowsFragment : Fragment() {
             if (model.popular == null) {
                 model.getPopular()
             }
-            model.popular?.observe(this, Observer { data ->
+            model.popular?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     tvShows.add(data)
                     tvShowListAdapter.notifyDataSetChanged()
@@ -69,7 +69,7 @@ class TVShowsFragment : Fragment() {
             if (model.topRated == null) {
                 model.getTopRated()
             }
-            model.topRated?.observe(this, Observer { data ->
+            model.topRated?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     tvShows.add(data)
                     tvShowListAdapter.notifyDataSetChanged()

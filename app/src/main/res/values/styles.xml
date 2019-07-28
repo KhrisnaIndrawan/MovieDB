@@ -9,8 +9,6 @@
 
         // enable window content transition
         <item name="android:windowContentTransitions">true</item>
-        <item name="android:windowEnterTransition">@android:transition/no_transition</item>
-        <item name="android:windowExitTransition">@android:transition/no_transition</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

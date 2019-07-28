@@ -32,7 +32,7 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
     }
 
     fun getMovie(id: String, callback: LoadMovieCallback) {
-        val networkServices = retrofitServices.create()
+        val networkServices = retrofitServices.createMovieService()
         networkServices
             .getMovie(id)
             .enqueue(object : Callback<MovieResponse> {
@@ -49,10 +49,10 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
             })
     }
 
-    fun getMoviesNowPlaying(callback: LoadMoviesCallback) {
-        val networkServices = retrofitServices.create()
+    fun getMoviesNowPlaying(page: String, callback: LoadMoviesCallback) {
+        val networkServices = retrofitServices.createMovieService()
         networkServices
-            .getMovieNowPlaying()
+            .getMovieNowPlaying(page)
             .enqueue(object : Callback<MoviesResponse> {
                 override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
                     callback.onFailure()
@@ -68,10 +68,10 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
             })
     }
 
-    fun getMoviesUpComing(callback: LoadMoviesCallback) {
-        val networkServices = retrofitServices.create()
+    fun getMoviesUpComing(page: String, callback: LoadMoviesCallback) {
+        val networkServices = retrofitServices.createMovieService()
         networkServices
-            .getMovieUpComing()
+            .getMovieUpComing(page)
             .enqueue(object : Callback<MoviesResponse> {
                 override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
                     callback.onFailure()
@@ -87,10 +87,10 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
             })
     }
 
-    fun getMoviesPopular(callback: LoadMoviesCallback) {
-        val networkServices = retrofitServices.create()
+    fun getMoviesPopular(page: String, callback: LoadMoviesCallback) {
+        val networkServices = retrofitServices.createMovieService()
         networkServices
-            .getMoviePopular()
+            .getMoviePopular(page)
             .enqueue(object : Callback<MoviesResponse> {
                 override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
                     callback.onFailure()
@@ -106,10 +106,10 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
             })
     }
 
-    fun getMoviesTopRated(callback: LoadMoviesCallback) {
-        val networkServices = retrofitServices.create()
+    fun getMoviesTopRated(page: String, callback: LoadMoviesCallback) {
+        val networkServices = retrofitServices.createMovieService()
         networkServices
-            .getMovieTopRated()
+            .getMovieTopRated(page)
             .enqueue(object : Callback<MoviesResponse> {
                 override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
                     callback.onFailure()
@@ -126,7 +126,7 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
     }
 
     fun getTVShow(id: String, callback: LoadTVShowCallback) {
-        val networkServices = retrofitServices.create()
+        val networkServices = retrofitServices.createTVShowService()
         networkServices
             .getTVShow(id)
             .enqueue(object : Callback<TVShowResponse> {
@@ -144,10 +144,10 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
             })
     }
 
-    fun getTVShowsAiringToday(callback: LoadTVShowsCallback) {
-        val networkServices = retrofitServices.create()
+    fun getTVShowsAiringToday(page: String, callback: LoadTVShowsCallback) {
+        val networkServices = retrofitServices.createTVShowService()
         networkServices
-            .getTVAiringToday()
+            .getTVAiringToday(page)
             .enqueue(object : Callback<TVShowsResponse> {
                 override fun onFailure(call: Call<TVShowsResponse>, t: Throwable) {
                     callback.onFailure()
@@ -163,10 +163,10 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
             })
     }
 
-    fun getTVShowsOnTheAir(callback: LoadTVShowsCallback) {
-        val networkServices = retrofitServices.create()
+    fun getTVShowsOnTheAir(page: String, callback: LoadTVShowsCallback) {
+        val networkServices = retrofitServices.createTVShowService()
         networkServices
-            .getTVOnTheAir()
+            .getTVOnTheAir(page)
             .enqueue(object : Callback<TVShowsResponse> {
                 override fun onFailure(call: Call<TVShowsResponse>, t: Throwable) {
                     callback.onFailure()
@@ -182,10 +182,10 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
             })
     }
 
-    fun getTVShowsPopular(callback: LoadTVShowsCallback) {
-        val networkServices = retrofitServices.create()
+    fun getTVShowsPopular(page: String, callback: LoadTVShowsCallback) {
+        val networkServices = retrofitServices.createTVShowService()
         networkServices
-            .getTVPopular()
+            .getTVPopular(page)
             .enqueue(object : Callback<TVShowsResponse> {
                 override fun onFailure(call: Call<TVShowsResponse>, t: Throwable) {
                     callback.onFailure()
@@ -201,10 +201,10 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
             })
     }
 
-    fun getTVShowsTopRated(callback: LoadTVShowsCallback) {
-        val networkServices = retrofitServices.create()
+    fun getTVShowsTopRated(page: String, callback: LoadTVShowsCallback) {
+        val networkServices = retrofitServices.createTVShowService()
         networkServices
-            .getTVTopRated()
+            .getTVTopRated(page)
             .enqueue(object : Callback<TVShowsResponse> {
                 override fun onFailure(call: Call<TVShowsResponse>, t: Throwable) {
                     callback.onFailure()
