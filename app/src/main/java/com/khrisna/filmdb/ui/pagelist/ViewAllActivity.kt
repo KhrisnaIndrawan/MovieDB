@@ -1,7 +1,6 @@
 package com.khrisna.filmdb.ui.pagelist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -9,11 +8,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.adapter.MovieAdapter
-import com.khrisna.filmdb.adapter.TVShowAdapter
-import com.khrisna.filmdb.data.source.local.entity.MovieEntity
-import com.khrisna.filmdb.data.source.local.entity.TVShowEntity
 import com.khrisna.filmdb.di.Injection
+import com.khrisna.filmdb.ui.adapter.MovieAdapter
+import com.khrisna.filmdb.ui.adapter.TVShowAdapter
 import com.khrisna.filmdb.viewmodel.ViewAllViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_view_all.*
@@ -23,8 +20,6 @@ class ViewAllActivity : AppCompatActivity() {
     private lateinit var viewAllViewModel: ViewAllViewModel
     private lateinit var movieListAdapter: MovieAdapter
     private lateinit var tvShowListAdapter: TVShowAdapter
-    private lateinit var movies: MutableList<MovieEntity>
-    private lateinit var tvShows: MutableList<TVShowEntity>
     private var isMovie: Boolean = false
     private lateinit var header: String
     private var page: String = "1"
@@ -56,10 +51,7 @@ class ViewAllActivity : AppCompatActivity() {
         }
 
         if (isMovie) {
-
-            movies = mutableListOf()
-
-            movieListAdapter = MovieAdapter(this, movies)
+            movieListAdapter = MovieAdapter(this)
 
             rv_view_all.apply {
                 setHasFixedSize(true)
@@ -70,9 +62,7 @@ class ViewAllActivity : AppCompatActivity() {
 
             showMoviesData()
         } else {
-
-            tvShows = mutableListOf()
-            tvShowListAdapter = TVShowAdapter(this, tvShows)
+            tvShowListAdapter = TVShowAdapter(this)
 
             rv_view_all.apply {
                 setHasFixedSize(true)
@@ -90,10 +80,7 @@ class ViewAllActivity : AppCompatActivity() {
 
         viewAllViewModel.movies?.observe(this, Observer { data ->
             if (data != null) {
-
-                Log.d("movies", data.movies.toString())
-                movies.addAll(data.movies!!)
-                movieListAdapter.notifyDataSetChanged()
+                movieListAdapter.submitList(data.movies)
             }
 
             progressBar.visibility = View.INVISIBLE
@@ -105,8 +92,7 @@ class ViewAllActivity : AppCompatActivity() {
 
         viewAllViewModel.tvShows?.observe(this, Observer { data ->
             if (data != null) {
-                tvShows.addAll(data.tvShow!!)
-                tvShowListAdapter.notifyDataSetChanged()
+                tvShowListAdapter.submitList(data.tvShow)
             }
 
             progressBar.visibility = View.INVISIBLE

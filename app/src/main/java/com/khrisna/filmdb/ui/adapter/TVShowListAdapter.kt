@@ -1,4 +1,4 @@
-package com.khrisna.filmdb.adapter
+package com.khrisna.filmdb.ui.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -8,19 +8,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
+import androidx.recyclerview.widget.*
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.data.source.local.entity.TVShowsEntity
 import com.khrisna.filmdb.ui.pagelist.ViewAllActivity
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper as GravitySnapHelper1
 
 class TVShowListAdapter(
-    private val context: Context, private val items: MutableList<TVShowsEntity>,
+    private val context: Context,
     private val rvViewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
 ) :
-    RecyclerView.Adapter<TVShowListAdapter.TVShowsViewHolder>() {
+    ListAdapter<TVShowsEntity, TVShowListAdapter.TVShowsViewHolder>(
+        object : DiffUtil.ItemCallback<TVShowsEntity>() {
+            override fun areItemsTheSame(oldItem: TVShowsEntity, newItem: TVShowsEntity): Boolean {
+                return oldItem.header == newItem.header
+            }
+
+            override fun areContentsTheSame(oldItem: TVShowsEntity, newItem: TVShowsEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
+    ) {
 
     private lateinit var snapHelper: SnapHelper
 
@@ -31,10 +39,8 @@ class TVShowListAdapter(
         return viewHolder
     }
 
-    override fun getItemCount(): Int = items.size
-
     override fun onBindViewHolder(holder: TVShowsViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(getItem(position))
     }
 
     inner class TVShowsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -45,7 +51,9 @@ class TVShowListAdapter(
         fun bind(item: TVShowsEntity) {
             tvHeader.text = item.header
 
-            val adapter = item.tvShow?.let { TVShowAdapter(context as AppCompatActivity, it) }
+            val adapter = TVShowAdapter(context as AppCompatActivity)
+            adapter.submitList(item.tvShow)
+
             rvPoster.apply {
                 setHasFixedSize(true)
                 layoutManager =

@@ -1,4 +1,4 @@
-package com.khrisna.filmdb.adapter
+package com.khrisna.filmdb.ui.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -8,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
+import androidx.recyclerview.widget.*
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
@@ -19,10 +17,20 @@ import com.khrisna.filmdb.ui.pagelist.ViewAllActivity.Companion.EXTRA_HEADER
 import com.khrisna.filmdb.ui.pagelist.ViewAllActivity.Companion.EXTRA_IS_MOVIE
 
 class MovieListAdapter(
-    private val context: Context, private val items: MutableList<MoviesEntity>,
+    private val context: Context,
     private val rvViewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
 ) :
-    RecyclerView.Adapter<MovieListAdapter.MoviesViewHolder>() {
+    ListAdapter<MoviesEntity, MovieListAdapter.MoviesViewHolder>(
+        object : DiffUtil.ItemCallback<MoviesEntity>() {
+            override fun areItemsTheSame(oldItem: MoviesEntity, newItem: MoviesEntity): Boolean {
+                return oldItem.header == newItem.header
+            }
+
+            override fun areContentsTheSame(oldItem: MoviesEntity, newItem: MoviesEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
+    ) {
 
     private lateinit var snapHelper: SnapHelper
 
@@ -33,10 +41,8 @@ class MovieListAdapter(
         return viewHolder
     }
 
-    override fun getItemCount(): Int = items.size
-
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(getItem(position))
     }
 
     inner class MoviesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -47,7 +53,9 @@ class MovieListAdapter(
         fun bind(item: MoviesEntity) {
             tvHeader.text = item.header
 
-            val adapter = item.movies?.let { MovieAdapter(context as AppCompatActivity, it) }
+            val adapter = MovieAdapter(context as AppCompatActivity)
+            adapter.submitList(item.movies)
+
             rvPoster.apply {
                 setHasFixedSize(true)
                 layoutManager =

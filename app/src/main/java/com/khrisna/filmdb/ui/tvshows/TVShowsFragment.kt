@@ -13,9 +13,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.adapter.TVShowListAdapter
 import com.khrisna.filmdb.data.source.local.entity.TVShowsEntity
 import com.khrisna.filmdb.di.Injection
+import com.khrisna.filmdb.ui.adapter.TVShowListAdapter
 import com.khrisna.filmdb.viewmodel.TVShowsViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_tvshows.*
@@ -45,7 +45,7 @@ class TVShowsFragment : Fragment() {
             model.airingToday?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     tvShows.add(data)
-                    tvShowListAdapter.notifyDataSetChanged()
+                    tvShowListAdapter.submitList(tvShows)
                 }
             })
             if (model.onTheAir == null) {
@@ -54,7 +54,7 @@ class TVShowsFragment : Fragment() {
             model.onTheAir?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     tvShows.add(data)
-                    tvShowListAdapter.notifyDataSetChanged()
+                    tvShowListAdapter.submitList(tvShows)
                 }
             })
             if (model.popular == null) {
@@ -63,7 +63,7 @@ class TVShowsFragment : Fragment() {
             model.popular?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     tvShows.add(data)
-                    tvShowListAdapter.notifyDataSetChanged()
+                    tvShowListAdapter.submitList(tvShows)
                 }
             })
             if (model.topRated == null) {
@@ -72,7 +72,7 @@ class TVShowsFragment : Fragment() {
             model.topRated?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     tvShows.add(data)
-                    tvShowListAdapter.notifyDataSetChanged()
+                    tvShowListAdapter.submitList(tvShows)
                 }
             })
         }
@@ -81,7 +81,7 @@ class TVShowsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tvShows = mutableListOf()
-        tvShowListAdapter = TVShowListAdapter(context as AppCompatActivity, tvShows)
+        tvShowListAdapter = TVShowListAdapter(context as AppCompatActivity)
 
         rv_tv_shows.apply {
             setHasFixedSize(true)

@@ -13,9 +13,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.adapter.MovieListAdapter
 import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
 import com.khrisna.filmdb.di.Injection
+import com.khrisna.filmdb.ui.adapter.MovieListAdapter
 import com.khrisna.filmdb.viewmodel.MoviesViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_movies.*
@@ -45,7 +45,7 @@ class MoviesFragment : Fragment() {
             model.nowPlaying?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     movies.add(data)
-                    movieListAdapter.notifyDataSetChanged()
+                    movieListAdapter.submitList(movies)
                 }
             })
             if (model.upComing == null) {
@@ -54,7 +54,7 @@ class MoviesFragment : Fragment() {
             model.upComing?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     movies.add(data)
-                    movieListAdapter.notifyDataSetChanged()
+                    movieListAdapter.submitList(movies)
                 }
             })
             if (model.popular == null) {
@@ -63,7 +63,7 @@ class MoviesFragment : Fragment() {
             model.popular?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     movies.add(data)
-                    movieListAdapter.notifyDataSetChanged()
+                    movieListAdapter.submitList(movies)
                 }
             })
             if (model.topRated == null) {
@@ -72,7 +72,7 @@ class MoviesFragment : Fragment() {
             model.topRated?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
                     movies.add(data)
-                    movieListAdapter.notifyDataSetChanged()
+                    movieListAdapter.submitList(movies)
                 }
             })
         }
@@ -82,7 +82,7 @@ class MoviesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         movies = mutableListOf()
-        movieListAdapter = MovieListAdapter(context as AppCompatActivity, movies)
+        movieListAdapter = MovieListAdapter(context as AppCompatActivity)
 
         rv_movies.apply {
             setHasFixedSize(true)

@@ -3,7 +3,7 @@ package com.khrisna.filmdb.ui.home
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.ui.home.adapter.SectionsPagerAdapter
+import com.khrisna.filmdb.ui.adapter.SectionsPagerAdapter
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
