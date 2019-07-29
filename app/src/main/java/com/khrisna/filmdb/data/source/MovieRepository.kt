@@ -7,6 +7,7 @@ import com.khrisna.filmdb.data.source.local.LocalRepository
 import com.khrisna.filmdb.data.source.local.entity.*
 import com.khrisna.filmdb.data.source.remote.RemoteRepository
 import com.khrisna.filmdb.data.source.remote.response.*
+import com.khrisna.filmdb.utils.EspressoIdlingResource
 
 class MovieRepository(
     private val localRepository: LocalRepository,
@@ -16,6 +17,7 @@ class MovieRepository(
     override fun getMovie(id: String): LiveData<MovieEntity> {
         val movie = MutableLiveData<MovieEntity>()
 
+        EspressoIdlingResource.increment()
         remoteRepository.getMovie(id, object : RemoteRepository.LoadMovieCallback {
             override fun onResponse(response: MovieResponse?) {
                 if (response != null) {
@@ -30,6 +32,7 @@ class MovieRepository(
                     val movieEntity = parseToMovieEntityWithGenres(response, genreEntityList)
 
                     movie.postValue(movieEntity)
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -44,6 +47,7 @@ class MovieRepository(
     override fun getMoviesNowPlaying(page: String): LiveData<MoviesEntity> {
         val movies = MutableLiveData<MoviesEntity>()
 
+        EspressoIdlingResource.increment()
         remoteRepository.getMoviesNowPlaying(page, object : RemoteRepository.LoadMoviesCallback {
             override fun onResponse(response: MoviesResponse?) {
                 val movieEntityList = mutableListOf<MovieEntity>()
@@ -60,6 +64,7 @@ class MovieRepository(
                         movies = movieEntityList
                     )
                     movies.postValue(moviesEntity)
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -74,6 +79,7 @@ class MovieRepository(
     override fun getMoviesUpComing(page: String): LiveData<MoviesEntity> {
         val movies = MutableLiveData<MoviesEntity>()
 
+        EspressoIdlingResource.increment()
         remoteRepository.getMoviesUpComing(page, object : RemoteRepository.LoadMoviesCallback {
             override fun onResponse(response: MoviesResponse?) {
                 val movieEntityList = mutableListOf<MovieEntity>()
@@ -90,6 +96,7 @@ class MovieRepository(
                         movies = movieEntityList
                     )
                     movies.postValue(moviesEntity)
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -104,6 +111,7 @@ class MovieRepository(
     override fun getMoviesPopular(page: String): LiveData<MoviesEntity> {
         val movies = MutableLiveData<MoviesEntity>()
 
+        EspressoIdlingResource.increment()
         remoteRepository.getMoviesPopular(page, object : RemoteRepository.LoadMoviesCallback {
             override fun onResponse(response: MoviesResponse?) {
                 val movieEntityList = mutableListOf<MovieEntity>()
@@ -120,6 +128,7 @@ class MovieRepository(
                         movies = movieEntityList
                     )
                     movies.postValue(moviesEntity)
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -134,6 +143,7 @@ class MovieRepository(
     override fun getMoviesTopRated(page: String): LiveData<MoviesEntity> {
         val movies = MutableLiveData<MoviesEntity>()
 
+        EspressoIdlingResource.increment()
         remoteRepository.getMoviesTopRated(page, object : RemoteRepository.LoadMoviesCallback {
             override fun onResponse(response: MoviesResponse?) {
                 val movieEntityList = mutableListOf<MovieEntity>()
@@ -150,6 +160,7 @@ class MovieRepository(
                         movies = movieEntityList
                     )
                     movies.postValue(moviesEntity)
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -164,6 +175,7 @@ class MovieRepository(
     override fun getTVShow(id: String): LiveData<TVShowEntity> {
         val tvShow = MutableLiveData<TVShowEntity>()
 
+        EspressoIdlingResource.increment()
         remoteRepository.getTVShow(id, object : RemoteRepository.LoadTVShowCallback {
             override fun onResponse(response: TVShowResponse?) {
                 if (response != null) {
@@ -178,6 +190,7 @@ class MovieRepository(
                     val tvShowEntity = parseToTVShowEntityWithGenres(response, genreEntityList)
 
                     tvShow.postValue(tvShowEntity)
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -192,6 +205,7 @@ class MovieRepository(
     override fun getTVShowsAiringToday(page: String): LiveData<TVShowsEntity> {
         val tvShows = MutableLiveData<TVShowsEntity>()
 
+        EspressoIdlingResource.increment()
         remoteRepository.getTVShowsAiringToday(page, object : RemoteRepository.LoadTVShowsCallback {
             override fun onResponse(response: TVShowsResponse?) {
                 val tvShowEntityList = mutableListOf<TVShowEntity>()
@@ -208,6 +222,7 @@ class MovieRepository(
                         tvShow = tvShowEntityList
                     )
                     tvShows.postValue(tvShowsEntity)
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -222,6 +237,7 @@ class MovieRepository(
     override fun getTVShowsOnTheAir(page: String): LiveData<TVShowsEntity> {
         val tvShows = MutableLiveData<TVShowsEntity>()
 
+        EspressoIdlingResource.increment()
         remoteRepository.getTVShowsOnTheAir(page, object : RemoteRepository.LoadTVShowsCallback {
             override fun onResponse(response: TVShowsResponse?) {
                 val tvShowEntityList = mutableListOf<TVShowEntity>()
@@ -238,6 +254,7 @@ class MovieRepository(
                         tvShow = tvShowEntityList
                     )
                     tvShows.postValue(tvShowsEntity)
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -252,6 +269,7 @@ class MovieRepository(
     override fun getTVShowsPopular(page: String): LiveData<TVShowsEntity> {
         val tvShows = MutableLiveData<TVShowsEntity>()
 
+        EspressoIdlingResource.increment()
         remoteRepository.getTVShowsPopular(page, object : RemoteRepository.LoadTVShowsCallback {
             override fun onResponse(response: TVShowsResponse?) {
                 val tvShowEntityList = mutableListOf<TVShowEntity>()
@@ -268,6 +286,7 @@ class MovieRepository(
                         tvShow = tvShowEntityList
                     )
                     tvShows.postValue(tvShowsEntity)
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -282,6 +301,7 @@ class MovieRepository(
     override fun getTVShowsTopRated(page: String): LiveData<TVShowsEntity> {
         val tvShows = MutableLiveData<TVShowsEntity>()
 
+        EspressoIdlingResource.increment()
         remoteRepository.getTVShowsTopRated(page, object : RemoteRepository.LoadTVShowsCallback {
             override fun onResponse(response: TVShowsResponse?) {
                 val tvShowEntityList = mutableListOf<TVShowEntity>()
@@ -298,6 +318,7 @@ class MovieRepository(
                         tvShow = tvShowEntityList
                     )
                     tvShows.postValue(tvShowsEntity)
+                    EspressoIdlingResource.decrement()
                 }
             }
 

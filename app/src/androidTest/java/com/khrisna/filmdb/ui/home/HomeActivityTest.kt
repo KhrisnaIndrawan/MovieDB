@@ -4,21 +4,27 @@ package com.khrisna.filmdb.ui.home
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.khrisna.filmdb.R
+import com.khrisna.filmdb.utils.EspressoIdlingResource
 import com.schibsted.spain.barista.interaction.BaristaListInteractions.clickListItem
 import org.hamcrest.Description
 import org.hamcrest.Matcher
+import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
+import org.hamcrest.core.IsInstanceOf
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.lang.Thread.sleep
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -28,9 +34,30 @@ class HomeActivityTest {
     @JvmField
     var mActivityTestRule = ActivityTestRule(HomeActivity::class.java)
 
+    @Before
+    fun setUp() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.espressoIdlingResource)
+    }
+
+    @After
+    fun tearDown() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.espressoIdlingResource)
+    }
+
     @Test
     fun homeActivityTest() {
-        sleep(4000)
+        val recyclerView = onView(
+            allOf(
+                withId(R.id.rv_movies),
+                childAtPosition(
+                    withParent(withId(R.id.view_pager)),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        recyclerView.check(matches(isDisplayed()))
+
         val tabView = onView(
             allOf(
                 withContentDescription("TV Shows"),
@@ -46,23 +73,34 @@ class HomeActivityTest {
         )
         tabView.perform(click())
 
-        val tabView2 = onView(
+        val recyclerView2 = onView(
             allOf(
-                withContentDescription("Movies"),
+                withId(R.id.rv_tv_shows),
                 childAtPosition(
-                    childAtPosition(
-                        withId(R.id.tabs),
-                        0
-                    ),
+                    withParent(withId(R.id.view_pager)),
                     0
                 ),
                 isDisplayed()
             )
         )
-        tabView2.perform(click())
+        recyclerView2.check(matches(isDisplayed()))
 
-        clickListItem(R.id.rv_movies, 0)
-        sleep(2000)
+        clickListItem(R.id.rv_tv_shows, 0)
+
+        val textView = onView(
+            allOf(
+                withId(R.id.tv_title),
+                childAtPosition(
+                    childAtPosition(
+                        IsInstanceOf.instanceOf(android.widget.ScrollView::class.java),
+                        0
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        textView.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(
