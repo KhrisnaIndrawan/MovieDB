@@ -87,7 +87,7 @@ class MoviesFragment : Fragment() {
         rv_movies.apply {
             setHasFixedSize(true)
             layoutManager =
-                LinearLayoutManager(context as AppCompatActivity, RecyclerView.VERTICAL, false)
+                LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = movieListAdapter
         }
     }

@@ -20,6 +20,7 @@ class TVShowsViewModelTest {
 
     private lateinit var tvShowEntity: TVShowEntity
     private lateinit var tvShowsEntity: TVShowsEntity
+    private val page = "1"
 
     @Rule
     @JvmField
@@ -57,7 +58,7 @@ class TVShowsViewModelTest {
         val expectedResult = MutableLiveData<TVShowsEntity>()
         expectedResult.setValue(tvShowsEntity)
 
-        Mockito.`when`(movieRepository.getTVShowsAiringToday())
+        Mockito.`when`(movieRepository.getTVShowsAiringToday(page))
             .thenReturn(expectedResult)
 
         val observer: Observer<TVShowsEntity> = Mockito.mock(Observer::class.java) as Observer<TVShowsEntity>
@@ -65,7 +66,7 @@ class TVShowsViewModelTest {
         viewModel.getAiringToday()
         viewModel.airingToday?.observeForever(observer)
 
-        Mockito.verify(movieRepository).getTVShowsAiringToday()
+        Mockito.verify(movieRepository).getTVShowsAiringToday(page)
 
         assertNotNull(viewModel.airingToday)
         assertEquals(20, viewModel.airingToday?.value?.tvShow?.size)
@@ -76,7 +77,7 @@ class TVShowsViewModelTest {
         val expectedResult = MutableLiveData<TVShowsEntity>()
         expectedResult.setValue(tvShowsEntity)
 
-        Mockito.`when`(movieRepository.getTVShowsOnTheAir())
+        Mockito.`when`(movieRepository.getTVShowsOnTheAir(page))
             .thenReturn(expectedResult)
 
         val observer: Observer<TVShowsEntity> = Mockito.mock(Observer::class.java) as Observer<TVShowsEntity>
@@ -84,7 +85,7 @@ class TVShowsViewModelTest {
         viewModel.getOnTheAir()
         viewModel.onTheAir?.observeForever(observer)
 
-        Mockito.verify(movieRepository).getTVShowsOnTheAir()
+        Mockito.verify(movieRepository).getTVShowsOnTheAir(page)
 
         assertNotNull(viewModel.onTheAir)
         assertEquals(20, viewModel.onTheAir?.value?.tvShow?.size)
@@ -95,7 +96,7 @@ class TVShowsViewModelTest {
         val expectedResult = MutableLiveData<TVShowsEntity>()
         expectedResult.setValue(tvShowsEntity)
 
-        Mockito.`when`(movieRepository.getTVShowsPopular())
+        Mockito.`when`(movieRepository.getTVShowsPopular(page))
             .thenReturn(expectedResult)
 
         val observer: Observer<TVShowsEntity> = Mockito.mock(Observer::class.java) as Observer<TVShowsEntity>
@@ -103,7 +104,7 @@ class TVShowsViewModelTest {
         viewModel.getPopular()
         viewModel.popular?.observeForever(observer)
 
-        Mockito.verify(movieRepository).getTVShowsPopular()
+        Mockito.verify(movieRepository).getTVShowsPopular(page)
 
         assertNotNull(viewModel.popular)
         assertEquals(20, viewModel.popular?.value?.tvShow?.size)
@@ -114,7 +115,7 @@ class TVShowsViewModelTest {
         val expectedResult = MutableLiveData<TVShowsEntity>()
         expectedResult.setValue(tvShowsEntity)
 
-        Mockito.`when`(movieRepository.getTVShowsTopRated())
+        Mockito.`when`(movieRepository.getTVShowsTopRated(page))
             .thenReturn(expectedResult)
 
         val observer: Observer<TVShowsEntity> = Mockito.mock(Observer::class.java) as Observer<TVShowsEntity>
@@ -122,7 +123,7 @@ class TVShowsViewModelTest {
         viewModel.getTopRated()
         viewModel.topRated?.observeForever(observer)
 
-        Mockito.verify(movieRepository).getTVShowsTopRated()
+        Mockito.verify(movieRepository).getTVShowsTopRated(page)
 
         assertNotNull(viewModel.topRated)
         assertEquals(20, viewModel.topRated?.value?.tvShow?.size)

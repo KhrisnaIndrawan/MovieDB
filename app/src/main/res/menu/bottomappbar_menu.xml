@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+            android:id="@+id/app_bar_home"
+            android:icon="@drawable/ic_home_white_24dp"
+            android:title="@string/home"
+            app:showAsAction="ifRoom"/>
+
+    <item
+            android:id="@+id/app_bar_favorite"
+            android:icon="@drawable/ic_favorite_white_checked_24dp"
+            android:title="@string/favorite"
+            app:showAsAction="ifRoom"/>
+
+    <!-- For later function -->
+    <!--<item-->
+            <!--android:id="@+id/app_bar_translation"-->
+            <!--android:title="@string/translation"-->
+            <!--android:icon="@drawable/ic_translation_white_24dp"-->
+            <!--app:showAsAction="ifRoom"/>-->
+</menu>

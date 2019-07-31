@@ -12,11 +12,11 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.khrisna.filmdb.R
+import com.khrisna.filmdb.ui.dashboard.DashboardActivity
 import com.khrisna.filmdb.utils.EspressoIdlingResource
 import com.schibsted.spain.barista.interaction.BaristaListInteractions.clickListItem
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.core.IsInstanceOf
@@ -28,11 +28,11 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class HomeActivityTest {
+class DashboardActivityTest {
 
     @Rule
     @JvmField
-    var mActivityTestRule = ActivityTestRule(HomeActivity::class.java)
+    var mActivityTestRule = ActivityTestRule(DashboardActivity::class.java)
 
     @Before
     fun setUp() {
