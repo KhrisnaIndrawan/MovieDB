@@ -31,27 +31,7 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
         }
     }
 
-    interface LoadMovieCallback {
-        fun onResponse(response: MovieResponse?)
-        fun onFailure()
-    }
-
-    interface LoadMoviesCallback {
-        fun onResponse(response: MoviesResponse?)
-        fun onFailure()
-    }
-
-    interface LoadTVShowCallback {
-        fun onResponse(response: TVShowResponse?)
-        fun onFailure()
-    }
-
-    interface LoadTVShowsCallback {
-        fun onResponse(response: TVShowsResponse?)
-        fun onFailure()
-    }
-
-    fun getMovie(id: String): LiveData<ApiResponse<MovieResponse>> {
+    fun getMovie(id: Int): LiveData<ApiResponse<MovieResponse>> {
         val movieResponse = MutableLiveData<ApiResponse<MovieResponse>>()
         val networkServices = retrofitServices.createMovieService()
 
@@ -193,7 +173,7 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
         return moviesResponse
     }
 
-    fun getTVShow(id: String): LiveData<ApiResponse<TVShowResponse>> {
+    fun getTVShow(id: Int): LiveData<ApiResponse<TVShowResponse>> {
         val tvShowResponse = MutableLiveData<ApiResponse<TVShowResponse>>()
 
         val networkServices = retrofitServices.createTVShowService()

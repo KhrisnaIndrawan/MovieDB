@@ -6,7 +6,7 @@ import com.khrisna.filmdb.data.source.local.room.MovieDao
 
 class LocalRepository(private val movieDao: MovieDao) {
 
-    fun getMovieById(id: String): LiveData<MovieEntity> {
+    fun getMovieById(id: Int): LiveData<MovieEntity> {
         return movieDao.getMovieById(id)
     }
 
@@ -18,7 +18,7 @@ class LocalRepository(private val movieDao: MovieDao) {
         return movieDao.updateMovie(movie)
     }
 
-    fun getMoviesById(id: String): LiveData<MoviesEntity> {
+    fun getMoviesById(id: Int): LiveData<MoviesEntity> {
         return movieDao.getMoviesById(id)
     }
 
@@ -34,7 +34,7 @@ class LocalRepository(private val movieDao: MovieDao) {
         return movieDao.updateMovies(movies)
     }
 
-    fun getTVShowById(id: String): LiveData<TVShowEntity> {
+    fun getTVShowById(id: Int): LiveData<TVShowEntity> {
         return movieDao.getTVShowById(id)
     }
 
@@ -46,7 +46,7 @@ class LocalRepository(private val movieDao: MovieDao) {
         return movieDao.updateTVShow(tvShow)
     }
 
-    fun getTVShowsById(id: String): LiveData<TVShowsEntity> {
+    fun getTVShowsById(id: Int): LiveData<TVShowsEntity> {
         return movieDao.getTVShowsById(id)
     }
 
@@ -62,7 +62,7 @@ class LocalRepository(private val movieDao: MovieDao) {
         return movieDao.updateTVShows(movies)
     }
 
-    fun getGenreById(id: String): LiveData<GenreEntity> {
+    fun getGenreById(id: Int): LiveData<GenreEntity> {
         return movieDao.getGenreById(id)
     }
 

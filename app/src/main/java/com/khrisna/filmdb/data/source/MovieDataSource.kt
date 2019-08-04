@@ -9,7 +9,7 @@ import com.khrisna.filmdb.data.source.vo.Resource
 
 interface MovieDataSource {
 
-    fun getMovie(id: String): LiveData<Resource<MovieEntity>>
+    fun getMovie(id: Int): LiveData<Resource<MovieEntity>>
 
     fun getMoviesNowPlaying(page: String): LiveData<Resource<MoviesEntity>>
 
@@ -19,7 +19,7 @@ interface MovieDataSource {
 
     fun getMoviesTopRated(page: String): LiveData<Resource<MoviesEntity>>
 
-    fun getTVShow(id: String): LiveData<Resource<TVShowEntity>>
+    fun getTVShow(id: Int): LiveData<Resource<TVShowEntity>>
 
     fun getTVShowsAiringToday(page: String): LiveData<Resource<TVShowsEntity>>
 

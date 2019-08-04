@@ -36,7 +36,7 @@ class MovieRepository(
         }
     }
 
-    override fun getMovie(id: String): LiveData<Resource<MovieEntity>> {
+    override fun getMovie(id: Int): LiveData<Resource<MovieEntity>> {
         return object : NetworkBoundResource<MovieEntity, MovieResponse>(appExecutors) {
 
             override fun loadFromDB(): LiveData<MovieEntity> {
@@ -203,7 +203,7 @@ class MovieRepository(
         }.asLiveData()
     }
 
-    override fun getTVShow(id: String): LiveData<Resource<TVShowEntity>> {
+    override fun getTVShow(id: Int): LiveData<Resource<TVShowEntity>> {
         return object : NetworkBoundResource<TVShowEntity, TVShowResponse>(appExecutors) {
 
             override fun loadFromDB(): LiveData<TVShowEntity> {

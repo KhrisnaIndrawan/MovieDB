@@ -4,11 +4,12 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.ui.movies.MoviesFragment
 import com.khrisna.filmdb.ui.tvshows.TVShowsFragment
 
-class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     private val tabs = arrayOf(
         R.string.tab_movies,

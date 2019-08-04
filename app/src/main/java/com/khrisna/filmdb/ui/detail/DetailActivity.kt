@@ -53,7 +53,7 @@ class DetailActivity : AppCompatActivity() {
                 supportActionBar.let {
                     title = "Movie Details"
                 }
-                val movie: String = intent.getStringExtra(EXTRA_DETAIL_DATA) as String
+                val movie: Int = intent.getIntExtra(EXTRA_DETAIL_DATA, 0)
                 if (detailViewModel.movie == null) {
                     detailViewModel.getMovie(movie)
                 }
@@ -62,7 +62,7 @@ class DetailActivity : AppCompatActivity() {
                 supportActionBar.let {
                     title = "TVShow Details"
                 }
-                val tvShow: String = intent.getStringExtra(EXTRA_DETAIL_DATA) as String
+                val tvShow: Int = intent.getIntExtra(EXTRA_DETAIL_DATA, 0)
                 if (detailViewModel.tvShow == null) {
                     detailViewModel.getTVShow(tvShow)
                 }

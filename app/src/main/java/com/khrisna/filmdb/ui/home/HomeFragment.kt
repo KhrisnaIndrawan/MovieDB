@@ -28,12 +28,6 @@ class HomeFragment : Fragment() {
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        Toast.makeText(context, "DISPLAYED", Toast.LENGTH_SHORT).show()
-    }
-
     companion object {
         @JvmStatic
         fun newInstance() =

@@ -11,7 +11,7 @@ import retrofit2.http.Query
 interface TVShowService {
 
     @GET("tv/{Id}?api_key=${BuildConfig.API_KEY}&language=en-US")
-    fun getTVShow(@Path("Id") id: String): Call<TVShowResponse>
+    fun getTVShow(@Path("Id") id: Int): Call<TVShowResponse>
 
     @GET("tv/airing_today?api_key=${BuildConfig.API_KEY}&language=en-US?")
     fun getTVAiringToday(@Query("page") page: String): Call<TVShowsResponse>

@@ -11,7 +11,7 @@ import retrofit2.http.Query
 interface MovieService {
 
     @GET("movie/{Id}?api_key=${BuildConfig.API_KEY}&language=en-US")
-    fun getMovie(@Path("Id") id: String): Call<MovieResponse>
+    fun getMovie(@Path("Id") id: Int): Call<MovieResponse>
 
     @GET("movie/now_playing?api_key=${BuildConfig.API_KEY}&language=en-US?")
     fun getMovieNowPlaying(@Query("page") page: String): Call<MoviesResponse>

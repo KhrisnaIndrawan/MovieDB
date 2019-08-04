@@ -10,7 +10,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="0dp"
-            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardBackgroundColor="@color/colorPrimaryDark"
             android:elevation="8dp"
             android:layout_marginTop="@dimen/item_movie_margin">
 
@@ -40,7 +40,7 @@
                 android:textSize="14sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
-                android:background="@color/colorPrimary"
+                android:background="@color/colorPrimaryDark"
                 android:id="@+id/rv_poster"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"

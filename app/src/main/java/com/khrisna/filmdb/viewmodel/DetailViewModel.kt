@@ -19,11 +19,11 @@ class DetailViewModel(
     val tvShow: LiveData<Resource<TVShowEntity>>?
         get() = _tvShow
 
-    fun getMovie(id: String) {
+    fun getMovie(id: Int) {
         _movie = movieRepository.getMovie(id)
     }
 
-    fun getTVShow(id: String) {
+    fun getTVShow(id: Int) {
         _tvShow = movieRepository.getTVShow(id)
     }
 }

@@ -10,7 +10,7 @@ interface MovieDao {
     // Movie
     @Transaction
     @Query("SELECT * FROM movie_entities WHERE movie_id = :id")
-    fun getMovieById(id: String): LiveData<MovieEntity>
+    fun getMovieById(id: Int): LiveData<MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovie(movies: MovieEntity)
@@ -21,7 +21,7 @@ interface MovieDao {
     // Movies
     @Transaction
     @Query("SELECT * FROM movies_entities WHERE movies_id = :id")
-    fun getMoviesById(id: String): LiveData<MoviesEntity>
+    fun getMoviesById(id: Int): LiveData<MoviesEntity>
 
     @Transaction
     @Query("SELECT * FROM movies_entities WHERE movies_id = :header")
@@ -36,7 +36,7 @@ interface MovieDao {
     // TVShow
     @Transaction
     @Query("SELECT * FROM tv_show_entities WHERE tv_show_id = :id")
-    fun getTVShowById(id: String): LiveData<TVShowEntity>
+    fun getTVShowById(id: Int): LiveData<TVShowEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTVShow(tvShows: TVShowEntity)
@@ -46,7 +46,7 @@ interface MovieDao {
 
     @Transaction
     @Query("SELECT * FROM tv_shows_entities WHERE tv_shows_id = :id")
-    fun getTVShowsById(id: String): LiveData<TVShowsEntity>
+    fun getTVShowsById(id: Int): LiveData<TVShowsEntity>
 
     @Transaction
     @Query("SELECT * FROM tv_shows_entities WHERE tv_shows_header = :header")
@@ -61,7 +61,7 @@ interface MovieDao {
     // Genre
     @Transaction
     @Query("SELECT * FROM genre_entities WHERE genre_id = :id")
-    fun getGenreById(id: String): LiveData<GenreEntity>
+    fun getGenreById(id: Int): LiveData<GenreEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertGenre(genres: GenreEntity)
