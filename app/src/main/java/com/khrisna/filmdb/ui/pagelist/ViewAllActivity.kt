@@ -101,7 +101,7 @@ class ViewAllActivity : AppCompatActivity() {
 
     private fun obtainViewModel(activity: AppCompatActivity): ViewAllViewModel {
         // Use a Factory to inject dependencies into the ViewModel
-        val factory = ViewModelFactory(Injection.provideRepository())
+        val factory = ViewModelFactory.getInstance(Injection.provideRepository())
 
         return ViewModelProviders.of(activity, factory).get(ViewAllViewModel::class.java)
     }

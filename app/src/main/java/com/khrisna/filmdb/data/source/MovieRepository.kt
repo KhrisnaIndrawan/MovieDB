@@ -1,333 +1,361 @@
 package com.khrisna.filmdb.data.source
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.khrisna.filmdb.data.source.local.LocalRepository
 import com.khrisna.filmdb.data.source.local.entity.*
+import com.khrisna.filmdb.data.source.remote.ApiResponse
 import com.khrisna.filmdb.data.source.remote.RemoteRepository
 import com.khrisna.filmdb.data.source.remote.response.*
-import com.khrisna.filmdb.utils.EspressoIdlingResource
+import com.khrisna.filmdb.data.source.vo.Resource
+import com.khrisna.filmdb.utils.AppExecutors
 
 class MovieRepository(
     private val localRepository: LocalRepository,
-    private val remoteRepository: RemoteRepository
+    private val remoteRepository: RemoteRepository,
+    private val appExecutors: AppExecutors
 ) : MovieDataSource {
 
-    override fun getMovie(id: String): LiveData<MovieEntity> {
-        val movie = MutableLiveData<MovieEntity>()
+    companion object {
+        private var INSTANCE: MovieRepository? = null
 
-        EspressoIdlingResource.increment()
-        remoteRepository.getMovie(id, object : RemoteRepository.LoadMovieCallback {
-            override fun onResponse(response: MovieResponse?) {
-                if (response != null) {
-                    val genreResponse = response.genres
-                    val genreEntityList = mutableListOf<GenreEntity>()
-                    for (genre in genreResponse) {
-                        genreEntityList.add(
-                            parseToGenre(genre)
-                        )
-                    }
-
-                    val movieEntity = parseToMovieEntityWithGenres(response, genreEntityList)
-
-                    movie.postValue(movieEntity)
-                    EspressoIdlingResource.decrement()
+        fun getInstance(
+            local: LocalRepository,
+            remote: RemoteRepository,
+            appExecutors: AppExecutors
+        ): MovieRepository? {
+            if (INSTANCE == null) {
+                synchronized(MovieRepository::class) {
+                    INSTANCE = MovieRepository(local, remote, appExecutors)
                 }
             }
+            return INSTANCE
+        }
 
-            override fun onFailure() {
-                Log.d("onFailure", "Get movie data failed.")
-            }
-        })
-
-        return movie
+        fun destroyInstance() {
+            INSTANCE = null
+        }
     }
 
-    override fun getMoviesNowPlaying(page: String): LiveData<MoviesEntity> {
-        val movies = MutableLiveData<MoviesEntity>()
+    override fun getMovie(id: String): LiveData<Resource<MovieEntity>> {
+        return object : NetworkBoundResource<MovieEntity, MovieResponse>(appExecutors) {
 
-        EspressoIdlingResource.increment()
-        remoteRepository.getMoviesNowPlaying(page, object : RemoteRepository.LoadMoviesCallback {
-            override fun onResponse(response: MoviesResponse?) {
+            override fun loadFromDB(): LiveData<MovieEntity> {
+                return localRepository.getMovieById(id)
+            }
+
+            override fun shouldFetch(data: MovieEntity?): Boolean {
+                return (data == null)
+            }
+
+            override fun createCall(): LiveData<ApiResponse<MovieResponse>> {
+                return remoteRepository.getMovie(id)
+            }
+
+            override fun saveCallResult(data: MovieResponse) {
+                val genreResponse = data.genres
+                val genreEntityList = mutableListOf<GenreEntity>()
+                for (genre in genreResponse) {
+                    genreEntityList.add(
+                        parseToGenre(genre)
+                    )
+                }
+
+                val movieEntity = parseToMovieEntityWithGenres(data, genreEntityList)
+
+                localRepository.insertMovie(movieEntity as MovieEntity)
+            }
+        }.asLiveData()
+    }
+
+    override fun getMoviesNowPlaying(page: String): LiveData<Resource<MoviesEntity>> {
+        return object : NetworkBoundResource<MoviesEntity, MoviesResponse>(appExecutors) {
+            override fun loadFromDB(): LiveData<MoviesEntity> {
+                return localRepository.getMoviesByHeader("Now Playing")
+            }
+
+            override fun shouldFetch(data: MoviesEntity?): Boolean {
+                return (data == null)
+            }
+
+            override fun createCall(): LiveData<ApiResponse<MoviesResponse>> {
+                return remoteRepository.getMoviesNowPlaying(page)
+            }
+
+            override fun saveCallResult(data: MoviesResponse) {
                 val movieEntityList = mutableListOf<MovieEntity>()
 
-                if (response != null) {
-                    for (movie in response.movies) {
+                for (movie in data.movies) {
 
-                        val movieEntity = parseToMovieEntity(movie) as MovieEntity
-                        movieEntityList.add(movieEntity)
-                    }
-
-                    val moviesEntity = MoviesEntity(
-                        header = "Now Playing",
-                        movies = movieEntityList
-                    )
-                    movies.postValue(moviesEntity)
-                    EspressoIdlingResource.decrement()
+                    val movieEntity = parseToMovieEntity(movie) as MovieEntity
+                    movieEntityList.add(movieEntity)
                 }
-            }
 
-            override fun onFailure() {
-                Log.d("onFailure", "Get movies now playing failed!")
-            }
-        })
+                val moviesEntity = MoviesEntity(
+                    header = "Now Playing",
+                    movies = movieEntityList
+                )
 
-        return movies
+                localRepository.insertMovies(moviesEntity)
+            }
+        }.asLiveData()
     }
 
-    override fun getMoviesUpComing(page: String): LiveData<MoviesEntity> {
-        val movies = MutableLiveData<MoviesEntity>()
+    override fun getMoviesUpComing(page: String): LiveData<Resource<MoviesEntity>> {
+        return object : NetworkBoundResource<MoviesEntity, MoviesResponse>(appExecutors) {
+            override fun loadFromDB(): LiveData<MoviesEntity> {
+                return localRepository.getMoviesByHeader("Up Coming")
+            }
 
-        EspressoIdlingResource.increment()
-        remoteRepository.getMoviesUpComing(page, object : RemoteRepository.LoadMoviesCallback {
-            override fun onResponse(response: MoviesResponse?) {
+            override fun shouldFetch(data: MoviesEntity?): Boolean {
+                return (data == null)
+            }
+
+            override fun createCall(): LiveData<ApiResponse<MoviesResponse>> {
+                return remoteRepository.getMoviesUpComing(page)
+            }
+
+            override fun saveCallResult(data: MoviesResponse) {
                 val movieEntityList = mutableListOf<MovieEntity>()
 
-                if (response != null) {
-                    for (movie in response.movies) {
+                for (movie in data.movies) {
 
-                        val movieEntity = parseToMovieEntity(movie) as MovieEntity
-                        movieEntityList.add(movieEntity)
-                    }
-
-                    val moviesEntity = MoviesEntity(
-                        header = "Up Coming",
-                        movies = movieEntityList
-                    )
-                    movies.postValue(moviesEntity)
-                    EspressoIdlingResource.decrement()
+                    val movieEntity = parseToMovieEntity(movie) as MovieEntity
+                    movieEntityList.add(movieEntity)
                 }
-            }
 
-            override fun onFailure() {
-                Log.d("onFailure", "Get movies now playing failed!")
-            }
-        })
+                val moviesEntity = MoviesEntity(
+                    header = "Up Coming",
+                    movies = movieEntityList
+                )
 
-        return movies
+                localRepository.insertMovies(moviesEntity)
+            }
+        }.asLiveData()
     }
 
-    override fun getMoviesPopular(page: String): LiveData<MoviesEntity> {
-        val movies = MutableLiveData<MoviesEntity>()
+    override fun getMoviesPopular(page: String): LiveData<Resource<MoviesEntity>> {
+        return object : NetworkBoundResource<MoviesEntity, MoviesResponse>(appExecutors) {
+            override fun loadFromDB(): LiveData<MoviesEntity> {
+                return localRepository.getMoviesByHeader("Popular")
+            }
 
-        EspressoIdlingResource.increment()
-        remoteRepository.getMoviesPopular(page, object : RemoteRepository.LoadMoviesCallback {
-            override fun onResponse(response: MoviesResponse?) {
+            override fun shouldFetch(data: MoviesEntity?): Boolean {
+                return (data == null)
+            }
+
+            override fun createCall(): LiveData<ApiResponse<MoviesResponse>> {
+                return remoteRepository.getMoviesPopular(page)
+            }
+
+            override fun saveCallResult(data: MoviesResponse) {
                 val movieEntityList = mutableListOf<MovieEntity>()
 
-                if (response != null) {
-                    for (movie in response.movies) {
+                for (movie in data.movies) {
 
-                        val movieEntity = parseToMovieEntity(movie) as MovieEntity
-                        movieEntityList.add(movieEntity)
-                    }
-
-                    val moviesEntity = MoviesEntity(
-                        header = "Popular",
-                        movies = movieEntityList
-                    )
-                    movies.postValue(moviesEntity)
-                    EspressoIdlingResource.decrement()
+                    val movieEntity = parseToMovieEntity(movie) as MovieEntity
+                    movieEntityList.add(movieEntity)
                 }
-            }
 
-            override fun onFailure() {
-                Log.d("onFailure", "Get movies now playing failed!")
-            }
-        })
+                val moviesEntity = MoviesEntity(
+                    header = "Popular",
+                    movies = movieEntityList
+                )
 
-        return movies
+                localRepository.insertMovies(moviesEntity)
+            }
+        }.asLiveData()
     }
 
-    override fun getMoviesTopRated(page: String): LiveData<MoviesEntity> {
-        val movies = MutableLiveData<MoviesEntity>()
+    override fun getMoviesTopRated(page: String): LiveData<Resource<MoviesEntity>> {
+        return object : NetworkBoundResource<MoviesEntity, MoviesResponse>(appExecutors) {
+            override fun loadFromDB(): LiveData<MoviesEntity> {
+                return localRepository.getMoviesByHeader("Top Rated")
+            }
 
-        EspressoIdlingResource.increment()
-        remoteRepository.getMoviesTopRated(page, object : RemoteRepository.LoadMoviesCallback {
-            override fun onResponse(response: MoviesResponse?) {
+            override fun shouldFetch(data: MoviesEntity?): Boolean {
+                return (data == null)
+            }
+
+            override fun createCall(): LiveData<ApiResponse<MoviesResponse>> {
+                return remoteRepository.getMoviesTopRated(page)
+            }
+
+            override fun saveCallResult(data: MoviesResponse) {
                 val movieEntityList = mutableListOf<MovieEntity>()
 
-                if (response != null) {
-                    for (movie in response.movies) {
+                for (movie in data.movies) {
 
-                        val movieEntity = parseToMovieEntity(movie) as MovieEntity
-                        movieEntityList.add(movieEntity)
-                    }
+                    val movieEntity = parseToMovieEntity(movie) as MovieEntity
+                    movieEntityList.add(movieEntity)
+                }
 
-                    val moviesEntity = MoviesEntity(
-                        header = "Top Rated",
-                        movies = movieEntityList
+                val moviesEntity = MoviesEntity(
+                    header = "Top Rated",
+                    movies = movieEntityList
+                )
+
+                localRepository.insertMovies(moviesEntity)
+            }
+        }.asLiveData()
+    }
+
+    override fun getTVShow(id: String): LiveData<Resource<TVShowEntity>> {
+        return object : NetworkBoundResource<TVShowEntity, TVShowResponse>(appExecutors) {
+
+            override fun loadFromDB(): LiveData<TVShowEntity> {
+                return localRepository.getTVShowById(id)
+            }
+
+            override fun shouldFetch(data: TVShowEntity?): Boolean {
+                return (data == null)
+            }
+
+            override fun createCall(): LiveData<ApiResponse<TVShowResponse>> {
+                return remoteRepository.getTVShow(id)
+            }
+
+            override fun saveCallResult(data: TVShowResponse) {
+                val genreResponse = data.genres
+                val genreEntityList = mutableListOf<GenreEntity>()
+                for (genre in genreResponse) {
+                    genreEntityList.add(
+                        parseToGenre(genre)
                     )
-                    movies.postValue(moviesEntity)
-                    EspressoIdlingResource.decrement()
                 }
-            }
 
-            override fun onFailure() {
-                Log.d("onFailure", "Get movies now playing failed!")
-            }
-        })
+                val tvShowEntity = parseToTVShowEntityWithGenres(data, genreEntityList)
 
-        return movies
+                localRepository.insertTVShow(tvShowEntity as TVShowEntity)
+            }
+        }.asLiveData()
     }
 
-    override fun getTVShow(id: String): LiveData<TVShowEntity> {
-        val tvShow = MutableLiveData<TVShowEntity>()
-
-        EspressoIdlingResource.increment()
-        remoteRepository.getTVShow(id, object : RemoteRepository.LoadTVShowCallback {
-            override fun onResponse(response: TVShowResponse?) {
-                if (response != null) {
-                    val genreResponse = response.genres
-                    val genreEntityList = mutableListOf<GenreEntity>()
-                    for (genre in genreResponse) {
-                        genreEntityList.add(
-                            parseToGenre(genre)
-                        )
-                    }
-
-                    val tvShowEntity = parseToTVShowEntityWithGenres(response, genreEntityList)
-
-                    tvShow.postValue(tvShowEntity)
-                    EspressoIdlingResource.decrement()
-                }
+    override fun getTVShowsAiringToday(page: String): LiveData<Resource<TVShowsEntity>> {
+        return object : NetworkBoundResource<TVShowsEntity, TVShowsResponse>(appExecutors) {
+            override fun loadFromDB(): LiveData<TVShowsEntity> {
+                return localRepository.getTVShowsByHeader("Airing Today")
             }
 
-            override fun onFailure() {
-                Log.d("onFailure", "Get tvShow data failed.")
+            override fun shouldFetch(data: TVShowsEntity?): Boolean {
+                return (data == null)
             }
-        })
 
-        return tvShow
-    }
+            override fun createCall(): LiveData<ApiResponse<TVShowsResponse>> {
+                return remoteRepository.getTVShowsAiringToday(page)
+            }
 
-    override fun getTVShowsAiringToday(page: String): LiveData<TVShowsEntity> {
-        val tvShows = MutableLiveData<TVShowsEntity>()
-
-        EspressoIdlingResource.increment()
-        remoteRepository.getTVShowsAiringToday(page, object : RemoteRepository.LoadTVShowsCallback {
-            override fun onResponse(response: TVShowsResponse?) {
+            override fun saveCallResult(data: TVShowsResponse) {
                 val tvShowEntityList = mutableListOf<TVShowEntity>()
+                for (tvShow in data.tvShows) {
 
-                if (response != null) {
-                    for (tvShow in response.tvShows) {
-
-                        val tvShowEntity = parseToTVShowEntity(tvShow) as TVShowEntity
-                        tvShowEntityList.add(tvShowEntity)
-                    }
-
-                    val tvShowsEntity = TVShowsEntity(
-                        header = "Airing Today",
-                        tvShow = tvShowEntityList
-                    )
-                    tvShows.postValue(tvShowsEntity)
-                    EspressoIdlingResource.decrement()
+                    val tvShowEntity = parseToTVShowEntity(tvShow) as TVShowEntity
+                    tvShowEntityList.add(tvShowEntity)
                 }
-            }
 
-            override fun onFailure() {
-                Log.d("onFailure", "Get movies now playing failed!")
-            }
-        })
+                val tvShowsEntity = TVShowsEntity(
+                    header = "Airing Today",
+                    tvShows = tvShowEntityList
+                )
 
-        return tvShows
+                localRepository.insertTVShows(tvShowsEntity)
+            }
+        }.asLiveData()
     }
 
-    override fun getTVShowsOnTheAir(page: String): LiveData<TVShowsEntity> {
-        val tvShows = MutableLiveData<TVShowsEntity>()
+    override fun getTVShowsOnTheAir(page: String): LiveData<Resource<TVShowsEntity>> {
+        return object : NetworkBoundResource<TVShowsEntity, TVShowsResponse>(appExecutors) {
+            override fun loadFromDB(): LiveData<TVShowsEntity> {
+                return localRepository.getTVShowsByHeader("On The Air")
+            }
 
-        EspressoIdlingResource.increment()
-        remoteRepository.getTVShowsOnTheAir(page, object : RemoteRepository.LoadTVShowsCallback {
-            override fun onResponse(response: TVShowsResponse?) {
+            override fun shouldFetch(data: TVShowsEntity?): Boolean {
+                return (data == null)
+            }
+
+            override fun createCall(): LiveData<ApiResponse<TVShowsResponse>> {
+                return remoteRepository.getTVShowsAiringToday(page)
+            }
+
+            override fun saveCallResult(data: TVShowsResponse) {
                 val tvShowEntityList = mutableListOf<TVShowEntity>()
+                for (tvShow in data.tvShows) {
 
-                if (response != null) {
-                    for (tvShow in response.tvShows) {
-
-                        val tvShowEntity = parseToTVShowEntity(tvShow) as TVShowEntity
-                        tvShowEntityList.add(tvShowEntity)
-                    }
-
-                    val tvShowsEntity = TVShowsEntity(
-                        header = "On The Air",
-                        tvShow = tvShowEntityList
-                    )
-                    tvShows.postValue(tvShowsEntity)
-                    EspressoIdlingResource.decrement()
+                    val tvShowEntity = parseToTVShowEntity(tvShow) as TVShowEntity
+                    tvShowEntityList.add(tvShowEntity)
                 }
-            }
 
-            override fun onFailure() {
-                Log.d("onFailure", "Get movies now playing failed!")
-            }
-        })
+                val tvShowsEntity = TVShowsEntity(
+                    header = "On The Air",
+                    tvShows = tvShowEntityList
+                )
 
-        return tvShows
+                localRepository.insertTVShows(tvShowsEntity)
+            }
+        }.asLiveData()
     }
 
-    override fun getTVShowsPopular(page: String): LiveData<TVShowsEntity> {
-        val tvShows = MutableLiveData<TVShowsEntity>()
+    override fun getTVShowsPopular(page: String): LiveData<Resource<TVShowsEntity>> {
+        return object : NetworkBoundResource<TVShowsEntity, TVShowsResponse>(appExecutors) {
+            override fun loadFromDB(): LiveData<TVShowsEntity> {
+                return localRepository.getTVShowsByHeader("Popular")
+            }
 
-        EspressoIdlingResource.increment()
-        remoteRepository.getTVShowsPopular(page, object : RemoteRepository.LoadTVShowsCallback {
-            override fun onResponse(response: TVShowsResponse?) {
+            override fun shouldFetch(data: TVShowsEntity?): Boolean {
+                return (data == null)
+            }
+
+            override fun createCall(): LiveData<ApiResponse<TVShowsResponse>> {
+                return remoteRepository.getTVShowsAiringToday(page)
+            }
+
+            override fun saveCallResult(data: TVShowsResponse) {
                 val tvShowEntityList = mutableListOf<TVShowEntity>()
+                for (tvShow in data.tvShows) {
 
-                if (response != null) {
-                    for (tvShow in response.tvShows) {
-
-                        val tvShowEntity = parseToTVShowEntity(tvShow) as TVShowEntity
-                        tvShowEntityList.add(tvShowEntity)
-                    }
-
-                    val tvShowsEntity = TVShowsEntity(
-                        header = "Popular",
-                        tvShow = tvShowEntityList
-                    )
-                    tvShows.postValue(tvShowsEntity)
-                    EspressoIdlingResource.decrement()
+                    val tvShowEntity = parseToTVShowEntity(tvShow) as TVShowEntity
+                    tvShowEntityList.add(tvShowEntity)
                 }
-            }
 
-            override fun onFailure() {
-                Log.d("onFailure", "Get movies now playing failed!")
-            }
-        })
+                val tvShowsEntity = TVShowsEntity(
+                    header = "Popular",
+                    tvShows = tvShowEntityList
+                )
 
-        return tvShows
+                localRepository.insertTVShows(tvShowsEntity)
+            }
+        }.asLiveData()
     }
 
-    override fun getTVShowsTopRated(page: String): LiveData<TVShowsEntity> {
-        val tvShows = MutableLiveData<TVShowsEntity>()
+    override fun getTVShowsTopRated(page: String): LiveData<Resource<TVShowsEntity>> {
+        return object : NetworkBoundResource<TVShowsEntity, TVShowsResponse>(appExecutors) {
+            override fun loadFromDB(): LiveData<TVShowsEntity> {
+                return localRepository.getTVShowsByHeader("Top Rated")
+            }
 
-        EspressoIdlingResource.increment()
-        remoteRepository.getTVShowsTopRated(page, object : RemoteRepository.LoadTVShowsCallback {
-            override fun onResponse(response: TVShowsResponse?) {
+            override fun shouldFetch(data: TVShowsEntity?): Boolean {
+                return (data == null)
+            }
+
+            override fun createCall(): LiveData<ApiResponse<TVShowsResponse>> {
+                return remoteRepository.getTVShowsAiringToday(page)
+            }
+
+            override fun saveCallResult(data: TVShowsResponse) {
                 val tvShowEntityList = mutableListOf<TVShowEntity>()
+                for (tvShow in data.tvShows) {
 
-                if (response != null) {
-                    for (tvShow in response.tvShows) {
-
-                        val tvShowEntity = parseToTVShowEntity(tvShow) as TVShowEntity
-                        tvShowEntityList.add(tvShowEntity)
-                    }
-
-                    val tvShowsEntity = TVShowsEntity(
-                        header = "Top Rated",
-                        tvShow = tvShowEntityList
-                    )
-                    tvShows.postValue(tvShowsEntity)
-                    EspressoIdlingResource.decrement()
+                    val tvShowEntity = parseToTVShowEntity(tvShow) as TVShowEntity
+                    tvShowEntityList.add(tvShowEntity)
                 }
-            }
 
-            override fun onFailure() {
-                Log.d("onFailure", "Get movies now playing failed!")
-            }
-        })
+                val tvShowsEntity = TVShowsEntity(
+                    header = "Top Rated",
+                    tvShows = tvShowEntityList
+                )
 
-        return tvShows
+                localRepository.insertTVShows(tvShowsEntity)
+            }
+        }.asLiveData()
     }
 
     private fun parseToMovieEntity(

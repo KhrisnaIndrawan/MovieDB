@@ -3,9 +3,27 @@ package com.khrisna.filmdb.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.khrisna.filmdb.data.source.MovieRepository
+import com.khrisna.filmdb.di.Injection
 
 
 class ViewModelFactory(private val movieRepository: MovieRepository) : ViewModelProvider.NewInstanceFactory() {
+
+    companion object {
+        private var INSTANCE: ViewModelFactory? = null
+
+        fun getInstance(movieRepository: MovieRepository): ViewModelFactory? {
+            if (INSTANCE == null) {
+                synchronized(ViewModelFactory::class) {
+                    INSTANCE = ViewModelFactory(movieRepository)
+                }
+            }
+            return INSTANCE
+        }
+
+        fun destroyInstance() {
+            INSTANCE = null
+        }
+    }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {

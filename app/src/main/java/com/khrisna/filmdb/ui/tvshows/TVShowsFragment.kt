@@ -93,7 +93,7 @@ class TVShowsFragment : Fragment() {
 
     private fun obtainViewModel(activity: FragmentActivity): TVShowsViewModel {
         // Use a Factory to inject dependencies into the ViewModel
-        val factory = ViewModelFactory(Injection.provideRepository())
+        val factory = ViewModelFactory.getInstance(Injection.provideRepository())
         return ViewModelProviders.of(activity, factory).get(TVShowsViewModel::class.java)
     }
 

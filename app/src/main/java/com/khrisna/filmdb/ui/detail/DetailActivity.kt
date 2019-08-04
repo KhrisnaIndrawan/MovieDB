@@ -140,7 +140,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun obtainViewModel(activity: AppCompatActivity): DetailViewModel {
         // Use a Factory to inject dependencies into the ViewModel
-        val factory = ViewModelFactory(Injection.provideRepository())
+        val factory = ViewModelFactory.getInstance(Injection.provideRepository())
 
         return ViewModelProviders.of(activity, factory).get(DetailViewModel::class.java)
     }

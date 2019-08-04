@@ -94,7 +94,7 @@ class MoviesFragment : Fragment() {
 
     private fun obtainViewModel(activity: FragmentActivity): MoviesViewModel {
         // Use a Factory to inject dependencies into the ViewModel
-        val factory = ViewModelFactory(Injection.provideRepository())
+        val factory = ViewModelFactory.getInstance(Injection.provideRepository())
         return ViewModelProviders.of(activity, factory).get(MoviesViewModel::class.java)
     }
 
