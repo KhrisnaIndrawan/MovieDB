@@ -13,7 +13,7 @@ interface MovieDao {
     fun getMovieById(id: String): LiveData<MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovie(movies: MovieEntity): List<Long>
+    fun insertMovie(movies: MovieEntity)
 
     @Update(onConflict = OnConflictStrategy.ABORT)
     fun updateMovie(movie: MovieEntity): Int
@@ -28,7 +28,7 @@ interface MovieDao {
     fun getMoviesByHeader(header: String): LiveData<MoviesEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovies(moviesList: MoviesEntity): List<Long>
+    fun insertMovies(moviesList: MoviesEntity)
 
     @Update(onConflict = OnConflictStrategy.ABORT)
     fun updateMovies(movies: MoviesEntity): Int
@@ -39,7 +39,7 @@ interface MovieDao {
     fun getTVShowById(id: String): LiveData<TVShowEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTVShow(tvShows: TVShowEntity): List<Long>
+    fun insertTVShow(tvShows: TVShowEntity)
 
     @Update(onConflict = OnConflictStrategy.ABORT)
     fun updateTVShow(tvShow: TVShowEntity): Int
@@ -53,7 +53,7 @@ interface MovieDao {
     fun getTVShowsByHeader(header: String): LiveData<TVShowsEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTVShows(tvShowsList: TVShowsEntity): List<Long>
+    fun insertTVShows(tvShowsList: TVShowsEntity)
 
     @Update(onConflict = OnConflictStrategy.ABORT)
     fun updateTVShows(movies: TVShowsEntity): Int
@@ -64,7 +64,7 @@ interface MovieDao {
     fun getGenreById(id: String): LiveData<GenreEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertGenre(genres: MutableList<GenreEntity>): List<Long>
+    fun insertGenre(genres: GenreEntity)
 
     @Update(onConflict = OnConflictStrategy.ABORT)
     fun updateGenre(genre: GenreEntity): Int

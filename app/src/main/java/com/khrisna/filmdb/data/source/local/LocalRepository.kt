@@ -10,7 +10,7 @@ class LocalRepository(private val movieDao: MovieDao) {
         return movieDao.getMovieById(id)
     }
 
-    fun insertMovie(movies: MovieEntity): List<Long> {
+    fun insertMovie(movies: MovieEntity) {
         return movieDao.insertMovie(movies)
     }
 
@@ -26,7 +26,7 @@ class LocalRepository(private val movieDao: MovieDao) {
         return movieDao.getMoviesByHeader(header)
     }
 
-    fun insertMovies(moviesList: MoviesEntity): List<Long> {
+    fun insertMovies(moviesList: MoviesEntity) {
         return movieDao.insertMovies(moviesList)
     }
 
@@ -38,7 +38,7 @@ class LocalRepository(private val movieDao: MovieDao) {
         return movieDao.getTVShowById(id)
     }
 
-    fun insertTVShow(tvShows: TVShowEntity): List<Long> {
+    fun insertTVShow(tvShows: TVShowEntity) {
         return movieDao.insertTVShow(tvShows)
     }
 
@@ -54,7 +54,7 @@ class LocalRepository(private val movieDao: MovieDao) {
         return movieDao.getTVShowsByHeader(header)
     }
 
-    fun insertTVShows(tvShowsList: TVShowsEntity): List<Long> {
+    fun insertTVShows(tvShowsList: TVShowsEntity) {
         return movieDao.insertTVShows(tvShowsList)
     }
 
@@ -66,7 +66,7 @@ class LocalRepository(private val movieDao: MovieDao) {
         return movieDao.getGenreById(id)
     }
 
-    fun insertGenre(genres: MutableList<GenreEntity>): List<Long> {
+    fun insertGenre(genres: GenreEntity) {
         return movieDao.insertGenre(genres)
     }
 

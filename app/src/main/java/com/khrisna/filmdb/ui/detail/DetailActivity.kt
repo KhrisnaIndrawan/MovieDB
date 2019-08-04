@@ -11,6 +11,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.data.source.local.entity.GenreEntity
+import com.khrisna.filmdb.data.source.local.entity.MovieEntity
+import com.khrisna.filmdb.data.source.local.entity.TVShowEntity
+import com.khrisna.filmdb.data.source.vo.Status
 import com.khrisna.filmdb.di.Injection
 import com.khrisna.filmdb.utils.GlideApp
 import com.khrisna.filmdb.utils.Utils.formatDate
@@ -72,33 +75,47 @@ class DetailActivity : AppCompatActivity() {
 
         detailViewModel.movie?.observe(this, Observer { movie ->
             setViewVisible(true)
+            when (movie.status) {
+                Status.LOADING -> {
 
-            GlideApp.with(this)
-                .load(BASE_IMG_URL + movie.backdrop)
-                .into(img_backdrop)
+                }
+                Status.ERROR -> {
 
-            tv_title.text = movie.title
-            tv_release_date.text = movie.releaseDate?.let { formatDate(it) }
-            tv_rating.text = movie.rating.toString()
-            tv_overview_body.text = movie.overview
-            ratingBar.numStars = 5
-            ratingBar.stepSize = 0.1f
-            val rating: Float = movie.rating ?: 0f
-            if (rating > 5f) {
-                ratingBar.rating = rating - 5
-            } else {
-                ratingBar.rating = rating
-            }
+                }
+                Status.SUCCESS -> {
+                    if (movie.data != null) {
 
-            var genres = "| "
-            val movieGenres = movie.genres as MutableList<GenreEntity>
-            for ((index, value) in movieGenres.withIndex()) {
-                genres += "${value.name} | "
-                if (index == 2) {
-                    genres += "\n"
+                        val data = movie.data as MovieEntity
+
+                        GlideApp.with(this)
+                            .load(BASE_IMG_URL + data.backdrop)
+                            .into(img_backdrop)
+
+                        tv_title.text = data.title
+                        tv_release_date.text = data.releaseDate?.let { formatDate(it) }
+                        tv_rating.text = data.rating.toString()
+                        tv_overview_body.text = data.overview
+                        ratingBar.numStars = 5
+                        ratingBar.stepSize = 0.1f
+                        val rating: Float = data.rating ?: 0f
+                        if (rating > 5f) {
+                            ratingBar.rating = rating - 5
+                        } else {
+                            ratingBar.rating = rating
+                        }
+
+                        var genres = "| "
+                        val movieGenres = data.genres as MutableList<GenreEntity>
+                        for ((index, value) in movieGenres.withIndex()) {
+                            genres += "${value.name} | "
+                            if (index == 2) {
+                                genres += "\n"
+                            }
+                        }
+                        tv_genres.text = genres
+                    }
                 }
             }
-            tv_genres.text = genres
         })
     }
 
@@ -107,40 +124,55 @@ class DetailActivity : AppCompatActivity() {
 
         detailViewModel.tvShow?.observe(this, Observer { tvShow ->
             setViewVisible(true)
+            when (tvShow.status) {
+                Status.LOADING -> {
 
-            GlideApp.with(this)
-                .load(BASE_IMG_URL + tvShow.backdrop)
-                .into(img_backdrop)
+                }
+                Status.ERROR -> {
 
-            tv_title.text = tvShow.title
-            tv_release_date_text.text = "First air date: "
-            tv_release_date.text = tvShow.firstAir?.let { formatDate(it) }
-            tv_rating.text = tvShow.rating.toString()
-            tv_overview_body.text = tvShow.overview
-            ratingBar.numStars = 5
-            ratingBar.stepSize = 0.1f
-            val rating: Float = tvShow.rating ?: 0f
-            if (rating > 5f) {
-                ratingBar.rating = rating - 5
-            } else {
-                ratingBar.rating = rating
-            }
+                }
+                Status.SUCCESS -> {
+                    if (tvShow.data != null) {
 
-            var genres = "| "
-            val tvShowGenres = tvShow.genres as MutableList<GenreEntity>
-            for ((index, value) in tvShowGenres.withIndex()) {
-                genres += "${value.name} | "
-                if (index == 2) {
-                    genres += "\n"
+                        val data = tvShow.data as TVShowEntity
+
+                        GlideApp.with(this)
+                            .load(BASE_IMG_URL + data.backdrop)
+                            .into(img_backdrop)
+
+                        tv_title.text = data.title
+                        tv_release_date_text.text = "First air date: "
+                        tv_release_date.text = data.firstAir?.let { formatDate(it) }
+                        tv_rating.text = data.rating.toString()
+                        tv_overview_body.text = data.overview
+                        ratingBar.numStars = 5
+                        ratingBar.stepSize = 0.1f
+                        val rating: Float = data.rating ?: 0f
+                        if (rating > 5f) {
+                            ratingBar.rating = rating - 5
+                        } else {
+                            ratingBar.rating = rating
+                        }
+
+                        var genres = "| "
+                        val tvShowGenres = data.genres as MutableList<GenreEntity>
+                        for ((index, value) in tvShowGenres.withIndex()) {
+                            genres += "${value.name} | "
+                            if (index == 2) {
+                                genres += "\n"
+                            }
+                        }
+                        tv_genres.text = genres
+                    }
                 }
             }
-            tv_genres.text = genres
         })
     }
 
     private fun obtainViewModel(activity: AppCompatActivity): DetailViewModel {
         // Use a Factory to inject dependencies into the ViewModel
-        val factory = ViewModelFactory.getInstance(Injection.provideRepository())
+        val factory = ViewModelFactory
+            .getInstance(Injection.provideRepository(activity.application))
 
         return ViewModelProviders.of(activity, factory).get(DetailViewModel::class.java)
     }

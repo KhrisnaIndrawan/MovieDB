@@ -52,7 +52,7 @@ class TVShowListAdapter(
             tvHeader.text = item.header
 
             val adapter = TVShowAdapter(context as AppCompatActivity)
-            adapter.submitList(item.tvShow)
+            adapter.submitList(item.tvShows)
 
             rvPoster.apply {
                 setHasFixedSize(true)

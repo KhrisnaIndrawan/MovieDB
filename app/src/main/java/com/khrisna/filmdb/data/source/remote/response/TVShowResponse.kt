@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class TVShowResponse(
     @SerializedName("id")
-    var id: String,
+    var id: Int,
     @SerializedName("name")
     var title: String,
     @SerializedName("poster_path")

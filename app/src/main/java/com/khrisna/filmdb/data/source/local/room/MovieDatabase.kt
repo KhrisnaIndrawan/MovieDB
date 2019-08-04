@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.khrisna.filmdb.data.source.local.entity.*
+import com.khrisna.filmdb.data.source.local.room.converter.Converters
 
 
 @Database(
@@ -12,6 +14,7 @@ import com.khrisna.filmdb.data.source.local.entity.*
     version = 1,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class MovieDatabase : RoomDatabase() {
 
     abstract fun movieDao(): MovieDao

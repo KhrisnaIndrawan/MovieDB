@@ -91,6 +91,7 @@ class MovieRepository(
                 }
 
                 val moviesEntity = MoviesEntity(
+                    id = 1,
                     header = "Now Playing",
                     movies = movieEntityList
                 )
@@ -124,6 +125,7 @@ class MovieRepository(
                 }
 
                 val moviesEntity = MoviesEntity(
+                    id = 1,
                     header = "Up Coming",
                     movies = movieEntityList
                 )
@@ -157,6 +159,7 @@ class MovieRepository(
                 }
 
                 val moviesEntity = MoviesEntity(
+                    id = 1,
                     header = "Popular",
                     movies = movieEntityList
                 )
@@ -190,6 +193,7 @@ class MovieRepository(
                 }
 
                 val moviesEntity = MoviesEntity(
+                    id = 1,
                     header = "Top Rated",
                     movies = movieEntityList
                 )
@@ -253,6 +257,7 @@ class MovieRepository(
                 }
 
                 val tvShowsEntity = TVShowsEntity(
+                    id = 1,
                     header = "Airing Today",
                     tvShows = tvShowEntityList
                 )
@@ -285,6 +290,7 @@ class MovieRepository(
                 }
 
                 val tvShowsEntity = TVShowsEntity(
+                    id = 1,
                     header = "On The Air",
                     tvShows = tvShowEntityList
                 )
@@ -317,6 +323,7 @@ class MovieRepository(
                 }
 
                 val tvShowsEntity = TVShowsEntity(
+                    id = 1,
                     header = "Popular",
                     tvShows = tvShowEntityList
                 )
@@ -349,6 +356,7 @@ class MovieRepository(
                 }
 
                 val tvShowsEntity = TVShowsEntity(
+                    id = 1,
                     header = "Top Rated",
                     tvShows = tvShowEntityList
                 )

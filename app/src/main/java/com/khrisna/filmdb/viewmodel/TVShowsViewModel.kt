@@ -4,23 +4,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.khrisna.filmdb.data.source.MovieRepository
 import com.khrisna.filmdb.data.source.local.entity.TVShowsEntity
+import com.khrisna.filmdb.data.source.vo.Resource
 
 class TVShowsViewModel(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private var _airingToday: LiveData<TVShowsEntity>? = null
-    private var _onTheAir: LiveData<TVShowsEntity>? = null
-    private var _popular: LiveData<TVShowsEntity>? = null
-    private var _topRated: LiveData<TVShowsEntity>? = null
+    private var _airingToday: LiveData<Resource<TVShowsEntity>>? = null
+    private var _onTheAir: LiveData<Resource<TVShowsEntity>>? = null
+    private var _popular: LiveData<Resource<TVShowsEntity>>? = null
+    private var _topRated: LiveData<Resource<TVShowsEntity>>? = null
 
-    val airingToday: LiveData<TVShowsEntity>?
+    val airingToday: LiveData<Resource<TVShowsEntity>>?
         get() = _airingToday
-    val onTheAir: LiveData<TVShowsEntity>?
+    val onTheAir: LiveData<Resource<TVShowsEntity>>?
         get() = _onTheAir
-    val popular: LiveData<TVShowsEntity>?
+    val popular: LiveData<Resource<TVShowsEntity>>?
         get() = _popular
-    val topRated: LiveData<TVShowsEntity>?
+    val topRated: LiveData<Resource<TVShowsEntity>>?
         get() = _topRated
 
     fun getAiringToday() {

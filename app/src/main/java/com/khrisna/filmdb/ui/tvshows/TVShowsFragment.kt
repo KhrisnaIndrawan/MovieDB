@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.data.source.local.entity.TVShowsEntity
+import com.khrisna.filmdb.data.source.vo.Status
 import com.khrisna.filmdb.di.Injection
 import com.khrisna.filmdb.ui.adapter.TVShowListAdapter
 import com.khrisna.filmdb.viewmodel.TVShowsViewModel
@@ -44,8 +45,20 @@ class TVShowsFragment : Fragment() {
             }
             model.airingToday?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
-                    tvShows.add(data)
-                    tvShowListAdapter.submitList(tvShows)
+                    when (data.status) {
+                        Status.LOADING -> {
+
+                        }
+                        Status.ERROR -> {
+
+                        }
+                        Status.SUCCESS -> {
+                            if (data.data != null) {
+                                tvShows.add(data.data as TVShowsEntity)
+                                tvShowListAdapter.submitList(tvShows)
+                            }
+                        }
+                    }
                 }
             })
             if (model.onTheAir == null) {
@@ -53,8 +66,20 @@ class TVShowsFragment : Fragment() {
             }
             model.onTheAir?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
-                    tvShows.add(data)
-                    tvShowListAdapter.submitList(tvShows)
+                    when (data.status) {
+                        Status.LOADING -> {
+
+                        }
+                        Status.ERROR -> {
+
+                        }
+                        Status.SUCCESS -> {
+                            if (data.data != null) {
+                                tvShows.add(data.data as TVShowsEntity)
+                                tvShowListAdapter.submitList(tvShows)
+                            }
+                        }
+                    }
                 }
             })
             if (model.popular == null) {
@@ -62,8 +87,20 @@ class TVShowsFragment : Fragment() {
             }
             model.popular?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
-                    tvShows.add(data)
-                    tvShowListAdapter.submitList(tvShows)
+                    when (data.status) {
+                        Status.LOADING -> {
+
+                        }
+                        Status.ERROR -> {
+
+                        }
+                        Status.SUCCESS -> {
+                            if (data.data != null) {
+                                tvShows.add(data.data as TVShowsEntity)
+                                tvShowListAdapter.submitList(tvShows)
+                            }
+                        }
+                    }
                 }
             })
             if (model.topRated == null) {
@@ -71,8 +108,20 @@ class TVShowsFragment : Fragment() {
             }
             model.topRated?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
-                    tvShows.add(data)
-                    tvShowListAdapter.submitList(tvShows)
+                    when (data.status) {
+                        Status.LOADING -> {
+
+                        }
+                        Status.ERROR -> {
+
+                        }
+                        Status.SUCCESS -> {
+                            if (data.data != null) {
+                                tvShows.add(data.data as TVShowsEntity)
+                                tvShowListAdapter.submitList(tvShows)
+                            }
+                        }
+                    }
                 }
             })
         }
@@ -93,7 +142,8 @@ class TVShowsFragment : Fragment() {
 
     private fun obtainViewModel(activity: FragmentActivity): TVShowsViewModel {
         // Use a Factory to inject dependencies into the ViewModel
-        val factory = ViewModelFactory.getInstance(Injection.provideRepository())
+        val factory = ViewModelFactory
+            .getInstance(Injection.provideRepository(activity.application))
         return ViewModelProviders.of(activity, factory).get(TVShowsViewModel::class.java)
     }
 

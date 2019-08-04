@@ -4,23 +4,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.khrisna.filmdb.data.source.MovieRepository
 import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
+import com.khrisna.filmdb.data.source.vo.Resource
 
 class MoviesViewModel(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private var _nowPlaying: LiveData<MoviesEntity>? = null
-    private var _upComing: LiveData<MoviesEntity>? = null
-    private var _popular: LiveData<MoviesEntity>? = null
-    private var _topRated: LiveData<MoviesEntity>? = null
+    private var _nowPlaying: LiveData<Resource<MoviesEntity>>? = null
+    private var _upComing: LiveData<Resource<MoviesEntity>>? = null
+    private var _popular: LiveData<Resource<MoviesEntity>>? = null
+    private var _topRated: LiveData<Resource<MoviesEntity>>? = null
 
-    val nowPlaying: LiveData<MoviesEntity>?
+    val nowPlaying: LiveData<Resource<MoviesEntity>>?
         get() = _nowPlaying
-    val upComing: LiveData<MoviesEntity>?
+    val upComing: LiveData<Resource<MoviesEntity>>?
         get() = _upComing
-    val popular: LiveData<MoviesEntity>?
+    val popular: LiveData<Resource<MoviesEntity>>?
         get() = _popular
-    val topRated: LiveData<MoviesEntity>?
+    val topRated: LiveData<Resource<MoviesEntity>>?
         get() = _topRated
 
     fun getNowPlaying() {

@@ -5,17 +5,18 @@ import androidx.lifecycle.ViewModel
 import com.khrisna.filmdb.data.source.MovieRepository
 import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
 import com.khrisna.filmdb.data.source.local.entity.TVShowsEntity
+import com.khrisna.filmdb.data.source.vo.Resource
 
 class ViewAllViewModel(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private var _movies: LiveData<MoviesEntity>? = null
-    private var _tvShows: LiveData<TVShowsEntity>? = null
+    private var _movies: LiveData<Resource<MoviesEntity>>? = null
+    private var _tvShows: LiveData<Resource<TVShowsEntity>>? = null
 
-    val movies: LiveData<MoviesEntity>?
+    val movies: LiveData<Resource<MoviesEntity>>?
         get() = _movies
-    val tvShows: LiveData<TVShowsEntity>?
+    val tvShows: LiveData<Resource<TVShowsEntity>>?
         get() = _tvShows
 
     fun getMovies(header: String, page: String) {

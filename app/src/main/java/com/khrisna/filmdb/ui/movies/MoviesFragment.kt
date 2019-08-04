@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
+import com.khrisna.filmdb.data.source.vo.Status
 import com.khrisna.filmdb.di.Injection
 import com.khrisna.filmdb.ui.adapter.MovieListAdapter
 import com.khrisna.filmdb.viewmodel.MoviesViewModel
@@ -44,8 +45,20 @@ class MoviesFragment : Fragment() {
             }
             model.nowPlaying?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
-                    movies.add(data)
-                    movieListAdapter.submitList(movies)
+                    when (data.status) {
+                        Status.LOADING -> {
+
+                        }
+                        Status.ERROR -> {
+
+                        }
+                        Status.SUCCESS -> {
+                            if (data.data != null) {
+                                movies.add(data.data as MoviesEntity)
+                                movieListAdapter.submitList(movies)
+                            }
+                        }
+                    }
                 }
             })
             if (model.upComing == null) {
@@ -53,8 +66,20 @@ class MoviesFragment : Fragment() {
             }
             model.upComing?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
-                    movies.add(data)
-                    movieListAdapter.submitList(movies)
+                    when (data.status) {
+                        Status.LOADING -> {
+
+                        }
+                        Status.ERROR -> {
+
+                        }
+                        Status.SUCCESS -> {
+                            if (data.data != null) {
+                                movies.add(data.data as MoviesEntity)
+                                movieListAdapter.submitList(movies)
+                            }
+                        }
+                    }
                 }
             })
             if (model.popular == null) {
@@ -62,8 +87,20 @@ class MoviesFragment : Fragment() {
             }
             model.popular?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
-                    movies.add(data)
-                    movieListAdapter.submitList(movies)
+                    when (data.status) {
+                        Status.LOADING -> {
+
+                        }
+                        Status.ERROR -> {
+
+                        }
+                        Status.SUCCESS -> {
+                            if (data.data != null) {
+                                movies.add(data.data as MoviesEntity)
+                                movieListAdapter.submitList(movies)
+                            }
+                        }
+                    }
                 }
             })
             if (model.topRated == null) {
@@ -71,8 +108,20 @@ class MoviesFragment : Fragment() {
             }
             model.topRated?.observe(viewLifecycleOwner, Observer { data ->
                 if (data != null) {
-                    movies.add(data)
-                    movieListAdapter.submitList(movies)
+                    when (data.status) {
+                        Status.LOADING -> {
+
+                        }
+                        Status.ERROR -> {
+
+                        }
+                        Status.SUCCESS -> {
+                            if (data.data != null) {
+                                movies.add(data.data as MoviesEntity)
+                                movieListAdapter.submitList(movies)
+                            }
+                        }
+                    }
                 }
             })
         }
@@ -94,7 +143,8 @@ class MoviesFragment : Fragment() {
 
     private fun obtainViewModel(activity: FragmentActivity): MoviesViewModel {
         // Use a Factory to inject dependencies into the ViewModel
-        val factory = ViewModelFactory.getInstance(Injection.provideRepository())
+        val factory = ViewModelFactory
+            .getInstance(Injection.provideRepository(activity.application))
         return ViewModelProviders.of(activity, factory).get(MoviesViewModel::class.java)
     }
 

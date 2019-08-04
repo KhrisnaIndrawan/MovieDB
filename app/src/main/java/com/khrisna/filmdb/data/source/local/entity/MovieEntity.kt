@@ -1,14 +1,18 @@
 package com.khrisna.filmdb.data.source.local.entity
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "movie_entities"
 )
 data class MovieEntity(
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "movie_id")
-    var id: String? = null,
+    var id: Int,
 
     @ColumnInfo(name = "movie_title")
     var title: String? = null,

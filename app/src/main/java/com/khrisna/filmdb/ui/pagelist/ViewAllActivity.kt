@@ -79,9 +79,9 @@ class ViewAllActivity : AppCompatActivity() {
         viewAllViewModel.getMovies(header, page)
 
         viewAllViewModel.movies?.observe(this, Observer { data ->
-            if (data != null) {
-                movieListAdapter.submitList(data.movies)
-            }
+//            if (data != null) {
+//                movieListAdapter.submitList(data.movies)
+//            }
 
             progressBar.visibility = View.INVISIBLE
         })
@@ -91,9 +91,9 @@ class ViewAllActivity : AppCompatActivity() {
         viewAllViewModel.getTVShows(header, page)
 
         viewAllViewModel.tvShows?.observe(this, Observer { data ->
-            if (data != null) {
-                tvShowListAdapter.submitList(data.tvShow)
-            }
+//            if (data != null) {
+//                tvShowListAdapter.submitList(data.tvShow)
+//            }
 
             progressBar.visibility = View.INVISIBLE
         })
@@ -101,7 +101,8 @@ class ViewAllActivity : AppCompatActivity() {
 
     private fun obtainViewModel(activity: AppCompatActivity): ViewAllViewModel {
         // Use a Factory to inject dependencies into the ViewModel
-        val factory = ViewModelFactory.getInstance(Injection.provideRepository())
+        val factory = ViewModelFactory
+            .getInstance(Injection.provideRepository(activity.application))
 
         return ViewModelProviders.of(activity, factory).get(ViewAllViewModel::class.java)
     }
