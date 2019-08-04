@@ -278,7 +278,7 @@ class MovieRepository(
             }
 
             override fun createCall(): LiveData<ApiResponse<TVShowsResponse>> {
-                return remoteRepository.getTVShowsAiringToday(page)
+                return remoteRepository.getTVShowsOnTheAir(page)
             }
 
             override fun saveCallResult(data: TVShowsResponse) {
@@ -311,7 +311,7 @@ class MovieRepository(
             }
 
             override fun createCall(): LiveData<ApiResponse<TVShowsResponse>> {
-                return remoteRepository.getTVShowsAiringToday(page)
+                return remoteRepository.getTVShowsPopular(page)
             }
 
             override fun saveCallResult(data: TVShowsResponse) {
@@ -344,7 +344,7 @@ class MovieRepository(
             }
 
             override fun createCall(): LiveData<ApiResponse<TVShowsResponse>> {
-                return remoteRepository.getTVShowsAiringToday(page)
+                return remoteRepository.getTVShowsTopRated(page)
             }
 
             override fun saveCallResult(data: TVShowsResponse) {
