@@ -1,7 +1,10 @@
 package com.khrisna.filmdb.data.source.local
 
 import androidx.lifecycle.LiveData
-import com.khrisna.filmdb.data.source.local.entity.*
+import com.khrisna.filmdb.data.source.local.entity.MovieEntity
+import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
+import com.khrisna.filmdb.data.source.local.entity.TVShowEntity
+import com.khrisna.filmdb.data.source.local.entity.TVShowsEntity
 import com.khrisna.filmdb.data.source.local.room.MovieDao
 
 class LocalRepository(private val movieDao: MovieDao) {
@@ -60,18 +63,6 @@ class LocalRepository(private val movieDao: MovieDao) {
 
     fun updateTVShows(movies: TVShowsEntity): Int {
         return movieDao.updateTVShows(movies)
-    }
-
-    fun getGenreById(id: Int): LiveData<GenreEntity> {
-        return movieDao.getGenreById(id)
-    }
-
-    fun insertGenre(genres: GenreEntity) {
-        return movieDao.insertGenre(genres)
-    }
-
-    fun updateGenre(genre: GenreEntity): Int {
-        return movieDao.updateGenre(genre)
     }
 
     companion object {

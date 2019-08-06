@@ -55,7 +55,6 @@ abstract class NetworkBoundResource<ResultType, RequestType>() {
                     }
 
                 }
-
                 StatusResponse.EMPTY -> appExecutors?.mainThread()?.execute {
                     result.addSource(
                         loadFromDB()
