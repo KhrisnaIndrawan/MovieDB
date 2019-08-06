@@ -42,9 +42,9 @@ class DetailActivity : AppCompatActivity() {
 
         detailViewModel = obtainViewModel(this)
 
-        if (intent != null) {
-            isMovie = intent.getBooleanExtra(EXTRA_IS_MOVIE, false)
-            poster = intent.getStringExtra(EXTRA_POSTER) as String
+        intent.let {
+            isMovie = it.getBooleanExtra(EXTRA_IS_MOVIE, false)
+            poster = it.getStringExtra(EXTRA_POSTER) as String
             GlideApp.with(this)
                 .load(BASE_IMG_URL + poster)
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
@@ -54,7 +54,7 @@ class DetailActivity : AppCompatActivity() {
                 supportActionBar.let {
                     title = "Movie Details"
                 }
-                val movie: Int = intent.getIntExtra(EXTRA_DETAIL_DATA, 0)
+                val movie: Int = it.getIntExtra(EXTRA_DETAIL_DATA, 0)
                 if (detailViewModel.movie == null) {
                     detailViewModel.getMovie(movie)
                 }
@@ -63,7 +63,7 @@ class DetailActivity : AppCompatActivity() {
                 supportActionBar.let {
                     title = "TVShow Details"
                 }
-                val tvShow: Int = intent.getIntExtra(EXTRA_DETAIL_DATA, 0)
+                val tvShow: Int = it.getIntExtra(EXTRA_DETAIL_DATA, 0)
                 if (detailViewModel.tvShow == null) {
                     detailViewModel.getTVShow(tvShow)
                 }

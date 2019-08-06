@@ -3,10 +3,10 @@ package com.khrisna.filmdb.ui.dashboard
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.khrisna.filmdb.R
+import com.khrisna.filmdb.ui.favorite.FavoritesFragment
 import com.khrisna.filmdb.ui.home.HomeFragment
 import com.khrisna.filmdb.ui.search.SearchFragment
 import kotlinx.android.synthetic.main.activity_home.*
@@ -49,10 +49,9 @@ class DashboardActivity : AppCompatActivity() {
             R.id.app_bar_home -> {
                 showFragment(HomeFragment.newInstance())
             }
-            R.id.app_bar_favorite -> Toast.makeText(
-                this, "Favorite menu item is clicked!",
-                Toast.LENGTH_SHORT
-            ).show()
+            R.id.app_bar_favorite -> {
+                showFragment(FavoritesFragment.newInstance())
+            }
 //            R.id.app_bar_translation -> Toast.makeText(
 //                this, "Setting menu item is clicked!",
 //                Toast.LENGTH_SHORT

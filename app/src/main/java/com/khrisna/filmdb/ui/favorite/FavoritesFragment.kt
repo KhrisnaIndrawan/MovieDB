@@ -38,13 +38,13 @@ class FavoritesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (activity != null) {
+        activity.let { activity ->
             model = obtainViewModel(activity as AppCompatActivity)
 
             if (model.favorites == null) {
                 model.getFavorites()
             }
-            model.favorites?.observe(viewLifecycleOwner, Observer {data ->
+            model.favorites?.observe(viewLifecycleOwner, Observer { data ->
                 data.let {
                     favorites.addAll(it)
                     favoriteListAdapter.submitList(favorites)

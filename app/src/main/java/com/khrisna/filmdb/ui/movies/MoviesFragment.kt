@@ -41,14 +41,14 @@ class MoviesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (activity != null) {
+        activity.let { activity ->
             model = obtainViewModel(activity as AppCompatActivity)
             if (model.nowPlaying == null) {
                 model.getNowPlaying()
             }
             model.nowPlaying?.observe(viewLifecycleOwner, Observer { data ->
-                if (data != null) {
-                    when (data.status) {
+                data.let {
+                    when (it.status) {
                         Status.LOADING -> {
                             progressBar.visibility = View.VISIBLE
                         }
@@ -60,8 +60,8 @@ class MoviesFragment : Fragment() {
                             ).show()
                         }
                         Status.SUCCESS -> {
-                            if (data.data != null) {
-                                movies.add(data.data as MoviesEntity)
+                            if (it.data != null) {
+                                movies.add(it.data as MoviesEntity)
                                 movieListAdapter.submitList(movies)
 
                                 progressBar.visibility = View.INVISIBLE
@@ -74,8 +74,8 @@ class MoviesFragment : Fragment() {
                 model.getUpComing()
             }
             model.upComing?.observe(viewLifecycleOwner, Observer { data ->
-                if (data != null) {
-                    when (data.status) {
+                data.let {
+                    when (it.status) {
                         Status.LOADING -> {
                             progressBar.visibility = View.VISIBLE
                         }
@@ -87,8 +87,8 @@ class MoviesFragment : Fragment() {
                             ).show()
                         }
                         Status.SUCCESS -> {
-                            if (data.data != null) {
-                                movies.add(data.data as MoviesEntity)
+                            if (it.data != null) {
+                                movies.add(it.data as MoviesEntity)
                                 movieListAdapter.submitList(movies)
 
                                 progressBar.visibility = View.INVISIBLE
@@ -101,8 +101,8 @@ class MoviesFragment : Fragment() {
                 model.getPopular()
             }
             model.popular?.observe(viewLifecycleOwner, Observer { data ->
-                if (data != null) {
-                    when (data.status) {
+                data.let {
+                    when (it.status) {
                         Status.LOADING -> {
                             progressBar.visibility = View.VISIBLE
                         }
@@ -114,8 +114,8 @@ class MoviesFragment : Fragment() {
                             ).show()
                         }
                         Status.SUCCESS -> {
-                            if (data.data != null) {
-                                movies.add(data.data as MoviesEntity)
+                            if (it.data != null) {
+                                movies.add(it.data as MoviesEntity)
                                 movieListAdapter.submitList(movies)
 
                                 progressBar.visibility = View.INVISIBLE
@@ -128,8 +128,8 @@ class MoviesFragment : Fragment() {
                 model.getTopRated()
             }
             model.topRated?.observe(viewLifecycleOwner, Observer { data ->
-                if (data != null) {
-                    when (data.status) {
+                data.let {
+                    when (it.status) {
                         Status.LOADING -> {
                             progressBar.visibility = View.VISIBLE
                         }
@@ -141,8 +141,8 @@ class MoviesFragment : Fragment() {
                             ).show()
                         }
                         Status.SUCCESS -> {
-                            if (data.data != null) {
-                                movies.add(data.data as MoviesEntity)
+                            if (it.data != null) {
+                                movies.add(it.data as MoviesEntity)
                                 movieListAdapter.submitList(movies)
 
                                 progressBar.visibility = View.INVISIBLE

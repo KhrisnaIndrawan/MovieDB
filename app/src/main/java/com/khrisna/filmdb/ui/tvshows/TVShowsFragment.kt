@@ -41,14 +41,14 @@ class TVShowsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (activity != null) {
+        activity.let { activity ->
             model = obtainViewModel(activity as AppCompatActivity)
             if (model.airingToday == null) {
                 model.getAiringToday()
             }
             model.airingToday?.observe(viewLifecycleOwner, Observer { data ->
-                if (data != null) {
-                    when (data.status) {
+                data.let {
+                    when (it.status) {
                         Status.LOADING -> {
                             progressBar.visibility = View.VISIBLE
                         }
@@ -60,8 +60,8 @@ class TVShowsFragment : Fragment() {
                             ).show()
                         }
                         Status.SUCCESS -> {
-                            if (data.data != null) {
-                                tvShows.add(data.data as TVShowsEntity)
+                            if (it.data != null) {
+                                tvShows.add(it.data as TVShowsEntity)
                                 tvShowListAdapter.submitList(tvShows)
 
                                 progressBar.visibility = View.INVISIBLE
@@ -74,8 +74,8 @@ class TVShowsFragment : Fragment() {
                 model.getOnTheAir()
             }
             model.onTheAir?.observe(viewLifecycleOwner, Observer { data ->
-                if (data != null) {
-                    when (data.status) {
+                data.let {
+                    when (it.status) {
                         Status.LOADING -> {
                             progressBar.visibility = View.VISIBLE
                         }
@@ -87,8 +87,8 @@ class TVShowsFragment : Fragment() {
                             ).show()
                         }
                         Status.SUCCESS -> {
-                            if (data.data != null) {
-                                tvShows.add(data.data as TVShowsEntity)
+                            if (it.data != null) {
+                                tvShows.add(it.data as TVShowsEntity)
                                 tvShowListAdapter.submitList(tvShows)
 
                                 progressBar.visibility = View.INVISIBLE
@@ -101,8 +101,8 @@ class TVShowsFragment : Fragment() {
                 model.getPopular()
             }
             model.popular?.observe(viewLifecycleOwner, Observer { data ->
-                if (data != null) {
-                    when (data.status) {
+                data.let {
+                    when (it.status) {
                         Status.LOADING -> {
                             progressBar.visibility = View.VISIBLE
                         }
@@ -114,8 +114,8 @@ class TVShowsFragment : Fragment() {
                             ).show()
                         }
                         Status.SUCCESS -> {
-                            if (data.data != null) {
-                                tvShows.add(data.data as TVShowsEntity)
+                            if (it.data != null) {
+                                tvShows.add(it.data as TVShowsEntity)
                                 tvShowListAdapter.submitList(tvShows)
 
                                 progressBar.visibility = View.INVISIBLE
@@ -128,8 +128,8 @@ class TVShowsFragment : Fragment() {
                 model.getTopRated()
             }
             model.topRated?.observe(viewLifecycleOwner, Observer { data ->
-                if (data != null) {
-                    when (data.status) {
+                data.let {
+                    when (it.status) {
                         Status.LOADING -> {
                             progressBar.visibility = View.VISIBLE
                         }
@@ -141,8 +141,8 @@ class TVShowsFragment : Fragment() {
                             ).show()
                         }
                         Status.SUCCESS -> {
-                            if (data.data != null) {
-                                tvShows.add(data.data as TVShowsEntity)
+                            if (it.data != null) {
+                                tvShows.add(it.data as TVShowsEntity)
                                 tvShowListAdapter.submitList(tvShows)
 
                                 progressBar.visibility = View.INVISIBLE
