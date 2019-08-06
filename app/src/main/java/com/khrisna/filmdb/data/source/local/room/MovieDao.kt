@@ -2,13 +2,24 @@ package com.khrisna.filmdb.data.source.local.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.khrisna.filmdb.data.source.local.entity.MovieEntity
-import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
-import com.khrisna.filmdb.data.source.local.entity.TVShowEntity
-import com.khrisna.filmdb.data.source.local.entity.TVShowsEntity
+import com.khrisna.filmdb.data.source.local.entity.*
 
 @Dao
 interface MovieDao {
+
+    // Favorite
+    @Transaction
+    @Query("SELECT * FROM favorite_entities WHERE favorite_id = :id")
+    fun getFavoriteById(id: Int): LiveData<FavoriteEntity>
+
+    @Query("SELECT * FROM favorite_entities")
+    fun getFavorites(): LiveData<List<FavoriteEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertFavorite(favorite: FavoriteEntity)
+
+    @Delete
+    fun deleteFavorite(favorite: FavoriteEntity)
 
     // Movie
     @Transaction
@@ -16,10 +27,7 @@ interface MovieDao {
     fun getMovieById(id: Int): LiveData<MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovie(movies: MovieEntity)
-
-    @Update(onConflict = OnConflictStrategy.ABORT)
-    fun updateMovie(movie: MovieEntity): Int
+    fun insertMovie(movie: MovieEntity)
 
     // Movies
     @Transaction
@@ -33,9 +41,6 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovies(moviesList: MoviesEntity)
 
-    @Update(onConflict = OnConflictStrategy.ABORT)
-    fun updateMovies(movies: MoviesEntity): Int
-
     // TVShow
     @Transaction
     @Query("SELECT * FROM tv_show_entities WHERE tv_show_id = :id")
@@ -43,9 +48,6 @@ interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTVShow(tvShows: TVShowEntity)
-
-    @Update(onConflict = OnConflictStrategy.ABORT)
-    fun updateTVShow(tvShow: TVShowEntity): Int
 
     // TVShows
     @Transaction
@@ -58,7 +60,4 @@ interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTVShows(tvShowsList: TVShowsEntity)
-
-    @Update(onConflict = OnConflictStrategy.ABORT)
-    fun updateTVShows(movies: TVShowsEntity): Int
 }

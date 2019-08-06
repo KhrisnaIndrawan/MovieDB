@@ -3,7 +3,6 @@ package com.khrisna.filmdb.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.khrisna.filmdb.data.source.MovieRepository
-import com.khrisna.filmdb.di.Injection
 
 
 class ViewModelFactory(private val movieRepository: MovieRepository) : ViewModelProvider.NewInstanceFactory() {
@@ -31,6 +30,7 @@ class ViewModelFactory(private val movieRepository: MovieRepository) : ViewModel
             modelClass.isAssignableFrom(MoviesViewModel::class.java) -> MoviesViewModel(movieRepository) as T
             modelClass.isAssignableFrom(TVShowsViewModel::class.java) -> TVShowsViewModel(movieRepository) as T
             modelClass.isAssignableFrom(ViewAllViewModel::class.java) -> ViewAllViewModel(movieRepository) as T
+            modelClass.isAssignableFrom(FavoritesViewModel::class.java) -> FavoritesViewModel(movieRepository) as T
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }

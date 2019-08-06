@@ -53,7 +53,6 @@ abstract class NetworkBoundResource<ResultType, RequestType>() {
                             loadFromDB()
                         ) { newData -> result.setValue(Resource<ResultType>().success(newData)) }
                     }
-
                 }
                 StatusResponse.EMPTY -> appExecutors?.mainThread()?.execute {
                     result.addSource(

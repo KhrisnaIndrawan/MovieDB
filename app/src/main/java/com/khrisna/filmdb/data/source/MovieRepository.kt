@@ -36,6 +36,22 @@ class MovieRepository(
         }
     }
 
+    override fun getFavorite(id: Int): LiveData<FavoriteEntity> {
+        return localRepository.getFavoriteById(id)
+    }
+
+    override fun getFavorites(): LiveData<List<FavoriteEntity>> {
+        return localRepository.getFavorites()
+    }
+
+    override fun insertFavorite(favorite: FavoriteEntity) {
+        return localRepository.insertFavorite(favorite)
+    }
+
+    override fun deleteFavorite(favorite: FavoriteEntity) {
+        return localRepository.deleteFavorite(favorite)
+    }
+
     override fun getMovie(id: Int): LiveData<Resource<MovieEntity>> {
         return object : NetworkBoundResource<MovieEntity, MovieResponse>(appExecutors) {
 

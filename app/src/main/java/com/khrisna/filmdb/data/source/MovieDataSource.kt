@@ -1,13 +1,18 @@
 package com.khrisna.filmdb.data.source
 
 import androidx.lifecycle.LiveData
-import com.khrisna.filmdb.data.source.local.entity.MovieEntity
-import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
-import com.khrisna.filmdb.data.source.local.entity.TVShowEntity
-import com.khrisna.filmdb.data.source.local.entity.TVShowsEntity
+import com.khrisna.filmdb.data.source.local.entity.*
 import com.khrisna.filmdb.data.source.vo.Resource
 
 interface MovieDataSource {
+
+    fun getFavorite(id: Int): LiveData<FavoriteEntity>
+
+    fun getFavorites(): LiveData<List<FavoriteEntity>>
+
+    fun insertFavorite(favorite: FavoriteEntity)
+
+    fun deleteFavorite(favorite: FavoriteEntity)
 
     fun getMovie(id: Int): LiveData<Resource<MovieEntity>>
 

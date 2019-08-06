@@ -16,37 +16,37 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.request.RequestOptions
 import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.data.source.local.entity.MovieEntity
+import com.khrisna.filmdb.data.source.local.entity.FavoriteEntity
 import com.khrisna.filmdb.ui.detail.DetailActivity
 import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_DETAIL_DATA
 import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_IS_MOVIE
 import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_POSTER
 import com.khrisna.filmdb.utils.GlideApp
 
-class MovieAdapter(private val context: Context) :
-    ListAdapter<MovieEntity, MovieAdapter.MovieViewHolder>(
-        object : DiffUtil.ItemCallback<MovieEntity>() {
-            override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+class FavoriteAdapter(private val context: Context) :
+    ListAdapter<FavoriteEntity, FavoriteAdapter.FavoriteViewHolder>(
+        object : DiffUtil.ItemCallback<FavoriteEntity>() {
+            override fun areItemsTheSame(oldItem: FavoriteEntity, newItem: FavoriteEntity): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+            override fun areContentsTheSame(oldItem: FavoriteEntity, newItem: FavoriteEntity): Boolean {
                 return oldItem == newItem
             }
         }
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        MovieViewHolder(LayoutInflater.from(context).inflate(R.layout.item_poster, parent, false))
+        FavoriteViewHolder(LayoutInflater.from(context).inflate(R.layout.item_poster, parent, false))
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    inner class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class FavoriteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val imgPoster = view.findViewById<ImageView>(R.id.img_poster)
 
-        fun bind(item: MovieEntity) {
+        fun bind(item: FavoriteEntity) {
 
             imgPoster.setOnClickListener {
                 val intent = Intent(context, DetailActivity::class.java)
@@ -56,9 +56,9 @@ class MovieAdapter(private val context: Context) :
                         context as AppCompatActivity,
                         imageViewPair
                     )
-                intent.putExtra(EXTRA_DETAIL_DATA, item.id)
+                intent.putExtra(EXTRA_DETAIL_DATA, item.dataId)
                 intent.putExtra(EXTRA_POSTER, item.poster)
-                intent.putExtra(EXTRA_IS_MOVIE, true)
+                intent.putExtra(EXTRA_IS_MOVIE, item.isMovie)
 
                 it.context.startActivity(intent, options.toBundle())
             }
