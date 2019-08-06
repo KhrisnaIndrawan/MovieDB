@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -74,13 +75,16 @@ class DetailActivity : AppCompatActivity() {
     private fun showMovieData() {
 
         detailViewModel.movie?.observe(this, Observer { movie ->
-            setViewVisible(true)
             when (movie.status) {
                 Status.LOADING -> {
-
+                    progressBar.visibility = View.VISIBLE
                 }
                 Status.ERROR -> {
-
+                    Toast.makeText(
+                        this,
+                        "Get movie fail, please check your internet connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 Status.SUCCESS -> {
                     if (movie.data != null) {
@@ -113,6 +117,8 @@ class DetailActivity : AppCompatActivity() {
                             }
                         }
                         tv_genres.text = genres
+
+                        setViewVisible(true)
                     }
                 }
             }
@@ -126,10 +132,14 @@ class DetailActivity : AppCompatActivity() {
             setViewVisible(true)
             when (tvShow.status) {
                 Status.LOADING -> {
-
+                    progressBar.visibility = View.VISIBLE
                 }
                 Status.ERROR -> {
-
+                    Toast.makeText(
+                        this,
+                        "Get tv show fail, please check your internet connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 Status.SUCCESS -> {
                     if (tvShow.data != null) {
@@ -163,6 +173,8 @@ class DetailActivity : AppCompatActivity() {
                             }
                         }
                         tv_genres.text = genres
+
+                        setViewVisible(true)
                     }
                 }
             }

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -27,6 +29,7 @@ class TVShowsFragment : Fragment() {
     private lateinit var model: TVShowsViewModel
     private lateinit var tvShowListAdapter: TVShowListAdapter
     private lateinit var tvShows: MutableList<TVShowsEntity>
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,15 +50,21 @@ class TVShowsFragment : Fragment() {
                 if (data != null) {
                     when (data.status) {
                         Status.LOADING -> {
-
+                            progressBar.visibility = View.VISIBLE
                         }
                         Status.ERROR -> {
-
+                            Toast.makeText(
+                                context,
+                                "Get tv shows fail, please check your internet connection!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         Status.SUCCESS -> {
                             if (data.data != null) {
                                 tvShows.add(data.data as TVShowsEntity)
                                 tvShowListAdapter.submitList(tvShows)
+
+                                progressBar.visibility = View.INVISIBLE
                             }
                         }
                     }
@@ -68,15 +77,21 @@ class TVShowsFragment : Fragment() {
                 if (data != null) {
                     when (data.status) {
                         Status.LOADING -> {
-
+                            progressBar.visibility = View.VISIBLE
                         }
                         Status.ERROR -> {
-
+                            Toast.makeText(
+                                context,
+                                "Get tv shows fail, please check your internet connection!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         Status.SUCCESS -> {
                             if (data.data != null) {
                                 tvShows.add(data.data as TVShowsEntity)
                                 tvShowListAdapter.submitList(tvShows)
+
+                                progressBar.visibility = View.INVISIBLE
                             }
                         }
                     }
@@ -89,15 +104,21 @@ class TVShowsFragment : Fragment() {
                 if (data != null) {
                     when (data.status) {
                         Status.LOADING -> {
-
+                            progressBar.visibility = View.VISIBLE
                         }
                         Status.ERROR -> {
-
+                            Toast.makeText(
+                                context,
+                                "Get tv shows fail, please check your internet connection!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         Status.SUCCESS -> {
                             if (data.data != null) {
                                 tvShows.add(data.data as TVShowsEntity)
                                 tvShowListAdapter.submitList(tvShows)
+
+                                progressBar.visibility = View.INVISIBLE
                             }
                         }
                     }
@@ -110,15 +131,21 @@ class TVShowsFragment : Fragment() {
                 if (data != null) {
                     when (data.status) {
                         Status.LOADING -> {
-
+                            progressBar.visibility = View.VISIBLE
                         }
                         Status.ERROR -> {
-
+                            Toast.makeText(
+                                context,
+                                "Get tv shows fail, please check your internet connection!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         Status.SUCCESS -> {
                             if (data.data != null) {
                                 tvShows.add(data.data as TVShowsEntity)
                                 tvShowListAdapter.submitList(tvShows)
+
+                                progressBar.visibility = View.INVISIBLE
                             }
                         }
                     }
@@ -131,6 +158,8 @@ class TVShowsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         tvShows = mutableListOf()
         tvShowListAdapter = TVShowListAdapter(context as AppCompatActivity)
+
+        progressBar = view.findViewById(R.id.progressBar)
 
         rv_tv_shows.apply {
             setHasFixedSize(true)

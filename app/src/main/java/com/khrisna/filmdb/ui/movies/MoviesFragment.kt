@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -27,6 +29,7 @@ class MoviesFragment : Fragment() {
     private lateinit var model: MoviesViewModel
     private lateinit var movieListAdapter: MovieListAdapter
     private lateinit var movies: MutableList<MoviesEntity>
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,15 +50,21 @@ class MoviesFragment : Fragment() {
                 if (data != null) {
                     when (data.status) {
                         Status.LOADING -> {
-
+                            progressBar.visibility = View.VISIBLE
                         }
                         Status.ERROR -> {
-
+                            Toast.makeText(
+                                context,
+                                "Get movies fail, please check your internet connection!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         Status.SUCCESS -> {
                             if (data.data != null) {
                                 movies.add(data.data as MoviesEntity)
                                 movieListAdapter.submitList(movies)
+
+                                progressBar.visibility = View.INVISIBLE
                             }
                         }
                     }
@@ -68,15 +77,21 @@ class MoviesFragment : Fragment() {
                 if (data != null) {
                     when (data.status) {
                         Status.LOADING -> {
-
+                            progressBar.visibility = View.VISIBLE
                         }
                         Status.ERROR -> {
-
+                            Toast.makeText(
+                                context,
+                                "Get movies fail, please check your internet connection!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         Status.SUCCESS -> {
                             if (data.data != null) {
                                 movies.add(data.data as MoviesEntity)
                                 movieListAdapter.submitList(movies)
+
+                                progressBar.visibility = View.INVISIBLE
                             }
                         }
                     }
@@ -89,15 +104,21 @@ class MoviesFragment : Fragment() {
                 if (data != null) {
                     when (data.status) {
                         Status.LOADING -> {
-
+                            progressBar.visibility = View.VISIBLE
                         }
                         Status.ERROR -> {
-
+                            Toast.makeText(
+                                context,
+                                "Get movies fail, please check your internet connection!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         Status.SUCCESS -> {
                             if (data.data != null) {
                                 movies.add(data.data as MoviesEntity)
                                 movieListAdapter.submitList(movies)
+
+                                progressBar.visibility = View.INVISIBLE
                             }
                         }
                     }
@@ -110,15 +131,21 @@ class MoviesFragment : Fragment() {
                 if (data != null) {
                     when (data.status) {
                         Status.LOADING -> {
-
+                            progressBar.visibility = View.VISIBLE
                         }
                         Status.ERROR -> {
-
+                            Toast.makeText(
+                                context,
+                                "Get movies fail, please check your internet connection!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         Status.SUCCESS -> {
                             if (data.data != null) {
                                 movies.add(data.data as MoviesEntity)
                                 movieListAdapter.submitList(movies)
+
+                                progressBar.visibility = View.INVISIBLE
                             }
                         }
                     }
@@ -132,6 +159,8 @@ class MoviesFragment : Fragment() {
 
         movies = mutableListOf()
         movieListAdapter = MovieListAdapter(context as AppCompatActivity)
+
+        progressBar = view.findViewById(R.id.progressBar)
 
         rv_movies.apply {
             setHasFixedSize(true)
