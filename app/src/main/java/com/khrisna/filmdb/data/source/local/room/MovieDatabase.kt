@@ -10,7 +10,8 @@ import com.khrisna.filmdb.data.source.local.room.converter.Converters
 
 
 @Database(
-    entities = [GenreEntity::class, MovieEntity::class, MoviesEntity::class, TVShowEntity::class, TVShowsEntity::class],
+    entities = [FavoriteEntity::class, GenreEntity::class, MovieEntity::class,
+        MoviesEntity::class, TVShowEntity::class, TVShowsEntity::class],
     version = 1,
     exportSchema = false
 )

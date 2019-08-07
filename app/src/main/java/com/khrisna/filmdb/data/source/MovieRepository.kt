@@ -90,7 +90,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: MoviesEntity?): Boolean {
-                return (data == null || data.movies?.size == 0)
+                return (data == null) || (data.movies?.size == 0)
             }
 
             override fun createCall(): LiveData<ApiResponse<MoviesResponse>> {
@@ -124,7 +124,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: MoviesEntity?): Boolean {
-                return (data == null || data.movies?.size == 0)
+                return (data == null) || (data.movies?.size == 0)
             }
 
             override fun createCall(): LiveData<ApiResponse<MoviesResponse>> {
@@ -158,7 +158,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: MoviesEntity?): Boolean {
-                return (data == null || data.movies?.size == 0)
+                return (data == null) || (data.movies?.size == 0)
             }
 
             override fun createCall(): LiveData<ApiResponse<MoviesResponse>> {
@@ -192,7 +192,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: MoviesEntity?): Boolean {
-                return (data == null || data.movies?.size == 0)
+                return (data == null) || (data.movies?.size == 0)
             }
 
             override fun createCall(): LiveData<ApiResponse<MoviesResponse>> {
@@ -257,7 +257,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: TVShowsEntity?): Boolean {
-                return (data == null || data.tvShows?.size == 0)
+                return (data == null) || (data.tvShows?.size == 0)
             }
 
             override fun createCall(): LiveData<ApiResponse<TVShowsResponse>> {
@@ -290,7 +290,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: TVShowsEntity?): Boolean {
-                return (data == null || data.tvShows?.size == 0)
+                return (data == null) || (data.tvShows?.size == 0)
             }
 
             override fun createCall(): LiveData<ApiResponse<TVShowsResponse>> {
@@ -323,7 +323,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: TVShowsEntity?): Boolean {
-                return (data == null || data.tvShows?.size == 0)
+                return (data == null) || (data.tvShows?.size == 0)
             }
 
             override fun createCall(): LiveData<ApiResponse<TVShowsResponse>> {
@@ -356,7 +356,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: TVShowsEntity?): Boolean {
-                return (data == null || data.tvShows?.size == 0)
+                return (data == null) || (data.tvShows?.size == 0)
             }
 
             override fun createCall(): LiveData<ApiResponse<TVShowsResponse>> {
