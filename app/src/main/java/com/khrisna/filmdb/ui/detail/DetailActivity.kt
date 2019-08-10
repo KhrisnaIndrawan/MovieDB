@@ -110,11 +110,8 @@ class DetailActivity : AppCompatActivity() {
 
                         var genres = "| "
                         val movieGenres = data.genres as MutableList<GenreEntity>
-                        for ((index, value) in movieGenres.withIndex()) {
+                        for (value in movieGenres) {
                             genres += "${value.name} | "
-                            if (index == 2) {
-                                genres += "\n"
-                            }
                         }
                         tv_genres.text = genres
 
@@ -166,11 +163,8 @@ class DetailActivity : AppCompatActivity() {
 
                         var genres = "| "
                         val tvShowGenres = data.genres as MutableList<GenreEntity>
-                        for ((index, value) in tvShowGenres.withIndex()) {
+                        for (value in tvShowGenres) {
                             genres += "${value.name} | "
-                            if (index == 2) {
-                                genres += "\n"
-                            }
                         }
                         tv_genres.text = genres
 
