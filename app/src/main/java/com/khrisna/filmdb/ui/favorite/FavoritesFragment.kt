@@ -46,9 +46,7 @@ class FavoritesFragment : Fragment() {
             }
             model.favorites?.observe(viewLifecycleOwner, Observer { data ->
                 data.let {
-                    favorites.clear()
-                    favorites.addAll(it)
-                    favoriteListAdapter.submitList(favorites)
+                    favoriteListAdapter.submitList(data)
 
                     progressBar.visibility = View.INVISIBLE
                 }
