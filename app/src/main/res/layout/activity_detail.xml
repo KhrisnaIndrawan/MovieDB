@@ -55,7 +55,6 @@
             />
         </androidx.cardview.widget.CardView>
 
-
         <TextView
                 tools:text="The Movie Title"
                 android:textSize="18sp"

@@ -19,6 +19,9 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavorite(favorite: FavoriteEntity)
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateFavorite(favorite: FavoriteEntity)
+
     @Delete
     fun deleteFavorite(favorite: FavoriteEntity)
 

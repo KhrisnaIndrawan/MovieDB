@@ -22,6 +22,10 @@ class LocalRepository(private val movieDao: MovieDao) {
         movieDao.deleteFavorite(favorite)
     }
 
+    fun updateFavorite(favorite: FavoriteEntity) {
+        movieDao.updateFavorite(favorite)
+    }
+
     fun getMovieById(id: Int): LiveData<MovieEntity> {
         return movieDao.getMovieById(id)
     }

@@ -2,15 +2,18 @@ package com.khrisna.filmdb.ui.detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.request.RequestOptions
 import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
 import com.khrisna.filmdb.R
+import com.khrisna.filmdb.data.source.local.entity.FavoriteEntity
 import com.khrisna.filmdb.data.source.local.entity.GenreEntity
 import com.khrisna.filmdb.data.source.local.entity.MovieEntity
 import com.khrisna.filmdb.data.source.local.entity.TVShowEntity
@@ -26,8 +29,11 @@ import kotlinx.android.synthetic.main.activity_detail.*
 class DetailActivity : AppCompatActivity() {
 
     private var isMovie: Boolean = false
+    private var isFavorite: Boolean = false
+    private lateinit var favorite: FavoriteEntity
     private lateinit var poster: String
     private lateinit var detailViewModel: DetailViewModel
+    private var menuItem: Menu? = null
 
     companion object {
         const val EXTRA_DETAIL_DATA = "extra_detail_data"
@@ -50,23 +56,34 @@ class DetailActivity : AppCompatActivity() {
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                 .into(img_poster)
 
+            val id: Int = it.getIntExtra(EXTRA_DETAIL_DATA, 0)
+            favorite = FavoriteEntity(
+                id = id,
+                dataId = id,
+                poster = poster,
+                isMovie = isMovie
+            )
+
+            setFavoriteState(id)
+
             if (isMovie) {
                 supportActionBar.let {
                     title = "Movie Details"
                 }
-                val movie: Int = it.getIntExtra(EXTRA_DETAIL_DATA, 0)
                 if (detailViewModel.movie == null) {
-                    detailViewModel.getMovie(movie)
+                    detailViewModel.getMovie(id)
                 }
+
                 showMovieData()
             } else {
                 supportActionBar.let {
                     title = "TVShow Details"
                 }
-                val tvShow: Int = it.getIntExtra(EXTRA_DETAIL_DATA, 0)
+
                 if (detailViewModel.tvShow == null) {
-                    detailViewModel.getTVShow(tvShow)
+                    detailViewModel.getTVShow(id)
                 }
+
                 showTVShowData()
             }
         }
@@ -126,7 +143,6 @@ class DetailActivity : AppCompatActivity() {
     private fun showTVShowData() {
 
         detailViewModel.tvShow?.observe(this, Observer { tvShow ->
-            setViewVisible(true)
             when (tvShow.status) {
                 Status.LOADING -> {
                     progressBar.visibility = View.VISIBLE
@@ -195,11 +211,58 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            //to reverse the scene transition animation
-            supportFinishAfterTransition()
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.detail_menu, menu)
+        menuItem = menu
+        setFavorite()
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.home -> {
+                // to reverse the scene transition animation
+                supportFinishAfterTransition()
+            }
+            R.id.favorite -> {
+                if (isFavorite) removeFromFavorite() else addToFavorite()
+
+                isFavorite = !isFavorite
+                setFavorite()
+            }
+//            R.id.app_bar_translation -> Toast.makeText(
+//                this, "Setting menu item is clicked!",
+//                Toast.LENGTH_SHORT
+//            ).show()
         }
-        return super.onOptionsItemSelected(item)
+
+        return super.onOptionsItemSelected(item as MenuItem)
+    }
+
+    private fun setFavoriteState(id: Int) {
+        detailViewModel.getFavorite(id)
+        detailViewModel.favorite?.observe(this, Observer { data ->
+            if (data != null) {
+                isFavorite = true
+            }
+        })
+    }
+
+    private fun removeFromFavorite() {
+        detailViewModel.deleteFavorite(favorite)
+        Toast.makeText(this, "Removed from favorite", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun addToFavorite() {
+        detailViewModel.insertFavorite(favorite)
+        Toast.makeText(this, "Added to favorite", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setFavorite() {
+        if (isFavorite) {
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_checked_24dp)
+        } else {
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_unchecked_24dp)
+        }
     }
 }

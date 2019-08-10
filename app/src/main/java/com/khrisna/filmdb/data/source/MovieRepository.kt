@@ -8,6 +8,8 @@ import com.khrisna.filmdb.data.source.remote.RemoteRepository
 import com.khrisna.filmdb.data.source.remote.response.*
 import com.khrisna.filmdb.data.source.vo.Resource
 import com.khrisna.filmdb.utils.AppExecutors
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MovieRepository(
     private val localRepository: LocalRepository,
@@ -36,7 +38,7 @@ class MovieRepository(
         }
     }
 
-    override fun getFavorite(id: Int): LiveData<FavoriteEntity> {
+    override fun getFavorite(id: Int): LiveData<FavoriteEntity>? {
         return localRepository.getFavoriteById(id)
     }
 
@@ -45,11 +47,21 @@ class MovieRepository(
     }
 
     override fun insertFavorite(favorite: FavoriteEntity) {
-        return localRepository.insertFavorite(favorite)
+        GlobalScope.launch {
+            localRepository.insertFavorite(favorite)
+        }
     }
 
     override fun deleteFavorite(favorite: FavoriteEntity) {
-        return localRepository.deleteFavorite(favorite)
+        GlobalScope.launch {
+            localRepository.deleteFavorite(favorite)
+        }
+    }
+
+    override fun updateFavorite(favorite: FavoriteEntity) {
+        GlobalScope.launch {
+            localRepository.updateFavorite(favorite)
+        }
     }
 
     override fun getMovie(id: Int): LiveData<Resource<MovieEntity>> {
@@ -112,7 +124,7 @@ class MovieRepository(
                     movies = movieEntityList
                 )
 
-                localRepository.updateMovies(moviesEntity)
+                localRepository.insertMovies(moviesEntity)
             }
         }.asLiveData()
     }
@@ -146,7 +158,7 @@ class MovieRepository(
                     movies = movieEntityList
                 )
 
-                localRepository.updateMovies(moviesEntity)
+                localRepository.insertMovies(moviesEntity)
             }
         }.asLiveData()
     }
@@ -180,7 +192,7 @@ class MovieRepository(
                     movies = movieEntityList
                 )
 
-                localRepository.updateMovies(moviesEntity)
+                localRepository.insertMovies(moviesEntity)
             }
         }.asLiveData()
     }
@@ -214,7 +226,7 @@ class MovieRepository(
                     movies = movieEntityList
                 )
 
-                localRepository.updateMovies(moviesEntity)
+                localRepository.insertMovies(moviesEntity)
             }
         }.asLiveData()
     }
@@ -278,7 +290,7 @@ class MovieRepository(
                     tvShows = tvShowEntityList
                 )
 
-                localRepository.updateTVShows(tvShowsEntity)
+                localRepository.insertTVShows(tvShowsEntity)
             }
         }.asLiveData()
     }
@@ -311,7 +323,7 @@ class MovieRepository(
                     tvShows = tvShowEntityList
                 )
 
-                localRepository.updateTVShows(tvShowsEntity)
+                localRepository.insertTVShows(tvShowsEntity)
             }
         }.asLiveData()
     }
@@ -344,7 +356,7 @@ class MovieRepository(
                     tvShows = tvShowEntityList
                 )
 
-                localRepository.updateTVShows(tvShowsEntity)
+                localRepository.insertTVShows(tvShowsEntity)
             }
         }.asLiveData()
     }
@@ -377,7 +389,7 @@ class MovieRepository(
                     tvShows = tvShowEntityList
                 )
 
-                localRepository.updateTVShows(tvShowsEntity)
+                localRepository.insertTVShows(tvShowsEntity)
             }
         }.asLiveData()
     }

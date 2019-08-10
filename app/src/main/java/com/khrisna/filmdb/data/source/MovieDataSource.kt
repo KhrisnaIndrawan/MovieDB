@@ -6,13 +6,15 @@ import com.khrisna.filmdb.data.source.vo.Resource
 
 interface MovieDataSource {
 
-    fun getFavorite(id: Int): LiveData<FavoriteEntity>
+    fun getFavorite(id: Int): LiveData<FavoriteEntity>?
 
     fun getFavorites(): LiveData<List<FavoriteEntity>>
 
     fun insertFavorite(favorite: FavoriteEntity)
 
     fun deleteFavorite(favorite: FavoriteEntity)
+
+    fun updateFavorite(favorite: FavoriteEntity)
 
     fun getMovie(id: Int): LiveData<Resource<MovieEntity>>
 
