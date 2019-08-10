@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.khrisna.filmdb.data.source.local.entity.*
 
+
 @Dao
 interface MovieDao {
 
@@ -29,6 +30,9 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovie(movie: MovieEntity)
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateMovie(movie: MovieEntity)
+
     // Movies
     @Transaction
     @Query("SELECT * FROM movies_entities WHERE movies_id = :id")
@@ -41,6 +45,9 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovies(moviesList: MoviesEntity)
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateMovies(movies: MoviesEntity)
+
     // TVShow
     @Transaction
     @Query("SELECT * FROM tv_show_entities WHERE tv_show_id = :id")
@@ -48,6 +55,9 @@ interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTVShow(tvShows: TVShowEntity)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateTVShow(tvShow: TVShowEntity)
 
     // TVShows
     @Transaction
@@ -60,4 +70,7 @@ interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTVShows(tvShowsList: TVShowsEntity)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateTVShows(tvShows: TVShowsEntity)
 }

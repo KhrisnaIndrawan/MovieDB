@@ -26,8 +26,12 @@ class LocalRepository(private val movieDao: MovieDao) {
         return movieDao.getMovieById(id)
     }
 
-    fun insertMovie(movies: MovieEntity) {
-        movieDao.insertMovie(movies)
+    fun insertMovie(movie: MovieEntity) {
+        movieDao.insertMovie(movie)
+    }
+
+    fun updateMovie(movie: MovieEntity) {
+        movieDao.updateMovie(movie)
     }
 
     fun getMoviesById(id: Int): LiveData<MoviesEntity> {
@@ -38,6 +42,10 @@ class LocalRepository(private val movieDao: MovieDao) {
         movieDao.insertMovies(moviesList)
     }
 
+    fun updateMovies(movies: MoviesEntity) {
+        movieDao.updateMovies(movies)
+    }
+
     fun getTVShowById(id: Int): LiveData<TVShowEntity> {
         return movieDao.getTVShowById(id)
     }
@@ -46,12 +54,20 @@ class LocalRepository(private val movieDao: MovieDao) {
         movieDao.insertTVShow(tvShows)
     }
 
+    fun updateTVShow(tvShow: TVShowEntity) {
+        movieDao.updateTVShow(tvShow)
+    }
+
     fun getTVShowsById(id: Int): LiveData<TVShowsEntity> {
         return movieDao.getTVShowsById(id)
     }
 
     fun insertTVShows(tvShowsList: TVShowsEntity) {
         movieDao.insertTVShows(tvShowsList)
+    }
+
+    fun updateTVShows(tvShows: TVShowsEntity) {
+        movieDao.updateTVShows(tvShows)
     }
 
     companion object {

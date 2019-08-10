@@ -14,6 +14,8 @@ abstract class NetworkBoundResource<ResultType, RequestType>() {
 
         this.appExecutors = appExecutors
 
+        result.value = Resource()
+
         val dbSource = loadFromDB()
 
         result.addSource(dbSource) { data ->
@@ -80,7 +82,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>() {
 
     private var appExecutors: AppExecutors? = null
 
-    protected fun onFetchFailed() {}
+    private fun onFetchFailed() {}
 
     protected abstract fun loadFromDB(): LiveData<ResultType>
 
