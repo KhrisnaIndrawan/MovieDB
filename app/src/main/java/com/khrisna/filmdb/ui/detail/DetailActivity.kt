@@ -218,22 +218,20 @@ class DetailActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        // to reverse the scene transition animation
+        supportFinishAfterTransition()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.home -> {
-                // to reverse the scene transition animation
-                supportFinishAfterTransition()
-            }
             R.id.favorite -> {
                 if (isFavorite) removeFromFavorite() else addToFavorite()
 
                 isFavorite = !isFavorite
                 setFavorite()
             }
-//            R.id.app_bar_translation -> Toast.makeText(
-//                this, "Setting menu item is clicked!",
-//                Toast.LENGTH_SHORT
-//            ).show()
         }
 
         return super.onOptionsItemSelected(item as MenuItem)
