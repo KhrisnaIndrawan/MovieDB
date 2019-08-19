@@ -64,6 +64,10 @@ class MovieRepository(
         }
     }
 
+    override fun search(query: String): LiveData<SearchesResponse> {
+        return remoteRepository.search(query)
+    }
+
     override fun getMovie(id: Int): LiveData<Resource<MovieEntity>> {
         return object : NetworkBoundResource<MovieEntity, MovieResponse>(appExecutors) {
 

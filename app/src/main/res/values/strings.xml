@@ -11,10 +11,8 @@
     <string name="see_more">View all ></string>
     <string name="favorite">Favorite</string>
     <string name="setting">Setting</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Home</string>
     <string name="translation">Translation</string>
     <string name="movies_or_tv_shows">movies or tv shows</string>
+    <string name="search">Search</string>
 </resources>

@@ -2,6 +2,7 @@ package com.khrisna.filmdb.data.source
 
 import androidx.lifecycle.LiveData
 import com.khrisna.filmdb.data.source.local.entity.*
+import com.khrisna.filmdb.data.source.remote.response.SearchesResponse
 import com.khrisna.filmdb.data.source.vo.Resource
 
 interface MovieDataSource {
@@ -15,6 +16,8 @@ interface MovieDataSource {
     fun deleteFavorite(favorite: FavoriteEntity)
 
     fun updateFavorite(favorite: FavoriteEntity)
+
+    fun search(query: String): LiveData<SearchesResponse>
 
     fun getMovie(id: Int): LiveData<Resource<MovieEntity>>
 

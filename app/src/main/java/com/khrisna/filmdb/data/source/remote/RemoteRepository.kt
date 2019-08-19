@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khrisna.filmdb.data.source.remote.network.RetrofitServices
-import com.khrisna.filmdb.data.source.remote.response.MovieResponse
-import com.khrisna.filmdb.data.source.remote.response.MoviesResponse
-import com.khrisna.filmdb.data.source.remote.response.TVShowResponse
-import com.khrisna.filmdb.data.source.remote.response.TVShowsResponse
+import com.khrisna.filmdb.data.source.remote.response.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +26,31 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
         fun destroyInstance() {
             INSTANCE = null
         }
+    }
+
+    fun search(query: String): LiveData<SearchesResponse> {
+        val searchResponse = MutableLiveData<SearchesResponse>()
+        val networkServices = retrofitServices.createSearchService()
+
+        networkServices
+            .search(query)
+            .enqueue(object : Callback<SearchesResponse> {
+                override fun onFailure(call: Call<SearchesResponse>, t: Throwable) {
+                    Log.d("searchF", t.toString())
+                }
+
+                override fun onResponse(call: Call<SearchesResponse>, response: Response<SearchesResponse>) {
+                    Log.d("search", response.body().toString())
+                    if (response.isSuccessful) {
+                        val data = response.body()
+                        if (data != null) {
+                            searchResponse.postValue(data)
+                        }
+                    }
+                }
+            })
+
+        return searchResponse
     }
 
     fun getMovie(id: Int): LiveData<ApiResponse<MovieResponse>> {

@@ -41,10 +41,7 @@ class FavoriteMoviesFragment : Fragment() {
         activity.let { activity ->
             model = obtainViewModel(activity as AppCompatActivity)
 
-            if (model.favorites == null) {
-                model.getFavorites()
-            }
-            model.favorites?.observe(viewLifecycleOwner, Observer { data ->
+            model.getFavorites().observe(viewLifecycleOwner, Observer { data ->
                 data.let {
                     favorites.clear()
                     for (item in it) {
