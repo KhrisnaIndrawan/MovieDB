@@ -103,10 +103,10 @@ class MovieRepository(
         }.asLiveData()
     }
 
-    override fun getMoviesNowPlaying(page: String): LiveData<Resource<MoviesEntity>> {
+    override fun getMovies(id: Int, header: String): LiveData<Resource<MoviesEntity>> {
         return object : NetworkBoundResource<MoviesEntity, MoviesResponse>(appExecutors) {
             override fun loadFromDB(): LiveData<MoviesEntity> {
-                return localRepository.getMoviesById(1)
+                return localRepository.getMoviesById(id)
             }
 
             override fun shouldFetch(data: MoviesEntity?): Boolean {
@@ -114,7 +114,7 @@ class MovieRepository(
             }
 
             override fun createCall(): LiveData<ApiResponse<MoviesResponse>> {
-                return remoteRepository.getMoviesNowPlaying(page)
+                return remoteRepository.getMovies(header, "1")
             }
 
             override fun saveCallResult(data: MoviesResponse) {
@@ -127,110 +127,8 @@ class MovieRepository(
                 }
 
                 val moviesEntity = MoviesEntity(
-                    id = 1,
-                    header = "Now Playing",
-                    movies = movieEntityList
-                )
-
-                localRepository.insertMovies(moviesEntity)
-            }
-        }.asLiveData()
-    }
-
-    override fun getMoviesUpComing(page: String): LiveData<Resource<MoviesEntity>> {
-        return object : NetworkBoundResource<MoviesEntity, MoviesResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<MoviesEntity> {
-                return localRepository.getMoviesById(2)
-            }
-
-            override fun shouldFetch(data: MoviesEntity?): Boolean {
-                return (data == null) || (data.movies == null) || (data.movies?.size == 0)
-            }
-
-            override fun createCall(): LiveData<ApiResponse<MoviesResponse>> {
-                return remoteRepository.getMoviesUpComing(page)
-            }
-
-            override fun saveCallResult(data: MoviesResponse) {
-                val movieEntityList = mutableListOf<MovieEntity>()
-
-                for (movie in data.movies) {
-
-                    val movieEntity = parseToMovieEntity(movie) as MovieEntity
-                    movieEntityList.add(movieEntity)
-                }
-
-                val moviesEntity = MoviesEntity(
-                    id = 2,
-                    header = "Up Coming",
-                    movies = movieEntityList
-                )
-
-                localRepository.insertMovies(moviesEntity)
-            }
-        }.asLiveData()
-    }
-
-    override fun getMoviesPopular(page: String): LiveData<Resource<MoviesEntity>> {
-        return object : NetworkBoundResource<MoviesEntity, MoviesResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<MoviesEntity> {
-                return localRepository.getMoviesById(3)
-            }
-
-            override fun shouldFetch(data: MoviesEntity?): Boolean {
-                return (data == null) || (data.movies == null) || (data.movies?.size == 0)
-            }
-
-            override fun createCall(): LiveData<ApiResponse<MoviesResponse>> {
-                return remoteRepository.getMoviesPopular(page)
-            }
-
-            override fun saveCallResult(data: MoviesResponse) {
-                val movieEntityList = mutableListOf<MovieEntity>()
-
-                for (movie in data.movies) {
-
-                    val movieEntity = parseToMovieEntity(movie) as MovieEntity
-                    movieEntityList.add(movieEntity)
-                }
-
-                val moviesEntity = MoviesEntity(
-                    id = 3,
-                    header = "Popular",
-                    movies = movieEntityList
-                )
-
-                localRepository.insertMovies(moviesEntity)
-            }
-        }.asLiveData()
-    }
-
-    override fun getMoviesTopRated(page: String): LiveData<Resource<MoviesEntity>> {
-        return object : NetworkBoundResource<MoviesEntity, MoviesResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<MoviesEntity> {
-                return localRepository.getMoviesById(4)
-            }
-
-            override fun shouldFetch(data: MoviesEntity?): Boolean {
-                return (data == null) || (data.movies == null) || (data.movies?.size == 0)
-            }
-
-            override fun createCall(): LiveData<ApiResponse<MoviesResponse>> {
-                return remoteRepository.getMoviesTopRated(page)
-            }
-
-            override fun saveCallResult(data: MoviesResponse) {
-                val movieEntityList = mutableListOf<MovieEntity>()
-
-                for (movie in data.movies) {
-
-                    val movieEntity = parseToMovieEntity(movie) as MovieEntity
-                    movieEntityList.add(movieEntity)
-                }
-
-                val moviesEntity = MoviesEntity(
-                    id = 4,
-                    header = "Top Rated",
+                    id = id,
+                    header = header,
                     movies = movieEntityList
                 )
 
@@ -270,10 +168,10 @@ class MovieRepository(
         }.asLiveData()
     }
 
-    override fun getTVShowsAiringToday(page: String): LiveData<Resource<TVShowsEntity>> {
+    override fun getTVShows(id: Int, header: String): LiveData<Resource<TVShowsEntity>> {
         return object : NetworkBoundResource<TVShowsEntity, TVShowsResponse>(appExecutors) {
             override fun loadFromDB(): LiveData<TVShowsEntity> {
-                return localRepository.getTVShowsById(1)
+                return localRepository.getTVShowsById(id)
             }
 
             override fun shouldFetch(data: TVShowsEntity?): Boolean {
@@ -281,7 +179,7 @@ class MovieRepository(
             }
 
             override fun createCall(): LiveData<ApiResponse<TVShowsResponse>> {
-                return remoteRepository.getTVShowsAiringToday(page)
+                return remoteRepository.getTVShows(header, "1")
             }
 
             override fun saveCallResult(data: TVShowsResponse) {
@@ -293,107 +191,8 @@ class MovieRepository(
                 }
 
                 val tvShowsEntity = TVShowsEntity(
-                    id = 1,
-                    header = "Airing Today",
-                    tvShows = tvShowEntityList
-                )
-
-                localRepository.insertTVShows(tvShowsEntity)
-            }
-        }.asLiveData()
-    }
-
-    override fun getTVShowsOnTheAir(page: String): LiveData<Resource<TVShowsEntity>> {
-        return object : NetworkBoundResource<TVShowsEntity, TVShowsResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<TVShowsEntity> {
-                return localRepository.getTVShowsById(2)
-            }
-
-            override fun shouldFetch(data: TVShowsEntity?): Boolean {
-                return (data == null) || (data.tvShows == null) || (data.tvShows?.size == 0)
-            }
-
-            override fun createCall(): LiveData<ApiResponse<TVShowsResponse>> {
-                return remoteRepository.getTVShowsOnTheAir(page)
-            }
-
-            override fun saveCallResult(data: TVShowsResponse) {
-                val tvShowEntityList = mutableListOf<TVShowEntity>()
-                for (tvShow in data.tvShows) {
-
-                    val tvShowEntity = parseToTVShowEntity(tvShow) as TVShowEntity
-                    tvShowEntityList.add(tvShowEntity)
-                }
-
-                val tvShowsEntity = TVShowsEntity(
-                    id = 2,
-                    header = "On The Air",
-                    tvShows = tvShowEntityList
-                )
-
-                localRepository.insertTVShows(tvShowsEntity)
-            }
-        }.asLiveData()
-    }
-
-    override fun getTVShowsPopular(page: String): LiveData<Resource<TVShowsEntity>> {
-        return object : NetworkBoundResource<TVShowsEntity, TVShowsResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<TVShowsEntity> {
-                return localRepository.getTVShowsById(3)
-            }
-
-            override fun shouldFetch(data: TVShowsEntity?): Boolean {
-                return (data == null) || (data.tvShows == null) || (data.tvShows?.size == 0)
-            }
-
-            override fun createCall(): LiveData<ApiResponse<TVShowsResponse>> {
-                return remoteRepository.getTVShowsPopular(page)
-            }
-
-            override fun saveCallResult(data: TVShowsResponse) {
-                val tvShowEntityList = mutableListOf<TVShowEntity>()
-                for (tvShow in data.tvShows) {
-
-                    val tvShowEntity = parseToTVShowEntity(tvShow) as TVShowEntity
-                    tvShowEntityList.add(tvShowEntity)
-                }
-
-                val tvShowsEntity = TVShowsEntity(
-                    id = 3,
-                    header = "Popular",
-                    tvShows = tvShowEntityList
-                )
-
-                localRepository.insertTVShows(tvShowsEntity)
-            }
-        }.asLiveData()
-    }
-
-    override fun getTVShowsTopRated(page: String): LiveData<Resource<TVShowsEntity>> {
-        return object : NetworkBoundResource<TVShowsEntity, TVShowsResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<TVShowsEntity> {
-                return localRepository.getTVShowsById(4)
-            }
-
-            override fun shouldFetch(data: TVShowsEntity?): Boolean {
-                return (data == null) || (data.tvShows == null) || (data.tvShows?.size == 0)
-            }
-
-            override fun createCall(): LiveData<ApiResponse<TVShowsResponse>> {
-                return remoteRepository.getTVShowsTopRated(page)
-            }
-
-            override fun saveCallResult(data: TVShowsResponse) {
-                val tvShowEntityList = mutableListOf<TVShowEntity>()
-                for (tvShow in data.tvShows) {
-
-                    val tvShowEntity = parseToTVShowEntity(tvShow) as TVShowEntity
-                    tvShowEntityList.add(tvShowEntity)
-                }
-
-                val tvShowsEntity = TVShowsEntity(
-                    id = 4,
-                    header = "Top Rated",
+                    id = id,
+                    header = header,
                     tvShows = tvShowEntityList
                 )
 

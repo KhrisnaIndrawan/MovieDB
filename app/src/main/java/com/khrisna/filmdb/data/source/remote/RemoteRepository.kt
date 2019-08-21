@@ -80,109 +80,38 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
         return movieResponse
     }
 
-    fun getMoviesNowPlaying(page: String): LiveData<ApiResponse<MoviesResponse>> {
+    fun getMovies(header: String, page: String): LiveData<ApiResponse<MoviesResponse>> {
         val moviesResponse = MutableLiveData<ApiResponse<MoviesResponse>>()
         val networkServices = retrofitServices.createMovieService()
 
+        var path = ""
+        when (header) {
+            "Now Playing" -> {
+                path = "now_playing"
+            }
+            "Up Coming" -> {
+                path = "upcoming"
+            }
+            "Popular" -> {
+                path = "popular"
+            }
+            "Top Rated" -> {
+                path = "top_rated"
+            }
+        }
+
         networkServices
-            .getMovieNowPlaying(page)
+            .getMovies(path, page)
             .enqueue(object : Callback<MoviesResponse> {
                 override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
-                    Log.d("getMoviesNowPlaying", t.toString())
+                    Log.d("getMovies", t.toString())
                 }
 
                 override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>) {
                     if (response.isSuccessful) {
                         val data = response.body()
                         if (data != null) {
-                            data.header = "Now Playing"
-                            moviesResponse.postValue(
-                                ApiResponse<MoviesResponse>()
-                                    .success(data)
-                            )
-                        }
-                    }
-                }
-            })
-
-        return moviesResponse
-    }
-
-    fun getMoviesUpComing(page: String): LiveData<ApiResponse<MoviesResponse>> {
-        val moviesResponse = MutableLiveData<ApiResponse<MoviesResponse>>()
-
-        val networkServices = retrofitServices.createMovieService()
-        networkServices
-            .getMovieUpComing(page)
-            .enqueue(object : Callback<MoviesResponse> {
-                override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
-                    Log.d("getMoviesUpComing", t.toString())
-                }
-
-                override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>) {
-                    if (response.isSuccessful) {
-                        val data = response.body()
-                        if (data != null) {
-                            data.header = "Up Coming"
-
-                            moviesResponse.postValue(
-                                ApiResponse<MoviesResponse>()
-                                    .success(data)
-                            )
-                        }
-                    }
-                }
-            })
-
-        return moviesResponse
-    }
-
-    fun getMoviesPopular(page: String): LiveData<ApiResponse<MoviesResponse>> {
-        val moviesResponse = MutableLiveData<ApiResponse<MoviesResponse>>()
-
-        val networkServices = retrofitServices.createMovieService()
-        networkServices
-            .getMoviePopular(page)
-            .enqueue(object : Callback<MoviesResponse> {
-                override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
-                    Log.d("getMoviesPopular", t.toString())
-                }
-
-                override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>) {
-                    if (response.isSuccessful) {
-                        val data = response.body()
-                        if (data != null) {
-                            data.header = "Popular"
-
-                            moviesResponse.postValue(
-                                ApiResponse<MoviesResponse>()
-                                    .success(data)
-                            )
-                        }
-                    }
-                }
-            })
-
-        return moviesResponse
-    }
-
-    fun getMoviesTopRated(page: String): LiveData<ApiResponse<MoviesResponse>> {
-        val moviesResponse = MutableLiveData<ApiResponse<MoviesResponse>>()
-
-        val networkServices = retrofitServices.createMovieService()
-        networkServices
-            .getMovieTopRated(page)
-            .enqueue(object : Callback<MoviesResponse> {
-                override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
-                    Log.d("getMoviesTopRated", t.toString())
-                }
-
-                override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>) {
-                    if (response.isSuccessful) {
-                        val data = response.body()
-                        if (data != null) {
-                            data.header = "Top Rated"
-
+                            data.header = header
                             moviesResponse.postValue(
                                 ApiResponse<MoviesResponse>()
                                     .success(data)
@@ -224,109 +153,38 @@ class RemoteRepository(private val retrofitServices: RetrofitServices) {
         return tvShowResponse
     }
 
-    fun getTVShowsAiringToday(page: String): LiveData<ApiResponse<TVShowsResponse>> {
+    fun getTVShows(header: String, page: String): LiveData<ApiResponse<TVShowsResponse>> {
         val tvShowsResponse = MutableLiveData<ApiResponse<TVShowsResponse>>()
+
+        var path = ""
+        when (header) {
+            "Airing Today" -> {
+                path = "airing_today"
+            }
+            "On The Air" -> {
+                path = "on_the_air"
+            }
+            "Popular" -> {
+                path = "popular"
+            }
+            "Top Rated" -> {
+                path = "top_rated"
+            }
+        }
 
         val networkServices = retrofitServices.createTVShowService()
         networkServices
-            .getTVAiringToday(page)
+            .getTVShows(path, page)
             .enqueue(object : Callback<TVShowsResponse> {
                 override fun onFailure(call: Call<TVShowsResponse>, t: Throwable) {
-                    Log.d("getTVShowsAiringToday", t.toString())
+                    Log.d("getTVShows", t.toString())
                 }
 
                 override fun onResponse(call: Call<TVShowsResponse>, response: Response<TVShowsResponse>) {
                     if (response.isSuccessful) {
                         val data = response.body()
                         if (data != null) {
-                            data.header = "Airing Today"
-
-                            tvShowsResponse.postValue(
-                                ApiResponse<TVShowsResponse>()
-                                    .success(data)
-                            )
-                        }
-                    }
-                }
-            })
-
-        return tvShowsResponse
-    }
-
-    fun getTVShowsOnTheAir(page: String): LiveData<ApiResponse<TVShowsResponse>> {
-        val tvShowsResponse = MutableLiveData<ApiResponse<TVShowsResponse>>()
-
-        val networkServices = retrofitServices.createTVShowService()
-        networkServices
-            .getTVOnTheAir(page)
-            .enqueue(object : Callback<TVShowsResponse> {
-                override fun onFailure(call: Call<TVShowsResponse>, t: Throwable) {
-                    Log.d("getTVShowsAiringToday", t.toString())
-                }
-
-                override fun onResponse(call: Call<TVShowsResponse>, response: Response<TVShowsResponse>) {
-                    if (response.isSuccessful) {
-                        val data = response.body()
-                        if (data != null) {
-                            data.header = "On The Air"
-
-                            tvShowsResponse.postValue(
-                                ApiResponse<TVShowsResponse>()
-                                    .success(data)
-                            )
-                        }
-                    }
-                }
-            })
-
-        return tvShowsResponse
-    }
-
-    fun getTVShowsPopular(page: String): LiveData<ApiResponse<TVShowsResponse>> {
-        val tvShowsResponse = MutableLiveData<ApiResponse<TVShowsResponse>>()
-
-        val networkServices = retrofitServices.createTVShowService()
-        networkServices
-            .getTVPopular(page)
-            .enqueue(object : Callback<TVShowsResponse> {
-                override fun onFailure(call: Call<TVShowsResponse>, t: Throwable) {
-                    Log.d("getTVShowsPopular", t.toString())
-                }
-
-                override fun onResponse(call: Call<TVShowsResponse>, response: Response<TVShowsResponse>) {
-                    if (response.isSuccessful) {
-                        val data = response.body()
-                        if (data != null) {
-                            data.header = "Popular"
-
-                            tvShowsResponse.postValue(
-                                ApiResponse<TVShowsResponse>()
-                                    .success(data)
-                            )
-                        }
-                    }
-                }
-            })
-
-        return tvShowsResponse
-    }
-
-    fun getTVShowsTopRated(page: String): LiveData<ApiResponse<TVShowsResponse>> {
-        val tvShowsResponse = MutableLiveData<ApiResponse<TVShowsResponse>>()
-
-        val networkServices = retrofitServices.createTVShowService()
-        networkServices
-            .getTVTopRated(page)
-            .enqueue(object : Callback<TVShowsResponse> {
-                override fun onFailure(call: Call<TVShowsResponse>, t: Throwable) {
-                    Log.d("getTVShowsTopRated", t.toString())
-                }
-
-                override fun onResponse(call: Call<TVShowsResponse>, response: Response<TVShowsResponse>) {
-                    if (response.isSuccessful) {
-                        val data = response.body()
-                        if (data != null) {
-                            data.header = "Top Rated"
+                            data.header = header
 
                             tvShowsResponse.postValue(
                                 ApiResponse<TVShowsResponse>()

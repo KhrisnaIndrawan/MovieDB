@@ -43,10 +43,7 @@ class MoviesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         activity.let { activity ->
             model = obtainViewModel(activity as AppCompatActivity)
-            if (model.nowPlaying == null) {
-                model.getNowPlaying()
-            }
-            model.nowPlaying?.observe(viewLifecycleOwner, Observer { data ->
+            model.getNowPlaying().observe(viewLifecycleOwner, Observer { data ->
                 data.let {
                     when (it.status) {
                         Status.LOADING -> {
@@ -71,10 +68,7 @@ class MoviesFragment : Fragment() {
                     }
                 }
             })
-            if (model.upComing == null) {
-                model.getUpComing()
-            }
-            model.upComing?.observe(viewLifecycleOwner, Observer { data ->
+            model.getUpComing().observe(viewLifecycleOwner, Observer { data ->
                 data.let {
                     when (it.status) {
                         Status.LOADING -> {
@@ -99,10 +93,7 @@ class MoviesFragment : Fragment() {
                     }
                 }
             })
-            if (model.popular == null) {
-                model.getPopular()
-            }
-            model.popular?.observe(viewLifecycleOwner, Observer { data ->
+            model.getPopular().observe(viewLifecycleOwner, Observer { data ->
                 data.let {
                     when (it.status) {
                         Status.LOADING -> {
@@ -127,10 +118,7 @@ class MoviesFragment : Fragment() {
                     }
                 }
             })
-            if (model.topRated == null) {
-                model.getTopRated()
-            }
-            model.topRated?.observe(viewLifecycleOwner, Observer { data ->
+            model.getTopRated().observe(viewLifecycleOwner, Observer { data ->
                 data.let {
                     when (it.status) {
                         Status.LOADING -> {

@@ -10,10 +10,6 @@ class FavoritesViewModel(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    fun getFavorites(): LiveData<List<FavoriteEntity>> {
-        return movieRepository.getFavorites()
-    }
-
     fun getFavoritesAsPaged(isMovie: Boolean): LiveData<PagedList<FavoriteEntity>> {
         return movieRepository.getFavoritesAsPaged(isMovie)
     }

@@ -10,18 +10,12 @@ import retrofit2.http.Query
 
 interface MovieService {
 
-    @GET("movie/{Id}?api_key=${BuildConfig.API_KEY}&language=en-US")
-    fun getMovie(@Path("Id") id: Int): Call<MovieResponse>
+    @GET("movie/{id}?api_key=${BuildConfig.API_KEY}&language=en-US")
+    fun getMovie(@Path("id") id: Int): Call<MovieResponse>
 
-    @GET("movie/now_playing?api_key=${BuildConfig.API_KEY}&language=en-US?")
-    fun getMovieNowPlaying(@Query("page") page: String): Call<MoviesResponse>
-
-    @GET("movie/upcoming?api_key=${BuildConfig.API_KEY}&language=en-US?")
-    fun getMovieUpComing(@Query("page") page: String): Call<MoviesResponse>
-
-    @GET("movie/popular?api_key=${BuildConfig.API_KEY}&language=en-US?")
-    fun getMoviePopular(@Query("page") page: String): Call<MoviesResponse>
-
-    @GET("movie/top_rated?api_key=${BuildConfig.API_KEY}&language=en-US?")
-    fun getMovieTopRated(@Query("page") page: String): Call<MoviesResponse>
+    @GET("movie/{header}?api_key=${BuildConfig.API_KEY}&language=en-US?")
+    fun getMovies(
+        @Path("header") header: String,
+        @Query("page") page: String
+    ): Call<MoviesResponse>
 }

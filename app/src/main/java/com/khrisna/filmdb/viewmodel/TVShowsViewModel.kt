@@ -10,33 +10,19 @@ class TVShowsViewModel(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private var _airingToday: LiveData<Resource<TVShowsEntity>>? = null
-    private var _onTheAir: LiveData<Resource<TVShowsEntity>>? = null
-    private var _popular: LiveData<Resource<TVShowsEntity>>? = null
-    private var _topRated: LiveData<Resource<TVShowsEntity>>? = null
-
-    val airingToday: LiveData<Resource<TVShowsEntity>>?
-        get() = _airingToday
-    val onTheAir: LiveData<Resource<TVShowsEntity>>?
-        get() = _onTheAir
-    val popular: LiveData<Resource<TVShowsEntity>>?
-        get() = _popular
-    val topRated: LiveData<Resource<TVShowsEntity>>?
-        get() = _topRated
-
-    fun getAiringToday() {
-        _airingToday = movieRepository.getTVShowsAiringToday("1")
+    fun getAiringToday(): LiveData<Resource<TVShowsEntity>> {
+        return movieRepository.getTVShows(1, "Airing Today")
     }
 
-    fun getOnTheAir() {
-        _onTheAir = movieRepository.getTVShowsOnTheAir("1")
+    fun getOnTheAir(): LiveData<Resource<TVShowsEntity>> {
+        return movieRepository.getTVShows(2, "On The Air")
     }
 
-    fun getPopular() {
-        _popular = movieRepository.getTVShowsPopular("1")
+    fun getPopular(): LiveData<Resource<TVShowsEntity>> {
+        return movieRepository.getTVShows(3, "Popular")
     }
 
-    fun getTopRated() {
-        _topRated = movieRepository.getTVShowsTopRated("1")
+    fun getTopRated(): LiveData<Resource<TVShowsEntity>> {
+        return movieRepository.getTVShows(4, "Top Rated")
     }
 }

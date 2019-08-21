@@ -10,18 +10,12 @@ import retrofit2.http.Query
 
 interface TVShowService {
 
-    @GET("tv/{Id}?api_key=${BuildConfig.API_KEY}&language=en-US")
-    fun getTVShow(@Path("Id") id: Int): Call<TVShowResponse>
+    @GET("tv/{id}?api_key=${BuildConfig.API_KEY}&language=en-US")
+    fun getTVShow(@Path("id") id: Int): Call<TVShowResponse>
 
-    @GET("tv/airing_today?api_key=${BuildConfig.API_KEY}&language=en-US?")
-    fun getTVAiringToday(@Query("page") page: String): Call<TVShowsResponse>
-
-    @GET("tv/on_the_air?api_key=${BuildConfig.API_KEY}&language=en-US?")
-    fun getTVOnTheAir(@Query("page") page: String): Call<TVShowsResponse>
-
-    @GET("tv/popular?api_key=${BuildConfig.API_KEY}&language=en-US?")
-    fun getTVPopular(@Query("page") page: String): Call<TVShowsResponse>
-
-    @GET("tv/top_rated?api_key=${BuildConfig.API_KEY}&language=en-US?")
-    fun getTVTopRated(@Query("page") page: String): Call<TVShowsResponse>
+    @GET("tv/{header}?api_key=${BuildConfig.API_KEY}&language=en-US?")
+    fun getTVShows(
+        @Path("header") header: String,
+        @Query("page") page: String
+    ): Call<TVShowsResponse>
 }

@@ -43,10 +43,7 @@ class TVShowsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         activity.let { activity ->
             model = obtainViewModel(activity as AppCompatActivity)
-            if (model.airingToday == null) {
-                model.getAiringToday()
-            }
-            model.airingToday?.observe(viewLifecycleOwner, Observer { data ->
+            model.getAiringToday().observe(viewLifecycleOwner, Observer { data ->
                 data.let {
                     when (it.status) {
                         Status.LOADING -> {
@@ -71,10 +68,7 @@ class TVShowsFragment : Fragment() {
                     }
                 }
             })
-            if (model.onTheAir == null) {
-                model.getOnTheAir()
-            }
-            model.onTheAir?.observe(viewLifecycleOwner, Observer { data ->
+            model.getOnTheAir().observe(viewLifecycleOwner, Observer { data ->
                 data.let {
                     when (it.status) {
                         Status.LOADING -> {
@@ -99,10 +93,7 @@ class TVShowsFragment : Fragment() {
                     }
                 }
             })
-            if (model.popular == null) {
-                model.getPopular()
-            }
-            model.popular?.observe(viewLifecycleOwner, Observer { data ->
+            model.getPopular().observe(viewLifecycleOwner, Observer { data ->
                 data.let {
                     when (it.status) {
                         Status.LOADING -> {
@@ -127,10 +118,7 @@ class TVShowsFragment : Fragment() {
                     }
                 }
             })
-            if (model.topRated == null) {
-                model.getTopRated()
-            }
-            model.topRated?.observe(viewLifecycleOwner, Observer { data ->
+            model.getTopRated().observe(viewLifecycleOwner, Observer { data ->
                 data.let {
                     when (it.status) {
                         Status.LOADING -> {
