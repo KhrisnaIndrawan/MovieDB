@@ -15,6 +15,10 @@ class LocalRepository(private val movieDao: MovieDao) {
         return movieDao.getFavorites()
     }
 
+    fun getFavoritesAsPaged(isMovie: Boolean): DataSource.Factory<Int, FavoriteEntity> {
+        return movieDao.getFavoritesAsPaged(isMovie)
+    }
+
     fun insertFavorite(favorite: FavoriteEntity) {
         movieDao.insertFavorite(favorite)
     }

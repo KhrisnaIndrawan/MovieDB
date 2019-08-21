@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.ui.adapter.FavoriteSectionsPagerAdapter
+import com.khrisna.filmdb.ui.adapter.favorite.FavoriteSectionsPagerAdapter
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
@@ -21,7 +21,10 @@ class FavoritesFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_favorites, container, false)
 
-        val sectionsPagerAdapter = FavoriteSectionsPagerAdapter(context as AppCompatActivity, childFragmentManager)
+        val sectionsPagerAdapter = FavoriteSectionsPagerAdapter(
+            context as AppCompatActivity,
+            childFragmentManager
+        )
         view.view_pager.adapter = sectionsPagerAdapter
         view.tabs.setupWithViewPager(view.view_pager)
 

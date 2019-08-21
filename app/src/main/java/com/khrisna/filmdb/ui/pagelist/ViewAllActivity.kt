@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.di.Injection
-import com.khrisna.filmdb.ui.adapter.MovieAdapter
-import com.khrisna.filmdb.ui.adapter.TVShowAdapter
+import com.khrisna.filmdb.ui.adapter.movie.MovieAdapter
+import com.khrisna.filmdb.ui.adapter.tvshow.TVShowAdapter
 import com.khrisna.filmdb.viewmodel.ViewAllViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_view_all.*

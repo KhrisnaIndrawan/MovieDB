@@ -18,7 +18,7 @@ import com.khrisna.filmdb.R
 import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
 import com.khrisna.filmdb.data.source.vo.Status
 import com.khrisna.filmdb.di.Injection
-import com.khrisna.filmdb.ui.adapter.MovieListAdapter
+import com.khrisna.filmdb.ui.adapter.movie.MovieListAdapter
 import com.khrisna.filmdb.viewmodel.MoviesViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_movies.*
@@ -63,6 +63,7 @@ class MoviesFragment : Fragment() {
                             if (it.data != null) {
                                 movies.add(it.data as MoviesEntity)
                                 movieListAdapter.submitList(movies)
+                                movieListAdapter.notifyDataSetChanged()
 
                                 progressBar.visibility = View.INVISIBLE
                             }
@@ -90,6 +91,7 @@ class MoviesFragment : Fragment() {
                             if (it.data != null) {
                                 movies.add(it.data as MoviesEntity)
                                 movieListAdapter.submitList(movies)
+                                movieListAdapter.notifyDataSetChanged()
 
                                 progressBar.visibility = View.INVISIBLE
                             }
@@ -117,6 +119,7 @@ class MoviesFragment : Fragment() {
                             if (it.data != null) {
                                 movies.add(it.data as MoviesEntity)
                                 movieListAdapter.submitList(movies)
+                                movieListAdapter.notifyDataSetChanged()
 
                                 progressBar.visibility = View.INVISIBLE
                             }
@@ -144,6 +147,7 @@ class MoviesFragment : Fragment() {
                             if (it.data != null) {
                                 movies.add(it.data as MoviesEntity)
                                 movieListAdapter.submitList(movies)
+                                movieListAdapter.notifyDataSetChanged()
 
                                 progressBar.visibility = View.INVISIBLE
                             }

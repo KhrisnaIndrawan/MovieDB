@@ -18,7 +18,7 @@ import com.khrisna.filmdb.R
 import com.khrisna.filmdb.data.source.local.entity.TVShowsEntity
 import com.khrisna.filmdb.data.source.vo.Status
 import com.khrisna.filmdb.di.Injection
-import com.khrisna.filmdb.ui.adapter.TVShowListAdapter
+import com.khrisna.filmdb.ui.adapter.tvshow.TVShowListAdapter
 import com.khrisna.filmdb.viewmodel.TVShowsViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_tvshows.*
@@ -63,6 +63,7 @@ class TVShowsFragment : Fragment() {
                             if (it.data != null) {
                                 tvShows.add(it.data as TVShowsEntity)
                                 tvShowListAdapter.submitList(tvShows)
+                                tvShowListAdapter.notifyDataSetChanged()
 
                                 progressBar.visibility = View.INVISIBLE
                             }
@@ -90,6 +91,7 @@ class TVShowsFragment : Fragment() {
                             if (it.data != null) {
                                 tvShows.add(it.data as TVShowsEntity)
                                 tvShowListAdapter.submitList(tvShows)
+                                tvShowListAdapter.notifyDataSetChanged()
 
                                 progressBar.visibility = View.INVISIBLE
                             }
@@ -117,6 +119,7 @@ class TVShowsFragment : Fragment() {
                             if (it.data != null) {
                                 tvShows.add(it.data as TVShowsEntity)
                                 tvShowListAdapter.submitList(tvShows)
+                                tvShowListAdapter.notifyDataSetChanged()
 
                                 progressBar.visibility = View.INVISIBLE
                             }
@@ -144,6 +147,7 @@ class TVShowsFragment : Fragment() {
                             if (it.data != null) {
                                 tvShows.add(it.data as TVShowsEntity)
                                 tvShowListAdapter.submitList(tvShows)
+                                tvShowListAdapter.notifyDataSetChanged()
 
                                 progressBar.visibility = View.INVISIBLE
                             }

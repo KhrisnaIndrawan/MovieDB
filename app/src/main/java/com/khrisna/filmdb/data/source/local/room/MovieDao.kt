@@ -1,6 +1,7 @@
 package com.khrisna.filmdb.data.source.local.room
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.khrisna.filmdb.data.source.local.entity.*
 
@@ -15,6 +16,9 @@ interface MovieDao {
 
     @Query("SELECT * FROM favorite_entities")
     fun getFavorites(): LiveData<List<FavoriteEntity>>
+
+    @Query("SELECT * FROM favorite_entities WHERE favorite_is_movie = :isMovie")
+    fun getFavoritesAsPaged(isMovie: Boolean): DataSource.Factory<Int, FavoriteEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavorite(favorite: FavoriteEntity)

@@ -1,4 +1,4 @@
-package com.khrisna.filmdb.ui.adapter
+package com.khrisna.filmdb.ui.adapter.favorite
 
 import android.content.Context
 import androidx.fragment.app.Fragment

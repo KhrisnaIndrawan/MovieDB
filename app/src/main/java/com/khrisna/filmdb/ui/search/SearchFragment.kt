@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.di.Injection
-import com.khrisna.filmdb.ui.adapter.SearchAdapter
+import com.khrisna.filmdb.ui.adapter.search.SearchAdapter
 import com.khrisna.filmdb.viewmodel.SearchViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_search.*
@@ -47,6 +47,7 @@ class SearchFragment : Fragment() {
                     data.let {
 
                         searchAdapter.submitList(data.searches)
+                        searchAdapter.notifyDataSetChanged()
 
                         progressBar.visibility = View.INVISIBLE
                     }

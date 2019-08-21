@@ -1,6 +1,8 @@
 package com.khrisna.filmdb.data.source
 
 import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.khrisna.filmdb.data.source.local.LocalRepository
 import com.khrisna.filmdb.data.source.local.entity.*
 import com.khrisna.filmdb.data.source.remote.ApiResponse
@@ -44,6 +46,12 @@ class MovieRepository(
 
     override fun getFavorites(): LiveData<List<FavoriteEntity>> {
         return localRepository.getFavorites()
+    }
+
+    override fun getFavoritesAsPaged(isMovie: Boolean): LiveData<PagedList<FavoriteEntity>> {
+        return LivePagedListBuilder(
+            localRepository.getFavoritesAsPaged(isMovie), 20
+        ).build()
     }
 
     override fun insertFavorite(favorite: FavoriteEntity) {

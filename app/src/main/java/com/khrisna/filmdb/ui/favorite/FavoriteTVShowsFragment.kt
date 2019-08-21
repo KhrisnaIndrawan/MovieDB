@@ -13,9 +13,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.data.source.local.entity.FavoriteEntity
 import com.khrisna.filmdb.di.Injection
-import com.khrisna.filmdb.ui.adapter.FavoriteAdapter
+import com.khrisna.filmdb.ui.adapter.favorite.FavoritePagedAdapter
 import com.khrisna.filmdb.viewmodel.FavoritesViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_favorite_tv_shows.*
@@ -24,8 +23,7 @@ import kotlinx.android.synthetic.main.fragment_favorite_tv_shows.*
 class FavoriteTVShowsFragment : Fragment() {
 
     private lateinit var model: FavoritesViewModel
-    private lateinit var favorites: MutableList<FavoriteEntity>
-    private lateinit var favoriteListAdapter: FavoriteAdapter
+    private lateinit var favoriteListAdapter: FavoritePagedAdapter
     private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
@@ -41,15 +39,10 @@ class FavoriteTVShowsFragment : Fragment() {
         activity.let { activity ->
             model = obtainViewModel(activity as AppCompatActivity)
 
-            model.getFavorites().observe(viewLifecycleOwner, Observer { data ->
+            model.getFavoritesAsPaged(false).observe(viewLifecycleOwner, Observer { data ->
                 data.let {
-                    favorites.clear()
-                    for (item in it) {
-                        if (!item.isMovie!!) {
-                            favorites.add(item)
-                        }
-                    }
-                    favoriteListAdapter.submitList(favorites)
+                    favoriteListAdapter.submitList(it)
+                    favoriteListAdapter.notifyDataSetChanged()
 
                     progressBar.visibility = View.INVISIBLE
                 }
@@ -60,8 +53,7 @@ class FavoriteTVShowsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        favorites = mutableListOf()
-        favoriteListAdapter = FavoriteAdapter(context as AppCompatActivity)
+        favoriteListAdapter = FavoritePagedAdapter(context as AppCompatActivity)
 
         progressBar = view.findViewById(R.id.progressBar)
 
