@@ -5,15 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".ui.pagelist.ViewAllActivity">
+    tools:context=".ui.viewall.ViewAllActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_view_all"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        android:paddingStart="4dp"
-        android:paddingEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

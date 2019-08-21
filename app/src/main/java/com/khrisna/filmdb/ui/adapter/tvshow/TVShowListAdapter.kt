@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.*
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.data.source.local.entity.TVShowsEntity
-import com.khrisna.filmdb.ui.pagelist.ViewAllActivity
+import com.khrisna.filmdb.ui.viewall.ViewAllActivity
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper as GravitySnapHelper1
 
 class TVShowListAdapter(
@@ -51,7 +51,7 @@ class TVShowListAdapter(
         fun bind(item: TVShowsEntity) {
             tvHeader.text = item.header
 
-            val adapter = TVShowAdapter(context as AppCompatActivity)
+            val adapter = TVShowAdapter(context as AppCompatActivity, false)
             adapter.submitList(item.tvShows)
 
             rvPoster.apply {

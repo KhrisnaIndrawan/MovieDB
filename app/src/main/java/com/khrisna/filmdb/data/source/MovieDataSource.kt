@@ -24,7 +24,11 @@ interface MovieDataSource {
 
     fun getMovies(id: Int, header: String): LiveData<Resource<MoviesEntity>>
 
+    fun getMoviesByHeader(header: String): LiveData<MoviesEntity>
+
     fun getTVShow(id: Int): LiveData<Resource<TVShowEntity>>
 
     fun getTVShows(id: Int, header: String): LiveData<Resource<TVShowsEntity>>
+
+    fun getTVShowsByHeader(header: String): LiveData<TVShowsEntity>
 }

@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.*
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
-import com.khrisna.filmdb.ui.pagelist.ViewAllActivity
-import com.khrisna.filmdb.ui.pagelist.ViewAllActivity.Companion.EXTRA_HEADER
-import com.khrisna.filmdb.ui.pagelist.ViewAllActivity.Companion.EXTRA_IS_MOVIE
+import com.khrisna.filmdb.ui.viewall.ViewAllActivity
+import com.khrisna.filmdb.ui.viewall.ViewAllActivity.Companion.EXTRA_HEADER
+import com.khrisna.filmdb.ui.viewall.ViewAllActivity.Companion.EXTRA_IS_MOVIE
 
 class MovieListAdapter(
     private val context: Context,
@@ -53,7 +53,7 @@ class MovieListAdapter(
         fun bind(item: MoviesEntity) {
             tvHeader.text = item.header
 
-            val adapter = MovieAdapter(context as AppCompatActivity)
+            val adapter = MovieAdapter(context as AppCompatActivity, false)
             adapter.submitList(item.movies)
 
             rvPoster.apply {

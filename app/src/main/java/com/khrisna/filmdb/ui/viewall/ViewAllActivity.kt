@@ -1,4 +1,4 @@
-package com.khrisna.filmdb.ui.pagelist
+package com.khrisna.filmdb.ui.viewall
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -51,7 +51,7 @@ class ViewAllActivity : AppCompatActivity() {
         }
 
         if (isMovie) {
-            movieListAdapter = MovieAdapter(this)
+            movieListAdapter = MovieAdapter(this, true)
 
             rv_view_all.apply {
                 setHasFixedSize(true)
@@ -62,7 +62,7 @@ class ViewAllActivity : AppCompatActivity() {
 
             showMoviesData()
         } else {
-            tvShowListAdapter = TVShowAdapter(this)
+            tvShowListAdapter = TVShowAdapter(this, true)
 
             rv_view_all.apply {
                 setHasFixedSize(true)
@@ -76,24 +76,26 @@ class ViewAllActivity : AppCompatActivity() {
     }
 
     private fun showMoviesData() {
-        viewAllViewModel.getMovies(header, page)
 
-        viewAllViewModel.movies?.observe(this, Observer { data ->
-//            if (data != null) {
-//                movieListAdapter.submitList(data.movies)
-//            }
+        viewAllViewModel.getMovies(header).observe(this, Observer { data ->
+            data.let {
+
+                movieListAdapter.submitList(it.movies)
+                movieListAdapter.notifyDataSetChanged()
+            }
 
             progressBar.visibility = View.INVISIBLE
         })
     }
 
     private fun showTvShowsData() {
-        viewAllViewModel.getTVShows(header, page)
 
-        viewAllViewModel.tvShows?.observe(this, Observer { data ->
-//            if (data != null) {
-//                tvShowListAdapter.submitList(data.tvShow)
-//            }
+        viewAllViewModel.getTVShows(header).observe(this, Observer { data ->
+            data.let {
+
+                tvShowListAdapter.submitList(it.tvShows)
+                tvShowListAdapter.notifyDataSetChanged()
+            }
 
             progressBar.visibility = View.INVISIBLE
         })

@@ -137,6 +137,10 @@ class MovieRepository(
         }.asLiveData()
     }
 
+    override fun getMoviesByHeader(header: String): LiveData<MoviesEntity> {
+        return localRepository.getMoviesByHeader(header)
+    }
+
     override fun getTVShow(id: Int): LiveData<Resource<TVShowEntity>> {
         return object : NetworkBoundResource<TVShowEntity, TVShowResponse>(appExecutors) {
 
@@ -199,6 +203,10 @@ class MovieRepository(
                 localRepository.insertTVShows(tvShowsEntity)
             }
         }.asLiveData()
+    }
+
+    override fun getTVShowsByHeader(header: String): LiveData<TVShowsEntity> {
+        return localRepository.getTVShowsByHeader(header)
     }
 
     private fun parseToMovieEntity(

@@ -43,6 +43,10 @@ class LocalRepository(private val movieDao: MovieDao) {
         return movieDao.getMoviesById(id)
     }
 
+    fun getMoviesByHeader(header: String): LiveData<MoviesEntity> {
+        return movieDao.getMoviesByHeader(header)
+    }
+
     fun insertMovies(moviesList: MoviesEntity) {
         movieDao.insertMovies(moviesList)
     }
@@ -65,6 +69,10 @@ class LocalRepository(private val movieDao: MovieDao) {
 
     fun getTVShowsById(id: Int): LiveData<TVShowsEntity> {
         return movieDao.getTVShowsById(id)
+    }
+
+    fun getTVShowsByHeader(header: String): LiveData<TVShowsEntity> {
+        return movieDao.getTVShowsByHeader(header)
     }
 
     fun insertTVShows(tvShowsList: TVShowsEntity) {

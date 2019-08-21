@@ -42,9 +42,8 @@ interface MovieDao {
     @Query("SELECT * FROM movies_entities WHERE movies_id = :id")
     fun getMoviesById(id: Int): LiveData<MoviesEntity>
 
-    @Transaction
     @Query("SELECT * FROM movies_entities WHERE movies_header = :header")
-    fun getMoviesByHeaderAsPaged(header: String): LiveData<MoviesEntity>
+    fun getMoviesByHeader(header: String): LiveData<MoviesEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovies(moviesList: MoviesEntity)
@@ -68,7 +67,6 @@ interface MovieDao {
     @Query("SELECT * FROM tv_shows_entities WHERE tv_shows_id = :id")
     fun getTVShowsById(id: Int): LiveData<TVShowsEntity>
 
-    @Transaction
     @Query("SELECT * FROM tv_shows_entities WHERE tv_shows_header = :header")
     fun getTVShowsByHeader(header: String): LiveData<TVShowsEntity>
 
