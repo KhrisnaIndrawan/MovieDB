@@ -10,8 +10,6 @@ interface MovieDataSource {
 
     fun getFavorite(id: Int): LiveData<FavoriteEntity>?
 
-    fun getFavorites(): LiveData<List<FavoriteEntity>>
-
     fun getFavoritesAsPaged(isMovie: Boolean): LiveData<PagedList<FavoriteEntity>>
 
     fun insertFavorite(favorite: FavoriteEntity)

@@ -14,9 +14,6 @@ interface MovieDao {
     @Query("SELECT * FROM favorite_entities WHERE favorite_id = :id")
     fun getFavoriteById(id: Int): LiveData<FavoriteEntity>
 
-    @Query("SELECT * FROM favorite_entities")
-    fun getFavorites(): LiveData<List<FavoriteEntity>>
-
     @Query("SELECT * FROM favorite_entities WHERE favorite_is_movie = :isMovie")
     fun getFavoritesAsPaged(isMovie: Boolean): DataSource.Factory<Int, FavoriteEntity>
 
@@ -46,8 +43,8 @@ interface MovieDao {
     fun getMoviesById(id: Int): LiveData<MoviesEntity>
 
     @Transaction
-    @Query("SELECT * FROM movies_entities WHERE movies_id = :header")
-    fun getMoviesByHeader(header: String): LiveData<MoviesEntity>
+    @Query("SELECT * FROM movies_entities WHERE movies_header = :header")
+    fun getMoviesByHeaderAsPaged(header: String): LiveData<MoviesEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovies(moviesList: MoviesEntity)

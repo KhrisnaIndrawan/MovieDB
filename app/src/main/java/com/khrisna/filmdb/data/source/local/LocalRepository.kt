@@ -11,10 +11,6 @@ class LocalRepository(private val movieDao: MovieDao) {
         return movieDao.getFavoriteById(id)
     }
 
-    fun getFavorites(): LiveData<List<FavoriteEntity>> {
-        return movieDao.getFavorites()
-    }
-
     fun getFavoritesAsPaged(isMovie: Boolean): DataSource.Factory<Int, FavoriteEntity> {
         return movieDao.getFavoritesAsPaged(isMovie)
     }

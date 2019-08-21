@@ -44,10 +44,6 @@ class MovieRepository(
         return localRepository.getFavoriteById(id)
     }
 
-    override fun getFavorites(): LiveData<List<FavoriteEntity>> {
-        return localRepository.getFavorites()
-    }
-
     override fun getFavoritesAsPaged(isMovie: Boolean): LiveData<PagedList<FavoriteEntity>> {
         return LivePagedListBuilder(
             localRepository.getFavoritesAsPaged(isMovie), 20
