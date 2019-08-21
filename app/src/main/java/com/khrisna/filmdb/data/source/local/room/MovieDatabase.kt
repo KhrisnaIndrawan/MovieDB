@@ -20,8 +20,6 @@ abstract class MovieDatabase : RoomDatabase() {
 
     abstract fun movieDao(): MovieDao
 
-    private val sLock = Any()
-
     companion object {
         private var INSTANCE: MovieDatabase? = null
 

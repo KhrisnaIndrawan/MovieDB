@@ -7,7 +7,7 @@ class Resource<T>() {
 
     var status: Status? = null
     var data: T? = null
-    var message: String? = null
+    private var message: String? = null
 
     constructor(status: Status, data: T, message: String?) : this() {
         this.status = status

@@ -3,7 +3,6 @@ package com.khrisna.filmdb.ui.adapter.home
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.ui.movies.MoviesFragment

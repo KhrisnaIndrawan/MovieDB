@@ -2,12 +2,10 @@ package com.khrisna.filmdb.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.khrisna.filmdb.data.source.MovieRepository
 import com.khrisna.filmdb.data.source.local.LocalRepository
 import com.khrisna.filmdb.data.source.local.entity.MovieEntity
 import com.khrisna.filmdb.data.source.local.entity.TVShowEntity
-import com.khrisna.filmdb.data.source.vo.Resource
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
 import org.junit.Before

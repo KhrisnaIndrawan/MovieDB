@@ -22,7 +22,6 @@ class ViewAllActivity : AppCompatActivity() {
     private lateinit var tvShowListAdapter: TVShowAdapter
     private var isMovie: Boolean = false
     private lateinit var header: String
-    private var page: String = "1"
 
     companion object {
         const val EXTRA_IS_MOVIE = "extra_movie"
