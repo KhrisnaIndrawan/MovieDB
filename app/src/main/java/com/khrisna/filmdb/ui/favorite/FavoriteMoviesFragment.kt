@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.di.Injection
+import com.khrisna.core.di.Injection
 import com.khrisna.filmdb.ui.adapter.favorite.FavoritePagedAdapter
 import com.khrisna.filmdb.viewmodel.FavoritesViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory

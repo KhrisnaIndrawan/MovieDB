@@ -2,7 +2,7 @@ package com.khrisna.filmdb.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.khrisna.filmdb.data.source.MovieRepository
+import com.khrisna.core.data.source.MovieRepository
 
 
 class ViewModelFactory(private val movieRepository: MovieRepository) : ViewModelProvider.NewInstanceFactory() {

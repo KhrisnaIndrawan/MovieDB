@@ -2,11 +2,11 @@ package com.khrisna.filmdb.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.khrisna.filmdb.data.source.MovieRepository
-import com.khrisna.filmdb.data.source.local.entity.FavoriteEntity
-import com.khrisna.filmdb.data.source.local.entity.MovieEntity
-import com.khrisna.filmdb.data.source.local.entity.TVShowEntity
-import com.khrisna.filmdb.data.source.vo.Resource
+import com.khrisna.core.data.source.MovieRepository
+import com.khrisna.core.data.source.local.entity.FavoriteEntity
+import com.khrisna.core.data.source.local.entity.MovieEntity
+import com.khrisna.core.data.source.local.entity.TVShowEntity
+import com.khrisna.core.data.source.vo.Resource
 
 class DetailViewModel(
     private val movieRepository: MovieRepository

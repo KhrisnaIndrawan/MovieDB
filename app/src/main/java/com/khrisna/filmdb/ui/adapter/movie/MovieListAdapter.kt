@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.*
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
+import com.khrisna.core.data.source.local.entity.MoviesEntity
 import com.khrisna.filmdb.ui.viewall.ViewAllActivity
 import com.khrisna.filmdb.ui.viewall.ViewAllActivity.Companion.EXTRA_HEADER
 import com.khrisna.filmdb.ui.viewall.ViewAllActivity.Companion.EXTRA_IS_MOVIE

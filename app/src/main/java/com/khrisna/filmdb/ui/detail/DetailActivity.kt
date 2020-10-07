@@ -13,14 +13,14 @@ import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.request.RequestOptions
 import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.data.source.local.entity.FavoriteEntity
-import com.khrisna.filmdb.data.source.local.entity.GenreEntity
-import com.khrisna.filmdb.data.source.local.entity.MovieEntity
-import com.khrisna.filmdb.data.source.local.entity.TVShowEntity
-import com.khrisna.filmdb.data.source.vo.Status
-import com.khrisna.filmdb.di.Injection
-import com.khrisna.filmdb.utils.GlideApp
-import com.khrisna.filmdb.utils.Utils.formatDate
+import com.khrisna.core.data.source.local.entity.FavoriteEntity
+import com.khrisna.core.data.source.local.entity.GenreEntity
+import com.khrisna.core.data.source.local.entity.MovieEntity
+import com.khrisna.core.data.source.local.entity.TVShowEntity
+import com.khrisna.core.data.source.vo.Status
+import com.khrisna.core.di.Injection
+import com.khrisna.core.utils.GlideApp
+import com.khrisna.core.utils.Utils.formatDate
 import com.khrisna.filmdb.viewmodel.DetailViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -224,8 +224,8 @@ class DetailActivity : AppCompatActivity() {
         supportFinishAfterTransition()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.favorite -> {
                 if (isFavorite) removeFromFavorite() else addToFavorite()
 
@@ -234,7 +234,7 @@ class DetailActivity : AppCompatActivity() {
             }
         }
 
-        return super.onOptionsItemSelected(item as MenuItem)
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setFavoriteState(id: Int) {

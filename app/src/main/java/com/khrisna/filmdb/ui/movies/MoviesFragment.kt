@@ -15,9 +15,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.data.source.local.entity.MoviesEntity
-import com.khrisna.filmdb.data.source.vo.Status
-import com.khrisna.filmdb.di.Injection
+import com.khrisna.core.data.source.local.entity.MoviesEntity
+import com.khrisna.core.data.source.vo.Status
+import com.khrisna.core.di.Injection
 import com.khrisna.filmdb.ui.adapter.movie.MovieListAdapter
 import com.khrisna.filmdb.viewmodel.MoviesViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory

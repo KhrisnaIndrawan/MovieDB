@@ -16,12 +16,12 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.request.RequestOptions
 import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.data.source.local.entity.MovieEntity
+import com.khrisna.core.data.source.local.entity.MovieEntity
 import com.khrisna.filmdb.ui.detail.DetailActivity
 import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_DETAIL_DATA
 import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_IS_MOVIE
 import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_POSTER
-import com.khrisna.filmdb.utils.GlideApp
+import com.khrisna.core.utils.GlideApp
 
 class MovieAdapter(
     private val context: Context,

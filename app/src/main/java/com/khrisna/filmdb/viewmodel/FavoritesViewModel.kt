@@ -3,8 +3,8 @@ package com.khrisna.filmdb.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
-import com.khrisna.filmdb.data.source.MovieRepository
-import com.khrisna.filmdb.data.source.local.entity.FavoriteEntity
+import com.khrisna.core.data.source.MovieRepository
+import com.khrisna.core.data.source.local.entity.FavoriteEntity
 
 class FavoritesViewModel(
     private val movieRepository: MovieRepository
