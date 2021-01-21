@@ -1,5 +1,6 @@
 package com.khrisna.core.data.source
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.khrisna.core.data.source.remote.ApiResponse
@@ -8,14 +9,16 @@ import com.khrisna.core.data.source.vo.Resource
 import com.khrisna.core.utils.AppExecutors
 
 
-abstract class NetworkBoundResource<ResultType, RequestType>() {
+abstract class NetworkBoundResource<ResultType, RequestType>(
+    private val appExecutors: AppExecutors
+) {
 
-    constructor(appExecutors: AppExecutors) : this() {
+    private val result = MediatorLiveData<Resource<ResultType>>()
 
-        this.appExecutors = appExecutors
-
+    init {
         result.value = Resource()
 
+        @Suppress("LeakingThis")
         val dbSource = loadFromDB()
 
         result.addSource(dbSource) { data ->
@@ -40,23 +43,22 @@ abstract class NetworkBoundResource<ResultType, RequestType>() {
         result.addSource(
             dbSource
         ) { newData -> result.setValue(Resource<ResultType>().loading(newData)) }
-        result.addSource(apiResponse) { response ->
 
+        result.addSource(apiResponse) { response ->
             result.removeSource(apiResponse)
             result.removeSource(dbSource)
-
             when (response.status) {
-                StatusResponse.SUCCESS -> appExecutors?.diskIO()?.execute {
+                StatusResponse.SUCCESS -> appExecutors.diskIO().execute {
 
-                    saveCallResult(response.body!!)
+                    response.body?.let { saveCallResult(it) }
 
-                    appExecutors!!.mainThread().execute {
+                    appExecutors.mainThread().execute {
                         result.addSource(
                             loadFromDB()
                         ) { newData -> result.setValue(Resource<ResultType>().success(newData)) }
                     }
                 }
-                StatusResponse.EMPTY -> appExecutors?.mainThread()?.execute {
+                StatusResponse.EMPTY -> appExecutors.mainThread().execute {
                     result.addSource(
                         loadFromDB()
                     ) { newData -> result.setValue(Resource<ResultType>().success(newData)) }
@@ -65,8 +67,10 @@ abstract class NetworkBoundResource<ResultType, RequestType>() {
                     onFetchFailed()
                     result.addSource(dbSource) { newData ->
                         result.setValue(
-                            Resource<ResultType>()
-                                .error(response.message!!, newData)
+                            response.message?.let {
+                                Resource<ResultType>()
+                                    .error(it, newData)
+                            }
                         )
                     }
                 }
@@ -78,11 +82,9 @@ abstract class NetworkBoundResource<ResultType, RequestType>() {
         return result
     }
 
-    private val result = MediatorLiveData<Resource<ResultType>>()
-
-    private var appExecutors: AppExecutors? = null
-
-    private fun onFetchFailed() {}
+    private fun onFetchFailed() {
+        Log.d("onFetchFailed", "Error")
+    }
 
     protected abstract fun loadFromDB(): LiveData<ResultType>
 
