@@ -1,12 +1,12 @@
-package com.khrisna.filmdb.ui.adapter.favorite
+package com.khrisna.favorite.ui.adapter
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.ui.favorite.FavoriteMoviesFragment
-import com.khrisna.filmdb.ui.favorite.FavoriteTVShowsFragment
+import com.khrisna.favorite.ui.FavoriteMoviesFragment
+import com.khrisna.favorite.ui.FavoriteTVShowsFragment
 
 class FavoriteSectionsPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
@@ -17,8 +17,8 @@ class FavoriteSectionsPagerAdapter(private val context: Context, fm: FragmentMan
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> FavoriteMoviesFragment.newInstance()
-            else -> FavoriteTVShowsFragment.newInstance()
+            0 -> com.khrisna.favorite.ui.FavoriteMoviesFragment.newInstance()
+            else -> com.khrisna.favorite.ui.FavoriteTVShowsFragment.newInstance()
         }
     }
 

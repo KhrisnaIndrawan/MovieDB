@@ -1,4 +1,4 @@
-package com.khrisna.filmdb.ui.favorite
+package com.khrisna.favorite.ui
 
 
 import android.os.Bundle
@@ -12,17 +12,16 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import com.khrisna.filmdb.R
+import com.khrisna.favorite.R
 import com.khrisna.core.di.Injection
-import com.khrisna.filmdb.ui.adapter.favorite.FavoritePagedAdapter
-import com.khrisna.filmdb.viewmodel.FavoritesViewModel
+import com.khrisna.favorite.ui.adapter.FavoritePagedAdapter
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_favorite_tv_shows.*
 
 
-class FavoriteMoviesFragment : Fragment() {
+class FavoriteTVShowsFragment : Fragment() {
 
-    private lateinit var model: FavoritesViewModel
+    private lateinit var model: com.khrisna.favorite.viewmodel.FavoritesViewModel
     private lateinit var favoriteListAdapter: FavoritePagedAdapter
     private lateinit var progressBar: ProgressBar
 
@@ -31,7 +30,7 @@ class FavoriteMoviesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite_movies, container, false)
+        return inflater.inflate(R.layout.fragment_favorite_tv_shows, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -39,7 +38,7 @@ class FavoriteMoviesFragment : Fragment() {
         activity.let { activity ->
             model = obtainViewModel(activity as AppCompatActivity)
 
-            model.getFavoritesAsPaged(true).observe(viewLifecycleOwner, Observer { data ->
+            model.getFavoritesAsPaged(false).observe(viewLifecycleOwner, Observer { data ->
                 data.let {
                     favoriteListAdapter.submitList(it)
                     favoriteListAdapter.notifyDataSetChanged()
@@ -64,18 +63,18 @@ class FavoriteMoviesFragment : Fragment() {
         }
     }
 
-    private fun obtainViewModel(activity: FragmentActivity): FavoritesViewModel {
+    private fun obtainViewModel(activity: FragmentActivity): com.khrisna.favorite.viewmodel.FavoritesViewModel {
         // Use a Factory to inject dependencies into the ViewModel
         val factory = ViewModelFactory
             .getInstance(Injection.provideRepository(activity.application))
-        return ViewModelProviders.of(activity, factory).get(FavoritesViewModel::class.java)
+        return ViewModelProviders.of(activity, factory).get(com.khrisna.favorite.viewmodel.FavoritesViewModel::class.java)
     }
 
     companion object {
 
         @JvmStatic
-        fun newInstance(): FavoriteMoviesFragment {
-            return FavoriteMoviesFragment()
+        fun newInstance(): FavoriteTVShowsFragment {
+            return FavoriteTVShowsFragment()
         }
     }
 }

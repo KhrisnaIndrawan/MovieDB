@@ -1,4 +1,4 @@
-package com.khrisna.filmdb.ui.favorite
+package com.khrisna.favorite.ui
 
 
 import android.os.Bundle
@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.khrisna.filmdb.R
-import com.khrisna.filmdb.ui.adapter.favorite.FavoriteSectionsPagerAdapter
-import kotlinx.android.synthetic.main.fragment_home.view.*
+import com.khrisna.favorite.R
+import com.khrisna.favorite.ui.adapter.FavoriteSectionsPagerAdapter
+import kotlinx.android.synthetic.main.fragment_favorites.view.*
 
 
 class FavoritesFragment : Fragment() {

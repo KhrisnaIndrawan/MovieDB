@@ -27,6 +27,7 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+    dynamicFeatures = [':favorite']
 }
 
 androidExtensions {

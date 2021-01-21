@@ -6,7 +6,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.khrisna.filmdb.R
-import com.khrisna.filmdb.ui.favorite.FavoritesFragment
 import com.khrisna.filmdb.ui.home.HomeFragment
 import com.khrisna.filmdb.ui.search.SearchFragment
 import kotlinx.android.synthetic.main.activity_home.*
@@ -50,7 +49,7 @@ class DashboardActivity : AppCompatActivity() {
                 showFragment(HomeFragment.newInstance())
             }
             R.id.app_bar_favorite -> {
-                showFragment(FavoritesFragment.newInstance())
+                showFragment(Class.forName("com.khrisna.favorite.ui.FavoritesFragment").newInstance() as Fragment)
             }
 //            R.id.app_bar_translation -> Toast.makeText(
 //                this, "Setting menu item is clicked!",

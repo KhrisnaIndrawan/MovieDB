@@ -29,3 +29,15 @@ p
 @app/src/main/java/com/khrisna/filmdb/ui/detail/DetailActivity.kt,f\6\f6e1aae12a43d919027581429eaa5839963b536d
 r
 Bapp/src/main/java/com/khrisna/filmdb/viewmodel/ViewModelFactory.kt,b\b\bb0154ed6729aee493f90e986aa64376549bbf89
+{
+Kfavorite/src/main/java/com/khrisna/favorite/viewmodel/FavoritesViewModel.kt,b\0\b00b3bc4452da6f5dcd5dd1d725811868ef29ccf
+E
+favorite/build.gradle,8\c\8c8745bd0abadf704a7e06b644de08950e69f323
+y
+Ifavorite/src/main/java/com/khrisna/favorite/ui/FavoriteTVShowsFragment.kt,0\7\07c1d974baab1e653ab0c31cfde9500aeed9cb16
+x
+Hfavorite/src/main/java/com/khrisna/favorite/ui/FavoriteMoviesFragment.kt,b\c\bc86a1033cae5f92499126e2384026f7938bb1f6
+s
+Cfavorite/src/main/java/com/khrisna/favorite/ui/FavoritesFragment.kt,d\4\d4e4d9ee20e2b62a3207af078b48ea1cdf56265d
+~
+Nfavorite/src/main/java/com/khrisna/favorite/ui/adapter/FavoritePagedAdapter.kt,4\e\4e59883e83df72973bb3f692d13517cc105b91dd

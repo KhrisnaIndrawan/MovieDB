@@ -1,4 +1,4 @@
-package com.khrisna.filmdb.ui.adapter.favorite
+package com.khrisna.favorite.ui.adapter
 
 import android.content.Context
 import android.content.Intent
