@@ -6,7 +6,6 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_poster"
         android:layout_width="135dp"
         android:layout_height="190dp"
         android:layout_marginStart="@dimen/item_movie_margin"
