@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.request.RequestOptions
+import com.khrisna.core.data.source.local.entity.FavoriteEntity
+import com.khrisna.core.utils.GlideApp
 import com.khrisna.filmdb.BuildConfig
 import com.khrisna.filmdb.R
-import com.khrisna.core.data.source.local.entity.FavoriteEntity
 import com.khrisna.filmdb.ui.detail.DetailActivity
-import com.khrisna.core.utils.GlideApp
 
 class FavoritePagedAdapter(
     private val context: Context

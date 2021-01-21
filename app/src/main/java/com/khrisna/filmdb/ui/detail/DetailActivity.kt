@@ -1,6 +1,5 @@
 package com.khrisna.filmdb.ui.detail
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -11,8 +10,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.request.RequestOptions
-import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
-import com.khrisna.filmdb.R
 import com.khrisna.core.data.source.local.entity.FavoriteEntity
 import com.khrisna.core.data.source.local.entity.GenreEntity
 import com.khrisna.core.data.source.local.entity.MovieEntity
@@ -21,12 +18,16 @@ import com.khrisna.core.data.source.vo.Status
 import com.khrisna.core.di.Injection
 import com.khrisna.core.utils.GlideApp
 import com.khrisna.core.utils.Utils.formatDate
+import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
+import com.khrisna.filmdb.R
+import com.khrisna.filmdb.databinding.ActivityDetailBinding
 import com.khrisna.filmdb.viewmodel.DetailViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
-import kotlinx.android.synthetic.main.activity_detail.*
 
 
 class DetailActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityDetailBinding
 
     private var isMovie: Boolean = false
     private var isFavorite: Boolean = false
@@ -43,7 +44,9 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         detailViewModel = obtainViewModel(this)
@@ -53,8 +56,10 @@ class DetailActivity : AppCompatActivity() {
             poster = it.getStringExtra(EXTRA_POSTER) as String
             GlideApp.with(this)
                 .load(BASE_IMG_URL + poster)
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
-                .into(img_poster)
+                .apply(
+                    RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error)
+                )
+                .into(binding.imgPoster)
 
             val id: Int = it.getIntExtra(EXTRA_DETAIL_DATA, 0)
             favorite = FavoriteEntity(
@@ -94,7 +99,7 @@ class DetailActivity : AppCompatActivity() {
         detailViewModel.movie?.observe(this, Observer { movie ->
             when (movie.status) {
                 Status.LOADING -> {
-                    progressBar.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
                 }
                 Status.ERROR -> {
                     Toast.makeText(
@@ -110,19 +115,19 @@ class DetailActivity : AppCompatActivity() {
 
                         GlideApp.with(this)
                             .load(BASE_IMG_URL + data.backdrop)
-                            .into(img_backdrop)
+                            .into(binding.imgBackdrop)
 
-                        tv_title.text = data.title
-                        tv_release_date.text = data.releaseDate?.let { formatDate(it) }
-                        tv_rating.text = data.rating.toString()
-                        tv_overview_body.text = data.overview
-                        ratingBar.numStars = 5
-                        ratingBar.stepSize = 0.1f
+                        binding.tvTitle.text = data.title
+                        binding.tvReleaseDate.text = data.releaseDate?.let { formatDate(it) }
+                        binding.tvRating.text = data.rating.toString()
+                        binding.tvOverviewBody.text = data.overview
+                        binding.ratingBar.numStars = 5
+                        binding.ratingBar.stepSize = 0.1f
                         val rating: Float = data.rating ?: 0f
                         if (rating > 5f) {
-                            ratingBar.rating = rating - 5
+                            binding.ratingBar.rating = rating - 5
                         } else {
-                            ratingBar.rating = rating
+                            binding.ratingBar.rating = rating
                         }
 
                         var genres = "| "
@@ -130,7 +135,7 @@ class DetailActivity : AppCompatActivity() {
                         for (value in movieGenres) {
                             genres += "${value.name} | "
                         }
-                        tv_genres.text = genres
+                        binding.tvGenre.text = genres
 
                         setViewVisible(true)
                     }
@@ -139,13 +144,12 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    @SuppressLint("SetTextI18n")
     private fun showTVShowData() {
 
         detailViewModel.tvShow?.observe(this, Observer { tvShow ->
             when (tvShow.status) {
                 Status.LOADING -> {
-                    progressBar.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
                 }
                 Status.ERROR -> {
                     Toast.makeText(
@@ -161,20 +165,20 @@ class DetailActivity : AppCompatActivity() {
 
                         GlideApp.with(this)
                             .load(BASE_IMG_URL + data.backdrop)
-                            .into(img_backdrop)
+                            .into(binding.imgBackdrop)
 
-                        tv_title.text = data.title
-                        tv_release_date_text.text = "First air date: "
-                        tv_release_date.text = data.firstAir?.let { formatDate(it) }
-                        tv_rating.text = data.rating.toString()
-                        tv_overview_body.text = data.overview
-                        ratingBar.numStars = 5
-                        ratingBar.stepSize = 0.1f
+                        binding.tvTitle.text = data.title
+                        binding.tvReleaseDateText.text = "First air date: "
+                        binding.tvReleaseDate.text = data.firstAir?.let { formatDate(it) }
+                        binding.tvRating.text = data.rating.toString()
+                        binding.tvOverviewBody.text = data.overview
+                        binding.ratingBar.numStars = 5
+                        binding.ratingBar.stepSize = 0.1f
                         val rating: Float = data.rating ?: 0f
                         if (rating > 5f) {
-                            ratingBar.rating = rating - 5
+                            binding.ratingBar.rating = rating - 5
                         } else {
-                            ratingBar.rating = rating
+                            binding.ratingBar.rating = rating
                         }
 
                         var genres = "| "
@@ -182,7 +186,7 @@ class DetailActivity : AppCompatActivity() {
                         for (value in tvShowGenres) {
                             genres += "${value.name} | "
                         }
-                        tv_genres.text = genres
+                        binding.tvGenre.text = genres
 
                         setViewVisible(true)
                     }
@@ -201,13 +205,13 @@ class DetailActivity : AppCompatActivity() {
 
     private fun setViewVisible(visibility: Boolean) {
         if (visibility) {
-            cv_backdrop.visibility = View.VISIBLE
-            img_backdrop.visibility = View.VISIBLE
-            ratingBar.visibility = View.VISIBLE
-            tv_release_date_text.visibility = View.VISIBLE
-            tv_overview.visibility = View.VISIBLE
-            tv_per_score.visibility = View.VISIBLE
-            progressBar.visibility = View.GONE
+            binding.cvBackdrop.visibility = View.VISIBLE
+            binding.imgBackdrop.visibility = View.VISIBLE
+            binding.ratingBar.visibility = View.VISIBLE
+            binding.tvReleaseDateText.visibility = View.VISIBLE
+            binding.tvOverview.visibility = View.VISIBLE
+            binding.tvPerscore.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
         }
     }
 
@@ -258,9 +262,11 @@ class DetailActivity : AppCompatActivity() {
 
     private fun setFavorite() {
         if (isFavorite) {
-            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_checked_24dp)
+            menuItem?.getItem(0)?.icon =
+                ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_checked_24dp)
         } else {
-            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_unchecked_24dp)
+            menuItem?.getItem(0)?.icon =
+                ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_unchecked_24dp)
         }
     }
 }

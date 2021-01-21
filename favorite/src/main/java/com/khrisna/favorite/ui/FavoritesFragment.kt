@@ -7,28 +7,33 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.khrisna.favorite.R
+import com.khrisna.favorite.databinding.FragmentFavoritesBinding
 import com.khrisna.favorite.ui.adapter.FavoriteSectionsPagerAdapter
-import kotlinx.android.synthetic.main.fragment_favorites.view.*
 
 
 class FavoritesFragment : Fragment() {
 
+    private var _binding: FragmentFavoritesBinding? = null
+    private val binding get() = _binding as FragmentFavoritesBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_favorites, container, false)
+        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val sectionsPagerAdapter = FavoriteSectionsPagerAdapter(
             context as AppCompatActivity,
             childFragmentManager
         )
-        view.view_pager.adapter = sectionsPagerAdapter
-        view.tabs.setupWithViewPager(view.view_pager)
-
-        return view
+        binding.viewPager.adapter = sectionsPagerAdapter
+        binding.tabs.setupWithViewPager(binding.viewPager)
     }
 
     companion object {

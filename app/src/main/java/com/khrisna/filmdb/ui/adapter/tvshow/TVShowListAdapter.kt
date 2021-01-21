@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.*
-import com.khrisna.filmdb.R
 import com.khrisna.core.data.source.local.entity.TVShowsEntity
+import com.khrisna.filmdb.R
 import com.khrisna.filmdb.ui.viewall.ViewAllActivity
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper as GravitySnapHelper1
 

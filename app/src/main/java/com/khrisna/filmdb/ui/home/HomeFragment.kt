@@ -7,27 +7,33 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.khrisna.filmdb.R
+import com.khrisna.filmdb.databinding.FragmentHomeBinding
 import com.khrisna.filmdb.ui.adapter.home.HomeSectionsPagerAdapter
-import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment() {
+
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding as FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val sectionsPagerAdapter = HomeSectionsPagerAdapter(
             context as AppCompatActivity,
             childFragmentManager
         )
-        view.view_pager.adapter = sectionsPagerAdapter
-        view.tabs.setupWithViewPager(view.view_pager)
 
-        return view
+        binding.viewPager.adapter = sectionsPagerAdapter
+        binding.tabs.setupWithViewPager(binding.viewPager)
     }
 
     companion object {

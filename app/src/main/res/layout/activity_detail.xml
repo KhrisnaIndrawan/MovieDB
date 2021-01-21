@@ -24,6 +24,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/img_backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
                 android:background="@color/colorPrimary"
@@ -73,6 +74,7 @@
             tools:text="The Movie Title" />
 
         <TextView
+            android:id="@+id/tv_genre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -112,6 +114,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
         <TextView
+            android:id="@+id/tv_overview_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -136,6 +139,7 @@
             tools:text="7.8" />
 
         <TextView
+            android:id="@+id/tv_perscore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -159,6 +163,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
         <TextView
+            android:id="@+id/tv_release_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"

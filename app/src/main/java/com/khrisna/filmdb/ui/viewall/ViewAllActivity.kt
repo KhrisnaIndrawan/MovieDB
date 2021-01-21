@@ -7,13 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import com.khrisna.filmdb.R
 import com.khrisna.core.di.Injection
+import com.khrisna.filmdb.databinding.ActivityViewAllBinding
 import com.khrisna.filmdb.ui.adapter.movie.MovieAdapter
 import com.khrisna.filmdb.ui.adapter.tvshow.TVShowAdapter
 import com.khrisna.filmdb.viewmodel.ViewAllViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
-import kotlinx.android.synthetic.main.activity_view_all.*
 
 class ViewAllActivity : AppCompatActivity() {
 
@@ -22,6 +21,7 @@ class ViewAllActivity : AppCompatActivity() {
     private lateinit var tvShowListAdapter: TVShowAdapter
     private var isMovie: Boolean = false
     private lateinit var header: String
+    private lateinit var binding: ActivityViewAllBinding
 
     companion object {
         const val EXTRA_IS_MOVIE = "extra_movie"
@@ -30,7 +30,8 @@ class ViewAllActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_all)
+        binding = ActivityViewAllBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
         }
@@ -52,7 +53,7 @@ class ViewAllActivity : AppCompatActivity() {
         if (isMovie) {
             movieListAdapter = MovieAdapter(this, true)
 
-            rv_view_all.apply {
+            binding.rvViewall.apply {
                 setHasFixedSize(true)
                 layoutManager =
                     GridLayoutManager(context, 3)
@@ -63,7 +64,7 @@ class ViewAllActivity : AppCompatActivity() {
         } else {
             tvShowListAdapter = TVShowAdapter(this, true)
 
-            rv_view_all.apply {
+            binding.rvViewall.apply {
                 setHasFixedSize(true)
                 layoutManager =
                     GridLayoutManager(context, 3)
@@ -83,7 +84,7 @@ class ViewAllActivity : AppCompatActivity() {
                 movieListAdapter.notifyDataSetChanged()
             }
 
-            progressBar.visibility = View.INVISIBLE
+            binding.progressBar.visibility = View.INVISIBLE
         })
     }
 
@@ -96,7 +97,7 @@ class ViewAllActivity : AppCompatActivity() {
                 tvShowListAdapter.notifyDataSetChanged()
             }
 
-            progressBar.visibility = View.INVISIBLE
+            binding.progressBar.visibility = View.INVISIBLE
         })
     }
 

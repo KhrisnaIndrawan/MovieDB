@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.khrisna.filmdb.R
-import com.khrisna.favorite.ui.FavoriteMoviesFragment
-import com.khrisna.favorite.ui.FavoriteTVShowsFragment
 
 class FavoriteSectionsPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 

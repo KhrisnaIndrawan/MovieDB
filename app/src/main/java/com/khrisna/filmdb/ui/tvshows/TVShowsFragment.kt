@@ -14,14 +14,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.khrisna.filmdb.R
 import com.khrisna.core.data.source.local.entity.TVShowsEntity
 import com.khrisna.core.data.source.vo.Status
 import com.khrisna.core.di.Injection
+import com.khrisna.filmdb.R
+import com.khrisna.filmdb.databinding.FragmentTvshowsBinding
 import com.khrisna.filmdb.ui.adapter.tvshow.TVShowListAdapter
 import com.khrisna.filmdb.viewmodel.TVShowsViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
-import kotlinx.android.synthetic.main.fragment_tvshows.*
 
 
 class TVShowsFragment : Fragment() {
@@ -30,13 +30,16 @@ class TVShowsFragment : Fragment() {
     private lateinit var tvShowListAdapter: TVShowListAdapter
     private lateinit var tvShows: MutableList<TVShowsEntity>
     private lateinit var progressBar: ProgressBar
+    private var _binding: FragmentTvshowsBinding? = null
+    private val binding get() = _binding as FragmentTvshowsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tvshows, container, false)
+        _binding = FragmentTvshowsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -153,7 +156,7 @@ class TVShowsFragment : Fragment() {
 
         progressBar = view.findViewById(R.id.progressBar)
 
-        rv_tv_shows.apply {
+        binding.rvTvshows.apply {
             setHasFixedSize(true)
             layoutManager =
                 LinearLayoutManager(context as AppCompatActivity, RecyclerView.VERTICAL, false)

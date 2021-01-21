@@ -12,11 +12,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import com.khrisna.favorite.R
 import com.khrisna.core.di.Injection
+import com.khrisna.favorite.R
+import com.khrisna.favorite.databinding.FragmentFavoriteMoviesBinding
 import com.khrisna.favorite.ui.adapter.FavoritePagedAdapter
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
-import kotlinx.android.synthetic.main.fragment_favorite_tv_shows.*
 
 
 class FavoriteMoviesFragment : Fragment() {
@@ -24,13 +24,16 @@ class FavoriteMoviesFragment : Fragment() {
     private lateinit var model: com.khrisna.favorite.viewmodel.FavoritesViewModel
     private lateinit var favoriteListAdapter: FavoritePagedAdapter
     private lateinit var progressBar: ProgressBar
+    private var _binding: FragmentFavoriteMoviesBinding? = null
+    private val binding get() = _binding as FragmentFavoriteMoviesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite_movies, container, false)
+        _binding = FragmentFavoriteMoviesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -56,7 +59,7 @@ class FavoriteMoviesFragment : Fragment() {
 
         progressBar = view.findViewById(R.id.progressBar)
 
-        rv_favorites.apply {
+        binding.rvFavoriteMovies.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(context, 3)
             adapter = favoriteListAdapter
@@ -67,7 +70,8 @@ class FavoriteMoviesFragment : Fragment() {
         // Use a Factory to inject dependencies into the ViewModel
         val factory = ViewModelFactory
             .getInstance(Injection.provideRepository(activity.application))
-        return ViewModelProviders.of(activity, factory).get(com.khrisna.favorite.viewmodel.FavoritesViewModel::class.java)
+        return ViewModelProviders.of(activity, factory)
+            .get(com.khrisna.favorite.viewmodel.FavoritesViewModel::class.java)
     }
 
     companion object {

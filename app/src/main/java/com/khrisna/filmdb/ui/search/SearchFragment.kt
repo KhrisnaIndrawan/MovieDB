@@ -11,12 +11,12 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import com.khrisna.filmdb.R
 import com.khrisna.core.di.Injection
+import com.khrisna.filmdb.R
+import com.khrisna.filmdb.databinding.FragmentSearchBinding
 import com.khrisna.filmdb.ui.adapter.search.SearchAdapter
 import com.khrisna.filmdb.viewmodel.SearchViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
-import kotlinx.android.synthetic.main.fragment_search.*
 
 
 class SearchFragment : Fragment() {
@@ -25,13 +25,16 @@ class SearchFragment : Fragment() {
     private lateinit var searchAdapter: SearchAdapter
     private lateinit var progressBar: ProgressBar
     private var query: String = ""
+    private var _binding: FragmentSearchBinding? = null
+    private val binding get() = _binding as FragmentSearchBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -39,8 +42,8 @@ class SearchFragment : Fragment() {
         activity.let { activity ->
             model = obtainViewModel(activity as AppCompatActivity)
 
-            btn_search.setOnClickListener {
-                query = edt_query.text.toString()
+            binding.btnSearch.setOnClickListener {
+                query = binding.edtQuery.text.toString()
 
                 model.getSearches(query).observe(viewLifecycleOwner, Observer { data ->
 
@@ -63,7 +66,7 @@ class SearchFragment : Fragment() {
 
         progressBar = view.findViewById(R.id.progressBar)
 
-        rv_search.apply {
+        binding.rvSearch.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(context, 3)
             adapter = searchAdapter

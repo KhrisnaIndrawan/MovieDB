@@ -49,12 +49,6 @@ S
 Mfavorite/src/androidTest/java/com/khrisna/favorite/ExampleInstrumentedTest.kt,9\3\93ca346bd39b8dd7ae3b7500e2e234cd8f946db1
 †
 Vfavorite/src/main/java/com/khrisna/favorite/ui/adapter/FavoriteSectionsPagerAdapter.kt,c\8\c81d680379d22eae78e3e096477c0f3929a03beb
-i
-9favorite/src/main/res/layout/fragment_favorite_movies.xml,c\c\ccca9f1166a2cc5489c5bfba346459bc6a8a4fa2
-k
-;favorite/src/main/res/layout/fragment_favorite_tv_shows.xml,f\1\f1b37b8526a07bc27663160d88cc373e4e5cc374
-c
-3favorite/src/main/res/layout/fragment_favorites.xml,c\f\cfe28c9cfc29f045c5e8aea65046369aba871565
 U
 %favorite/src/main/AndroidManifest.xml,d\1\d14ee4df5184eb29655780f11be8025bc2e3d129
 n

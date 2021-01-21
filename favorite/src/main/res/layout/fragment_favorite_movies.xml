@@ -6,6 +6,7 @@
     tools:context="com.khrisna.favorite.ui.FavoriteMoviesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_favorite_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"

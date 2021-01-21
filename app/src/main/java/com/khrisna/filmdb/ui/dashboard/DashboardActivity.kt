@@ -6,23 +6,27 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.khrisna.filmdb.R
+import com.khrisna.filmdb.databinding.ActivityHomeBinding
 import com.khrisna.filmdb.ui.home.HomeFragment
 import com.khrisna.filmdb.ui.search.SearchFragment
-import kotlinx.android.synthetic.main.activity_home.*
 
 
 class DashboardActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityHomeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-        setSupportActionBar(bottom_app_bar)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
+        setSupportActionBar(binding.bottomAppBar)
 
         if (savedInstanceState == null) {
             showFragment(HomeFragment.newInstance())
         }
 
-        fab.setOnClickListener {
+        binding.fab.setOnClickListener {
             showFragment(SearchFragment.newInstance())
         }
     }
@@ -49,7 +53,10 @@ class DashboardActivity : AppCompatActivity() {
                 showFragment(HomeFragment.newInstance())
             }
             R.id.app_bar_favorite -> {
-                showFragment(Class.forName("com.khrisna.favorite.ui.FavoritesFragment").newInstance() as Fragment)
+                showFragment(
+                    Class.forName("com.khrisna.favorite.ui.FavoritesFragment")
+                        .newInstance() as Fragment
+                )
             }
 //            R.id.app_bar_translation -> Toast.makeText(
 //                this, "Setting menu item is clicked!",

@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
+import com.khrisna.core.data.source.local.entity.TVShowEntity
+import com.khrisna.core.utils.GlideApp
 import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
 import com.khrisna.filmdb.R
-import com.khrisna.core.data.source.local.entity.TVShowEntity
 import com.khrisna.filmdb.ui.detail.DetailActivity
 import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_DETAIL_DATA
 import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_IS_MOVIE
 import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_POSTER
-import com.khrisna.core.utils.GlideApp
 
 class TVShowAdapter(
     private val context: Context,

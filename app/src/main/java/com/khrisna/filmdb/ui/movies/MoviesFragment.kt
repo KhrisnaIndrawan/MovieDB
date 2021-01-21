@@ -14,14 +14,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.khrisna.filmdb.R
 import com.khrisna.core.data.source.local.entity.MoviesEntity
 import com.khrisna.core.data.source.vo.Status
 import com.khrisna.core.di.Injection
+import com.khrisna.filmdb.R
+import com.khrisna.filmdb.databinding.FragmentMoviesBinding
 import com.khrisna.filmdb.ui.adapter.movie.MovieListAdapter
 import com.khrisna.filmdb.viewmodel.MoviesViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
-import kotlinx.android.synthetic.main.fragment_movies.*
 
 
 class MoviesFragment : Fragment() {
@@ -30,13 +30,16 @@ class MoviesFragment : Fragment() {
     private lateinit var movieListAdapter: MovieListAdapter
     private lateinit var movies: MutableList<MoviesEntity>
     private lateinit var progressBar: ProgressBar
+    private var _binding: FragmentMoviesBinding? = null
+    private val binding get() = _binding as FragmentMoviesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movies, container, false)
+        _binding = FragmentMoviesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -154,7 +157,7 @@ class MoviesFragment : Fragment() {
 
         progressBar = view.findViewById(R.id.progressBar)
 
-        rv_movies.apply {
+        binding.rvMovies.apply {
             setHasFixedSize(true)
             layoutManager =
                 LinearLayoutManager(context, RecyclerView.VERTICAL, false)
