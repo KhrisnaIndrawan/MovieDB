@@ -20,7 +20,6 @@ class DashboardActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        setSupportActionBar(binding.bottomAppBar)
 
         if (savedInstanceState == null) {
             showFragment(HomeFragment.newInstance())

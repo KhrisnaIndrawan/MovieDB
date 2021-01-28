@@ -94,8 +94,6 @@ Bapp/src/main/java/com/khrisna/filmdb/ui/viewall/ViewAllActivity.kt,b\2\b25903b
 [
 +app/src/main/res/layout/activity_detail.xml,f\2\f22ce1ff238aad049c933bb28da5033b974b1b1a
 Y
-)app/src/main/res/layout/activity_home.xml,8\4\84bbfd95b490b92591d2b037417f036942315d57
-Y
 )app/src/main/res/layout/fragment_home.xml,3\1\31c5880846ef63ff1963efbe141ddfd56680bb19
 [
 +app/src/main/res/layout/fragment_movies.xml,3\6\3649d18ceeefd1a834d03bdb6b3d6c0a579b3e64
@@ -105,3 +103,17 @@ P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 Q
 !core/src/main/AndroidManifest.xml,a\e\ae00e14a93cb05cbe86f462a3bad74d51f6b1afc
+r
+Bcore/src/main/java/com/khrisna/core/data/source/MovieRepository.kt,6\7\67f7226ee44161d4678fdd6cea6d917d4c777961
+u
+Ecore/src/main/java/com/khrisna/core/data/source/remote/ApiResponse.kt,8\d\8d05961a42fa6eaeab454b8804ca88f8be4f8fa9
+n
+>core/src/main/java/com/khrisna/core/data/source/vo/Resource.kt,5\e\5e2b14eecfd32a3e529d4d4db05fd6bf160efb03
+l
+<core/src/main/java/com/khrisna/core/data/source/vo/Status.kt,0\2\02056c23b0787073e248bd3745803cd0435dc3e5
+c
+3core/src/main/java/com/khrisna/core/di/Injection.kt,f\b\fb6aab5f301920eeb4700e6fb9abfd2ab4b4841b
+z
+Jcore/src/main/java/com/khrisna/core/data/source/remote/RemoteRepository.kt,9\b\9b98946593548b5281836a787efd88b9ff775bac
+w
+Gcore/src/main/java/com/khrisna/core/data/source/NetworkBoundResource.kt,8\e\8e8a791469ed8a379d409d540fc9f688bd24a52c
