@@ -18,5 +18,5 @@ data class MovieResponse(
     @SerializedName("vote_average")
     var rating: Float,
     @SerializedName("genres")
-    var genres: MutableList<GenreResponse>
+    var genres: MutableList<GenreResponse>?
 )

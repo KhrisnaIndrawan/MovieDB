@@ -5,9 +5,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.khrisna.core.di.Injection
 import com.khrisna.filmdb.databinding.ActivityViewAllBinding
 import com.khrisna.filmdb.ui.adapter.movie.MovieAdapter
 import com.khrisna.filmdb.ui.adapter.tvshow.TVShowAdapter
@@ -104,9 +103,9 @@ class ViewAllActivity : AppCompatActivity() {
     private fun obtainViewModel(activity: AppCompatActivity): ViewAllViewModel {
         // Use a Factory to inject dependencies into the ViewModel
         val factory = ViewModelFactory
-            .getInstance(Injection.provideRepository(activity.application))
+            .getInstance(activity)
 
-        return ViewModelProviders.of(activity, factory).get(ViewAllViewModel::class.java)
+        return ViewModelProvider(this, factory)[ViewAllViewModel::class.java]
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -2,44 +2,49 @@ package com.khrisna.filmdb.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.khrisna.core.data.source.MovieRepository
-import com.khrisna.core.data.source.local.entity.FavoriteEntity
-import com.khrisna.core.data.source.local.entity.MovieEntity
-import com.khrisna.core.data.source.local.entity.TVShowEntity
+import androidx.lifecycle.asLiveData
 import com.khrisna.core.data.source.vo.Resource
+import com.khrisna.core.domain.model.Favorite
+import com.khrisna.core.domain.model.Movie
+import com.khrisna.core.domain.model.TVShow
+import com.khrisna.core.domain.usecase.FavoriteUseCase
+import com.khrisna.core.domain.usecase.MovieUseCase
+import com.khrisna.core.domain.usecase.TVShowUseCase
 
 class DetailViewModel(
-    private val movieRepository: MovieRepository
+    private val movieUseCase: MovieUseCase,
+    private val tvShowUseCase: TVShowUseCase,
+    private val favoriteUseCase: FavoriteUseCase
 ) : ViewModel() {
 
-    private var _movie: LiveData<Resource<MovieEntity>>? = null
-    private var _tvShow: LiveData<Resource<TVShowEntity>>? = null
-    private var _favorite: LiveData<FavoriteEntity>? = null
+    private var _movie: LiveData<Resource<Movie>>? = null
+    private var _tvShow: LiveData<Resource<TVShow>>? = null
+    private var _favorite: LiveData<Favorite>? = null
 
-    val favorite: LiveData<FavoriteEntity>?
+    val favorite: LiveData<Favorite>?
         get() = _favorite
-    val movie: LiveData<Resource<MovieEntity>>?
+    val movie: LiveData<Resource<Movie>>?
         get() = _movie
-    val tvShow: LiveData<Resource<TVShowEntity>>?
+    val tvShow: LiveData<Resource<TVShow>>?
         get() = _tvShow
 
     fun getFavorite(id: Int) {
-        _favorite = movieRepository.getFavorite(id)
+        _favorite = favoriteUseCase.getFavorite(id)?.asLiveData()
     }
 
-    fun insertFavorite(favorite: FavoriteEntity) {
-        movieRepository.insertFavorite(favorite)
+    fun insertFavorite(favorite: Favorite) {
+        favoriteUseCase.insertFavorite(favorite)
     }
 
-    fun deleteFavorite(favorite: FavoriteEntity) {
-        movieRepository.deleteFavorite(favorite)
+    fun deleteFavorite(favorite: Favorite) {
+        favoriteUseCase.deleteFavorite(favorite)
     }
 
     fun getMovie(id: Int) {
-        _movie = movieRepository.getMovie(id)
+        _movie = movieUseCase.getMovie(id).asLiveData()
     }
 
     fun getTVShow(id: Int) {
-        _tvShow = movieRepository.getTVShow(id)
+        _tvShow = tvShowUseCase.getTVShow(id).asLiveData()
     }
 }

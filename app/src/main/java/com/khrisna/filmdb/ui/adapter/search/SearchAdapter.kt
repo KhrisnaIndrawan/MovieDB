@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.request.RequestOptions
-import com.khrisna.core.data.source.remote.response.SearchResponse
+import com.khrisna.core.BuildConfig.BASE_IMG_URL
+import com.khrisna.core.domain.model.Search
 import com.khrisna.core.utils.GlideApp
-import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.ui.detail.DetailActivity
 import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_DETAIL_DATA
@@ -24,20 +24,22 @@ import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_IS_MOVIE
 import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_POSTER
 
 class SearchAdapter(private val context: Context) :
-    ListAdapter<SearchResponse, SearchAdapter.SearchViewHolder>(
-        object : DiffUtil.ItemCallback<SearchResponse>() {
-            override fun areItemsTheSame(oldItem: SearchResponse, newItem: SearchResponse): Boolean {
+    ListAdapter<Search, SearchAdapter.SearchViewHolder>(
+        object : DiffUtil.ItemCallback<Search>() {
+            override fun areItemsTheSame(oldItem: Search, newItem: Search): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: SearchResponse, newItem: SearchResponse): Boolean {
+            override fun areContentsTheSame(oldItem: Search, newItem: Search): Boolean {
                 return oldItem == newItem
             }
         }
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        SearchViewHolder(LayoutInflater.from(context).inflate(R.layout.item_poster_small, parent, false))
+        SearchViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.item_poster_small, parent, false)
+        )
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         holder.bind(getItem(position))
@@ -46,7 +48,7 @@ class SearchAdapter(private val context: Context) :
     inner class SearchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val imgPoster = view.findViewById<ImageView>(R.id.img_poster)
 
-        fun bind(item: SearchResponse) {
+        fun bind(item: Search) {
 
             imgPoster.setOnClickListener {
                 val intent = Intent(context, DetailActivity::class.java)
@@ -70,7 +72,10 @@ class SearchAdapter(private val context: Context) :
 
             GlideApp.with(context)
                 .load(BASE_IMG_URL + item.poster)
-                .apply(RequestOptions.placeholderOf(circularProgressDrawable).error(R.drawable.ic_error))
+                .apply(
+                    RequestOptions.placeholderOf(circularProgressDrawable)
+                        .error(R.drawable.ic_error)
+                )
                 .into(imgPoster)
         }
     }

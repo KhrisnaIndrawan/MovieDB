@@ -1,13 +1,13 @@
 package com.khrisna.core.data.source.local
 
-import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.khrisna.core.data.source.local.entity.*
 import com.khrisna.core.data.source.local.room.MovieDao
+import kotlinx.coroutines.flow.Flow
 
-class LocalRepository(private val movieDao: MovieDao) {
+class LocalDataSource(private val movieDao: MovieDao) {
 
-    fun getFavoriteById(id: Int): LiveData<FavoriteEntity> {
+    fun getFavoriteById(id: Int): Flow<FavoriteEntity> {
         return movieDao.getFavoriteById(id)
     }
 
@@ -27,11 +27,11 @@ class LocalRepository(private val movieDao: MovieDao) {
         movieDao.updateFavorite(favorite)
     }
 
-    fun getMovieById(id: Int): LiveData<MovieEntity> {
+    fun getMovieById(id: Int): Flow<MovieEntity> {
         return movieDao.getMovieById(id)
     }
 
-    fun insertMovie(movie: MovieEntity) {
+    suspend fun insertMovie(movie: MovieEntity) {
         movieDao.insertMovie(movie)
     }
 
@@ -39,15 +39,15 @@ class LocalRepository(private val movieDao: MovieDao) {
         movieDao.updateMovie(movie)
     }
 
-    fun getMoviesById(id: Int): LiveData<MoviesEntity> {
+    fun getMoviesById(id: Int): Flow<MoviesEntity> {
         return movieDao.getMoviesById(id)
     }
 
-    fun getMoviesByHeader(header: String): LiveData<MoviesEntity> {
+    fun getMoviesByHeader(header: String): Flow<MoviesEntity> {
         return movieDao.getMoviesByHeader(header)
     }
 
-    fun insertMovies(moviesList: MoviesEntity) {
+    suspend fun insertMovies(moviesList: MoviesEntity) {
         movieDao.insertMovies(moviesList)
     }
 
@@ -55,7 +55,7 @@ class LocalRepository(private val movieDao: MovieDao) {
         movieDao.updateMovies(movies)
     }
 
-    fun getTVShowById(id: Int): LiveData<TVShowEntity> {
+    fun getTVShowById(id: Int): Flow<TVShowEntity> {
         return movieDao.getTVShowById(id)
     }
 
@@ -67,15 +67,15 @@ class LocalRepository(private val movieDao: MovieDao) {
         movieDao.updateTVShow(tvShow)
     }
 
-    fun getTVShowsById(id: Int): LiveData<TVShowsEntity> {
+    fun getTVShowsById(id: Int): Flow<TVShowsEntity> {
         return movieDao.getTVShowsById(id)
     }
 
-    fun getTVShowsByHeader(header: String): LiveData<TVShowsEntity> {
+    fun getTVShowsByHeader(header: String): Flow<TVShowsEntity> {
         return movieDao.getTVShowsByHeader(header)
     }
 
-    fun insertTVShows(tvShowsList: TVShowsEntity) {
+    suspend fun insertTVShows(tvShowsList: TVShowsEntity) {
         movieDao.insertTVShows(tvShowsList)
     }
 
@@ -84,12 +84,12 @@ class LocalRepository(private val movieDao: MovieDao) {
     }
 
     companion object {
-        private var INSTANCE: LocalRepository? = null
+        private var INSTANCE: LocalDataSource? = null
 
-        fun getInstance(dao: MovieDao): LocalRepository? {
+        fun getInstance(dao: MovieDao): LocalDataSource? {
             if (INSTANCE == null) {
-                synchronized(LocalRepository::class) {
-                    INSTANCE = LocalRepository(dao)
+                synchronized(LocalDataSource::class) {
+                    INSTANCE = LocalDataSource(dao)
                 }
             }
             return INSTANCE

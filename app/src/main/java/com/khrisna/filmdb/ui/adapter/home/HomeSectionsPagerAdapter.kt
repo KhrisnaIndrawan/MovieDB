@@ -8,7 +8,8 @@ import com.khrisna.filmdb.R
 import com.khrisna.filmdb.ui.movies.MoviesFragment
 import com.khrisna.filmdb.ui.tvshows.TVShowsFragment
 
-class HomeSectionsPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class HomeSectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
+    FragmentStatePagerAdapter(fm) {
 
     private val tabs = arrayOf(
         R.string.tab_movies,
@@ -22,7 +23,7 @@ class HomeSectionsPagerAdapter(private val context: Context, fm: FragmentManager
         }
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return context.resources.getString(tabs[position])
     }
 

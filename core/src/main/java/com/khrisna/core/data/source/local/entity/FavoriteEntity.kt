@@ -12,7 +12,7 @@ data class FavoriteEntity(
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "favorite_id")
-    var id: Int,
+    var id: Int?,
 
     @ColumnInfo(name = "favorite_poster")
     var poster: String? = null,

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.request.RequestOptions
-import com.khrisna.core.data.source.local.entity.FavoriteEntity
+import com.khrisna.core.domain.model.Favorite
 import com.khrisna.core.utils.GlideApp
 import com.khrisna.filmdb.BuildConfig
 import com.khrisna.filmdb.R
@@ -22,30 +22,32 @@ import com.khrisna.filmdb.ui.detail.DetailActivity
 
 class FavoritePagedAdapter(
     private val context: Context
-) : PagedListAdapter<FavoriteEntity, FavoritePagedAdapter.FavoriteViewHolder>(
-    object : DiffUtil.ItemCallback<FavoriteEntity>() {
-        override fun areItemsTheSame(oldItem: FavoriteEntity, newItem: FavoriteEntity): Boolean {
+) : PagedListAdapter<Favorite, FavoritePagedAdapter.FavoriteViewHolder>(
+    object : DiffUtil.ItemCallback<Favorite>() {
+        override fun areItemsTheSame(oldItem: Favorite, newItem: Favorite): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: FavoriteEntity, newItem: FavoriteEntity): Boolean {
+        override fun areContentsTheSame(oldItem: Favorite, newItem: Favorite): Boolean {
             return oldItem == newItem
         }
     }
 ) {
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
-        holder.bind(getItem(position) as FavoriteEntity)
+        holder.bind(getItem(position) as Favorite)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        FavoriteViewHolder(LayoutInflater.from(context).inflate(R.layout.item_poster_small, parent, false))
+        FavoriteViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.item_poster_small, parent, false)
+        )
 
 
     inner class FavoriteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val imgPoster = view.findViewById<ImageView>(R.id.img_poster)
 
-        fun bind(item: FavoriteEntity) {
+        fun bind(item: Favorite) {
 
             imgPoster.setOnClickListener {
                 val intent = Intent(context, DetailActivity::class.java)
@@ -69,7 +71,10 @@ class FavoritePagedAdapter(
 
             GlideApp.with(context)
                 .load(BuildConfig.BASE_IMG_URL + item.poster)
-                .apply(RequestOptions.placeholderOf(circularProgressDrawable).error(R.drawable.ic_error))
+                .apply(
+                    RequestOptions.placeholderOf(circularProgressDrawable)
+                        .error(R.drawable.ic_error)
+                )
                 .into(imgPoster)
         }
     }

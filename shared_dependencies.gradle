@@ -18,6 +18,8 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:$androidXLegacySupport"
 
     // Dependencies for Architecture Component
+//    implementation "androidx.activity.activity-ktx:1.1.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
     implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$archLifecycleVersion"
 

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.*
-import com.khrisna.core.data.source.local.entity.TVShowsEntity
+import com.khrisna.core.domain.model.TVShows
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.ui.viewall.ViewAllActivity
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper as GravitySnapHelper1
@@ -18,13 +18,13 @@ class TVShowListAdapter(
     private val context: Context,
     private val rvViewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
 ) :
-    ListAdapter<TVShowsEntity, TVShowListAdapter.TVShowsViewHolder>(
-        object : DiffUtil.ItemCallback<TVShowsEntity>() {
-            override fun areItemsTheSame(oldItem: TVShowsEntity, newItem: TVShowsEntity): Boolean {
+    ListAdapter<TVShows, TVShowListAdapter.TVShowsViewHolder>(
+        object : DiffUtil.ItemCallback<TVShows>() {
+            override fun areItemsTheSame(oldItem: TVShows, newItem: TVShows): Boolean {
                 return oldItem.header == newItem.header
             }
 
-            override fun areContentsTheSame(oldItem: TVShowsEntity, newItem: TVShowsEntity): Boolean {
+            override fun areContentsTheSame(oldItem: TVShows, newItem: TVShows): Boolean {
                 return oldItem == newItem
             }
         }
@@ -48,7 +48,7 @@ class TVShowListAdapter(
         private val rvPoster = view.findViewById<RecyclerView>(R.id.rv_poster)
         private val tvViewAll = view.findViewById<TextView>(R.id.tv_see_more)
 
-        fun bind(item: TVShowsEntity) {
+        fun bind(item: TVShows) {
             tvHeader.text = item.header
 
             val adapter = TVShowAdapter(context as AppCompatActivity, false)
@@ -57,7 +57,11 @@ class TVShowListAdapter(
             rvPoster.apply {
                 setHasFixedSize(true)
                 layoutManager =
-                    LinearLayoutManager(context as AppCompatActivity, RecyclerView.HORIZONTAL, false)
+                    LinearLayoutManager(
+                        context as AppCompatActivity,
+                        RecyclerView.HORIZONTAL,
+                        false
+                    )
                 this.adapter = adapter
                 setRecycledViewPool(rvViewPool)
             }

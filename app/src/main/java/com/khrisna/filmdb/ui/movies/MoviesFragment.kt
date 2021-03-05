@@ -11,12 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.khrisna.core.data.source.local.entity.MoviesEntity
-import com.khrisna.core.data.source.vo.Status
-import com.khrisna.core.di.Injection
+import com.khrisna.core.data.source.vo.Resource
+import com.khrisna.core.domain.model.Movies
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.databinding.FragmentMoviesBinding
 import com.khrisna.filmdb.ui.adapter.movie.MovieListAdapter
@@ -28,7 +27,7 @@ class MoviesFragment : Fragment() {
 
     private lateinit var model: MoviesViewModel
     private lateinit var movieListAdapter: MovieListAdapter
-    private lateinit var movies: MutableList<MoviesEntity>
+    private lateinit var movies: MutableList<Movies>
     private lateinit var progressBar: ProgressBar
     private var _binding: FragmentMoviesBinding? = null
     private val binding get() = _binding as FragmentMoviesBinding
@@ -46,22 +45,22 @@ class MoviesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         activity.let { activity ->
             model = obtainViewModel(activity as AppCompatActivity)
-            model.getNowPlaying().observe(viewLifecycleOwner, Observer { data ->
+            model.getNowPlaying().observe(viewLifecycleOwner, { data ->
                 data.let {
-                    when (it.status) {
-                        Status.LOADING -> {
+                    when (it) {
+                        is Resource.Loading -> {
                             progressBar.visibility = View.VISIBLE
                         }
-                        Status.ERROR -> {
+                        is Resource.Error -> {
                             Toast.makeText(
                                 context,
                                 "Get movies fail, please check your internet connection!",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                        Status.SUCCESS -> {
+                        is Resource.Success -> {
                             if (it.data != null) {
-                                movies.add(it.data as MoviesEntity)
+                                movies.add(it.data as Movies)
                                 movieListAdapter.submitList(movies)
                                 movieListAdapter.notifyDataSetChanged()
 
@@ -71,22 +70,22 @@ class MoviesFragment : Fragment() {
                     }
                 }
             })
-            model.getUpComing().observe(viewLifecycleOwner, Observer { data ->
+            model.getUpComing().observe(viewLifecycleOwner, { data ->
                 data.let {
-                    when (it.status) {
-                        Status.LOADING -> {
+                    when (it) {
+                        is Resource.Loading -> {
                             progressBar.visibility = View.VISIBLE
                         }
-                        Status.ERROR -> {
+                        is Resource.Error -> {
                             Toast.makeText(
                                 context,
                                 "Get movies fail, please check your internet connection!",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                        Status.SUCCESS -> {
+                        is Resource.Success -> {
                             if (it.data != null) {
-                                movies.add(it.data as MoviesEntity)
+                                movies.add(it.data as Movies)
                                 movieListAdapter.submitList(movies)
                                 movieListAdapter.notifyDataSetChanged()
 
@@ -96,22 +95,22 @@ class MoviesFragment : Fragment() {
                     }
                 }
             })
-            model.getPopular().observe(viewLifecycleOwner, Observer { data ->
+            model.getPopular().observe(viewLifecycleOwner, { data ->
                 data.let {
-                    when (it.status) {
-                        Status.LOADING -> {
+                    when (it) {
+                        is Resource.Loading -> {
                             progressBar.visibility = View.VISIBLE
                         }
-                        Status.ERROR -> {
+                        is Resource.Error -> {
                             Toast.makeText(
                                 context,
                                 "Get movies fail, please check your internet connection!",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                        Status.SUCCESS -> {
+                        is Resource.Success -> {
                             if (it.data != null) {
-                                movies.add(it.data as MoviesEntity)
+                                movies.add(it.data as Movies)
                                 movieListAdapter.submitList(movies)
                                 movieListAdapter.notifyDataSetChanged()
 
@@ -123,20 +122,20 @@ class MoviesFragment : Fragment() {
             })
             model.getTopRated().observe(viewLifecycleOwner, Observer { data ->
                 data.let {
-                    when (it.status) {
-                        Status.LOADING -> {
+                    when (it) {
+                        is Resource.Loading -> {
                             progressBar.visibility = View.VISIBLE
                         }
-                        Status.ERROR -> {
+                        is Resource.Error -> {
                             Toast.makeText(
                                 context,
                                 "Get movies fail, please check your internet connection!",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                        Status.SUCCESS -> {
+                        is Resource.Success -> {
                             if (it.data != null) {
-                                movies.add(it.data as MoviesEntity)
+                                movies.add(it.data as Movies)
                                 movieListAdapter.submitList(movies)
                                 movieListAdapter.notifyDataSetChanged()
 
@@ -168,8 +167,9 @@ class MoviesFragment : Fragment() {
     private fun obtainViewModel(activity: FragmentActivity): MoviesViewModel {
         // Use a Factory to inject dependencies into the ViewModel
         val factory = ViewModelFactory
-            .getInstance(Injection.provideRepository(activity.application))
-        return ViewModelProviders.of(activity, factory).get(MoviesViewModel::class.java)
+            .getInstance(activity)
+
+        return ViewModelProvider(this, factory)[MoviesViewModel::class.java]
     }
 
     companion object {

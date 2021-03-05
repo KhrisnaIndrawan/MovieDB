@@ -33,5 +33,5 @@ data class TVShowEntity(
     var firstAir: String? = null,
 
     @ColumnInfo(name = "tv_show_genres")
-    var genres: MutableList<GenreEntity>? = null
+    var genres: List<GenreEntity>?
 )

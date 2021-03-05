@@ -9,9 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.khrisna.core.di.Injection
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.databinding.FragmentSearchBinding
 import com.khrisna.filmdb.ui.adapter.search.SearchAdapter
@@ -76,8 +75,9 @@ class SearchFragment : Fragment() {
     private fun obtainViewModel(activity: FragmentActivity): SearchViewModel {
         // Use a Factory to inject dependencies into the ViewModel
         val factory = ViewModelFactory
-            .getInstance(Injection.provideRepository(activity.application))
-        return ViewModelProviders.of(activity, factory).get(SearchViewModel::class.java)
+            .getInstance(activity)
+
+        return ViewModelProvider(this, factory)[SearchViewModel::class.java]
     }
 
     companion object {

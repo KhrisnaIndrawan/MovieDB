@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "tv_shows_entities")
 data class TVShowsEntity(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @NonNull
     @ColumnInfo(name = "tv_shows_id")
     var id: Int,
@@ -16,5 +16,5 @@ data class TVShowsEntity(
     var header: String? = null,
 
     @ColumnInfo(name = "tv_show_list")
-    var tvShows: MutableList<TVShowEntity>? = null
+    var tvShows: List<TVShowEntity>
 )

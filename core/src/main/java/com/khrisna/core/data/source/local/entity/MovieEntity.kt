@@ -33,5 +33,5 @@ data class MovieEntity(
     var rating: Float? = null,
 
     @ColumnInfo(name = "movie_genres")
-    var genres: MutableList<GenreEntity>? = null
+    var genres: List<GenreEntity>?
 )

@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
-import com.khrisna.core.data.source.local.entity.TVShowEntity
+import com.khrisna.core.BuildConfig.BASE_IMG_URL
+import com.khrisna.core.domain.model.TVShow
 import com.khrisna.core.utils.GlideApp
-import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.ui.detail.DetailActivity
 import com.khrisna.filmdb.ui.detail.DetailActivity.Companion.EXTRA_DETAIL_DATA
@@ -26,13 +26,13 @@ class TVShowAdapter(
     private val context: Context,
     private val small: Boolean
 ) :
-    ListAdapter<TVShowEntity, TVShowAdapter.TVShowViewHolder>(
-        object : DiffUtil.ItemCallback<TVShowEntity>() {
-            override fun areItemsTheSame(oldItem: TVShowEntity, newItem: TVShowEntity): Boolean {
+    ListAdapter<TVShow, TVShowAdapter.TVShowViewHolder>(
+        object : DiffUtil.ItemCallback<TVShow>() {
+            override fun areItemsTheSame(oldItem: TVShow, newItem: TVShow): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: TVShowEntity, newItem: TVShowEntity): Boolean {
+            override fun areContentsTheSame(oldItem: TVShow, newItem: TVShow): Boolean {
                 return oldItem == newItem
             }
         }
@@ -40,8 +40,12 @@ class TVShowAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TVShowViewHolder {
         return when (small) {
-            false -> TVShowViewHolder(LayoutInflater.from(context).inflate(R.layout.item_poster, parent, false))
-            else -> TVShowViewHolder(LayoutInflater.from(context).inflate(R.layout.item_poster_small, parent, false))
+            false -> TVShowViewHolder(
+                LayoutInflater.from(context).inflate(R.layout.item_poster, parent, false)
+            )
+            else -> TVShowViewHolder(
+                LayoutInflater.from(context).inflate(R.layout.item_poster_small, parent, false)
+            )
         }
     }
 
@@ -52,7 +56,7 @@ class TVShowAdapter(
     inner class TVShowViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val imgPoster = view.findViewById<ImageView>(R.id.img_poster)
 
-        fun bind(item: TVShowEntity) {
+        fun bind(item: TVShow) {
 
             imgPoster.setOnClickListener {
                 val intent = Intent(context, DetailActivity::class.java)
@@ -71,7 +75,9 @@ class TVShowAdapter(
 
             GlideApp.with(context)
                 .load(BASE_IMG_URL + item.poster)
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
+                .apply(
+                    RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error)
+                )
                 .into(imgPoster)
         }
     }

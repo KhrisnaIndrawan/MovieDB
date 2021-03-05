@@ -7,14 +7,14 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "movies_entities")
 data class MoviesEntity(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @NonNull
     @ColumnInfo(name = "movies_id")
-    var id: Int,
+    var id: Int?,
 
     @ColumnInfo(name = "movies_header")
     var header: String? = null,
 
     @ColumnInfo(name = "movie_list")
-    var movies: MutableList<MovieEntity>? = null
+    var movies: List<MovieEntity>?
 )

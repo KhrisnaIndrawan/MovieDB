@@ -2,27 +2,29 @@ package com.khrisna.filmdb.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.khrisna.core.data.source.MovieRepository
-import com.khrisna.core.data.source.local.entity.MoviesEntity
+import androidx.lifecycle.asLiveData
 import com.khrisna.core.data.source.vo.Resource
+import com.khrisna.core.domain.model.Movies
+import com.khrisna.core.domain.usecase.MovieUseCase
+import com.khrisna.core.utils.ReleaseType
 
 class MoviesViewModel(
-    private val movieRepository: MovieRepository
+    private val movieUseCase: MovieUseCase
 ) : ViewModel() {
 
-    fun getNowPlaying(): LiveData<Resource<MoviesEntity>> {
-        return movieRepository.getMovies(1, "Now Playing")
+    fun getNowPlaying(): LiveData<Resource<Movies>> {
+        return movieUseCase.getMovies(1, ReleaseType.NOW_PLAYING).asLiveData()
     }
 
-    fun getUpComing(): LiveData<Resource<MoviesEntity>> {
-        return movieRepository.getMovies(2, "Up Coming")
+    fun getUpComing(): LiveData<Resource<Movies>> {
+        return movieUseCase.getMovies(2, ReleaseType.UP_COMING).asLiveData()
     }
 
-    fun getPopular(): LiveData<Resource<MoviesEntity>> {
-        return movieRepository.getMovies(3, "Popular")
+    fun getPopular(): LiveData<Resource<Movies>> {
+        return movieUseCase.getMovies(3, ReleaseType.POPULAR).asLiveData()
     }
 
-    fun getTopRated(): LiveData<Resource<MoviesEntity>> {
-        return movieRepository.getMovies(4, "Top Rated")
+    fun getTopRated(): LiveData<Resource<Movies>> {
+        return movieUseCase.getMovies(4, ReleaseType.TOP_RATED).asLiveData()
     }
 }

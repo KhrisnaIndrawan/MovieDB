@@ -11,12 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.khrisna.core.data.source.local.entity.TVShowsEntity
-import com.khrisna.core.data.source.vo.Status
-import com.khrisna.core.di.Injection
+import com.khrisna.core.data.source.vo.Resource
+import com.khrisna.core.domain.model.TVShows
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.databinding.FragmentTvshowsBinding
 import com.khrisna.filmdb.ui.adapter.tvshow.TVShowListAdapter
@@ -28,7 +27,7 @@ class TVShowsFragment : Fragment() {
 
     private lateinit var model: TVShowsViewModel
     private lateinit var tvShowListAdapter: TVShowListAdapter
-    private lateinit var tvShows: MutableList<TVShowsEntity>
+    private lateinit var tvShows: MutableList<TVShows>
     private lateinit var progressBar: ProgressBar
     private var _binding: FragmentTvshowsBinding? = null
     private val binding get() = _binding as FragmentTvshowsBinding
@@ -48,20 +47,20 @@ class TVShowsFragment : Fragment() {
             model = obtainViewModel(activity as AppCompatActivity)
             model.getAiringToday().observe(viewLifecycleOwner, Observer { data ->
                 data.let {
-                    when (it.status) {
-                        Status.LOADING -> {
+                    when (it) {
+                        is Resource.Loading -> {
                             progressBar.visibility = View.VISIBLE
                         }
-                        Status.ERROR -> {
+                        is Resource.Error -> {
                             Toast.makeText(
                                 context,
                                 "Get tv shows fail, please check your internet connection!",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                        Status.SUCCESS -> {
+                        is Resource.Success -> {
                             if (it.data != null) {
-                                tvShows.add(it.data as TVShowsEntity)
+                                tvShows.add(it.data as TVShows)
                                 tvShowListAdapter.submitList(tvShows)
                                 tvShowListAdapter.notifyDataSetChanged()
 
@@ -73,20 +72,20 @@ class TVShowsFragment : Fragment() {
             })
             model.getOnTheAir().observe(viewLifecycleOwner, Observer { data ->
                 data.let {
-                    when (it.status) {
-                        Status.LOADING -> {
+                    when (it) {
+                        is Resource.Loading -> {
                             progressBar.visibility = View.VISIBLE
                         }
-                        Status.ERROR -> {
+                        is Resource.Error -> {
                             Toast.makeText(
                                 context,
                                 "Get tv shows fail, please check your internet connection!",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                        Status.SUCCESS -> {
+                        is Resource.Success -> {
                             if (it.data != null) {
-                                tvShows.add(it.data as TVShowsEntity)
+                                tvShows.add(it.data as TVShows)
                                 tvShowListAdapter.submitList(tvShows)
                                 tvShowListAdapter.notifyDataSetChanged()
 
@@ -98,20 +97,20 @@ class TVShowsFragment : Fragment() {
             })
             model.getPopular().observe(viewLifecycleOwner, Observer { data ->
                 data.let {
-                    when (it.status) {
-                        Status.LOADING -> {
+                    when (it) {
+                        is Resource.Loading -> {
                             progressBar.visibility = View.VISIBLE
                         }
-                        Status.ERROR -> {
+                        is Resource.Error -> {
                             Toast.makeText(
                                 context,
                                 "Get tv shows fail, please check your internet connection!",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                        Status.SUCCESS -> {
+                        is Resource.Success -> {
                             if (it.data != null) {
-                                tvShows.add(it.data as TVShowsEntity)
+                                tvShows.add(it.data as TVShows)
                                 tvShowListAdapter.submitList(tvShows)
                                 tvShowListAdapter.notifyDataSetChanged()
 
@@ -123,20 +122,20 @@ class TVShowsFragment : Fragment() {
             })
             model.getTopRated().observe(viewLifecycleOwner, Observer { data ->
                 data.let {
-                    when (it.status) {
-                        Status.LOADING -> {
+                    when (it) {
+                        is Resource.Loading -> {
                             progressBar.visibility = View.VISIBLE
                         }
-                        Status.ERROR -> {
+                        is Resource.Error -> {
                             Toast.makeText(
                                 context,
                                 "Get tv shows fail, please check your internet connection!",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                        Status.SUCCESS -> {
+                        is Resource.Success -> {
                             if (it.data != null) {
-                                tvShows.add(it.data as TVShowsEntity)
+                                tvShows.add(it.data as TVShows)
                                 tvShowListAdapter.submitList(tvShows)
                                 tvShowListAdapter.notifyDataSetChanged()
 
@@ -146,6 +145,7 @@ class TVShowsFragment : Fragment() {
                     }
                 }
             })
+
         }
     }
 
@@ -167,8 +167,9 @@ class TVShowsFragment : Fragment() {
     private fun obtainViewModel(activity: FragmentActivity): TVShowsViewModel {
         // Use a Factory to inject dependencies into the ViewModel
         val factory = ViewModelFactory
-            .getInstance(Injection.provideRepository(activity.application))
-        return ViewModelProviders.of(activity, factory).get(TVShowsViewModel::class.java)
+            .getInstance(activity)
+
+        return ViewModelProvider(this, factory)[TVShowsViewModel::class.java]
     }
 
     companion object {

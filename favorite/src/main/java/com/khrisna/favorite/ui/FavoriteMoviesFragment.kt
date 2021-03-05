@@ -9,13 +9,12 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.khrisna.core.di.Injection
 import com.khrisna.favorite.R
 import com.khrisna.favorite.databinding.FragmentFavoriteMoviesBinding
 import com.khrisna.favorite.ui.adapter.FavoritePagedAdapter
+import com.khrisna.favorite.viewmodel.FavoritesViewModel
 import com.khrisna.filmdb.viewmodel.ViewModelFactory
 
 
@@ -41,7 +40,7 @@ class FavoriteMoviesFragment : Fragment() {
         activity.let { activity ->
             model = obtainViewModel(activity as AppCompatActivity)
 
-            model.getFavoritesAsPaged(true).observe(viewLifecycleOwner, Observer { data ->
+            model.getFavoritesAsPaged(true).observe(viewLifecycleOwner, { data ->
                 data.let {
                     favoriteListAdapter.submitList(it)
                     favoriteListAdapter.notifyDataSetChanged()
@@ -69,9 +68,9 @@ class FavoriteMoviesFragment : Fragment() {
     private fun obtainViewModel(activity: FragmentActivity): com.khrisna.favorite.viewmodel.FavoritesViewModel {
         // Use a Factory to inject dependencies into the ViewModel
         val factory = ViewModelFactory
-            .getInstance(Injection.provideRepository(activity.application))
-        return ViewModelProviders.of(activity, factory)
-            .get(com.khrisna.favorite.viewmodel.FavoritesViewModel::class.java)
+            .getInstance(activity)
+
+        return ViewModelProvider(this, factory)[FavoritesViewModel::class.java]
     }
 
     companion object {

@@ -8,17 +8,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.request.RequestOptions
-import com.khrisna.core.data.source.local.entity.FavoriteEntity
-import com.khrisna.core.data.source.local.entity.GenreEntity
-import com.khrisna.core.data.source.local.entity.MovieEntity
-import com.khrisna.core.data.source.local.entity.TVShowEntity
-import com.khrisna.core.data.source.vo.Status
-import com.khrisna.core.di.Injection
+import com.khrisna.core.BuildConfig.BASE_IMG_URL
+import com.khrisna.core.data.source.vo.Resource
+import com.khrisna.core.domain.model.Favorite
+import com.khrisna.core.domain.model.Genre
+import com.khrisna.core.domain.model.Movie
+import com.khrisna.core.domain.model.TVShow
 import com.khrisna.core.utils.GlideApp
 import com.khrisna.core.utils.Utils.formatDate
-import com.khrisna.filmdb.BuildConfig.BASE_IMG_URL
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.databinding.ActivityDetailBinding
 import com.khrisna.filmdb.viewmodel.DetailViewModel
@@ -31,7 +30,7 @@ class DetailActivity : AppCompatActivity() {
 
     private var isMovie: Boolean = false
     private var isFavorite: Boolean = false
-    private lateinit var favorite: FavoriteEntity
+    private lateinit var favorite: Favorite
     private lateinit var poster: String
     private lateinit var detailViewModel: DetailViewModel
     private var menuItem: Menu? = null
@@ -62,7 +61,7 @@ class DetailActivity : AppCompatActivity() {
                 .into(binding.imgPoster)
 
             val id: Int = it.getIntExtra(EXTRA_DETAIL_DATA, 0)
-            favorite = FavoriteEntity(
+            favorite = Favorite(
                 id = id,
                 dataId = id,
                 poster = poster,
@@ -96,22 +95,22 @@ class DetailActivity : AppCompatActivity() {
 
     private fun showMovieData() {
 
-        detailViewModel.movie?.observe(this, Observer { movie ->
-            when (movie.status) {
-                Status.LOADING -> {
+        detailViewModel.movie?.observe(this, { movie ->
+            when (movie) {
+                is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
-                Status.ERROR -> {
+                is Resource.Error -> {
                     Toast.makeText(
                         this,
                         "Get movie fail, please check your internet connection!",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                Status.SUCCESS -> {
+                is Resource.Success -> {
                     if (movie.data != null) {
 
-                        val data = movie.data as MovieEntity
+                        val data = movie.data as Movie
 
                         GlideApp.with(this)
                             .load(BASE_IMG_URL + data.backdrop)
@@ -131,11 +130,13 @@ class DetailActivity : AppCompatActivity() {
                         }
 
                         var genres = "| "
-                        val movieGenres = data.genres as MutableList<GenreEntity>
-                        for (value in movieGenres) {
-                            genres += "${value.name} | "
+                        data.genres.let {
+
+                            for (value in it as List<Genre>) {
+                                genres += "${value.name} | "
+                            }
+                            binding.tvGenre.text = genres
                         }
-                        binding.tvGenre.text = genres
 
                         setViewVisible(true)
                     }
@@ -147,21 +148,21 @@ class DetailActivity : AppCompatActivity() {
     private fun showTVShowData() {
 
         detailViewModel.tvShow?.observe(this, Observer { tvShow ->
-            when (tvShow.status) {
-                Status.LOADING -> {
+            when (tvShow) {
+                is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
-                Status.ERROR -> {
+                is Resource.Error -> {
                     Toast.makeText(
                         this,
                         "Get tv show fail, please check your internet connection!",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                Status.SUCCESS -> {
+                is Resource.Success -> {
                     if (tvShow.data != null) {
 
-                        val data = tvShow.data as TVShowEntity
+                        val data = tvShow.data as TVShow
 
                         GlideApp.with(this)
                             .load(BASE_IMG_URL + data.backdrop)
@@ -182,7 +183,7 @@ class DetailActivity : AppCompatActivity() {
                         }
 
                         var genres = "| "
-                        val tvShowGenres = data.genres as MutableList<GenreEntity>
+                        val tvShowGenres = data.genres as MutableList<Genre>
                         for (value in tvShowGenres) {
                             genres += "${value.name} | "
                         }
@@ -198,9 +199,9 @@ class DetailActivity : AppCompatActivity() {
     private fun obtainViewModel(activity: AppCompatActivity): DetailViewModel {
         // Use a Factory to inject dependencies into the ViewModel
         val factory = ViewModelFactory
-            .getInstance(Injection.provideRepository(activity.application))
+            .getInstance(activity)
 
-        return ViewModelProviders.of(activity, factory).get(DetailViewModel::class.java)
+        return ViewModelProvider(this, factory)[DetailViewModel::class.java]
     }
 
     private fun setViewVisible(visibility: Boolean) {

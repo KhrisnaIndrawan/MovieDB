@@ -6,7 +6,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.khrisna.filmdb.R
 
-class FavoriteSectionsPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class FavoriteSectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
+    FragmentStatePagerAdapter(fm) {
 
     private val tabs = arrayOf(
         R.string.tab_movies,
