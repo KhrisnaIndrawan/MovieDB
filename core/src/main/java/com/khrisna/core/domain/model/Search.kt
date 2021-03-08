@@ -5,6 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Search(
-    var id: Int,
-    var poster: String
+    var id: Int?,
+    var poster: String?
 ) : Parcelable

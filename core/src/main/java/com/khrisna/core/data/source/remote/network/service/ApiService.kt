@@ -17,7 +17,7 @@ interface ApiService {
         @Query("page") page: String
     ): MoviesResponse
 
-    @GET("search/multi?api_key={BuildConfig.API_KEY}&language=en-US?&page=1&include_adult=false")
+    @GET("search/multi?api_key=${BuildConfig.API_KEY}&language=en-US?&page=1&include_adult=false")
     suspend fun search(@Query("query") query: String): SearchesResponse
 
     @GET("tv/{id}?api_key=${BuildConfig.API_KEY}&language=en-US")

@@ -103,8 +103,6 @@ l
 <core/src/main/java/com/khrisna/core/data/source/vo/Status.kt,0\2\02056c23b0787073e248bd3745803cd0435dc3e5
 w
 Gcore/src/main/java/com/khrisna/core/data/source/NetworkBoundResource.kt,8\e\8e8a791469ed8a379d409d540fc9f688bd24a52c
-Y
-)app/src/main/res/layout/activity_home.xml,8\4\84bbfd95b490b92591d2b037417f036942315d57
 R
 "app/src/main/res/values/styles.xml,f\7\f79cc2688e29fcbc286fda14ae07b27c9e83690f
 g

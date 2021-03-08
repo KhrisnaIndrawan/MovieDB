@@ -204,8 +204,8 @@ object DataMapper {
         }
 
     // Search
-    fun mapSearchesResponseToDomain(input: SearchesResponse): Searches =
-        input.searches.map {
+    fun mapSearchesResponseToDomain(input: SearchesResponse?): Searches =
+        input?.searches?.map {
             Search(
                 id = it.id,
                 poster = it.poster

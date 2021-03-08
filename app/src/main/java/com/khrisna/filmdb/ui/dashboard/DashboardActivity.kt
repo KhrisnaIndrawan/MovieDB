@@ -3,6 +3,7 @@ package com.khrisna.filmdb.ui.dashboard
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.khrisna.filmdb.R
@@ -50,6 +51,7 @@ class DashboardActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.app_bar_home -> {
                 showFragment(HomeFragment.newInstance())
+                Toast.makeText(this, "Hey!", Toast.LENGTH_LONG).show()
             }
             R.id.app_bar_favorite -> {
                 showFragment(

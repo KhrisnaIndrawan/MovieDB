@@ -5,5 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Searches(
-    var searches: List<Search>
+    var searches: List<Search>?
 ) : Parcelable
