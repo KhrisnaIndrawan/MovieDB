@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.khrisna.favorite.databinding.FragmentFavoritesBinding
+import com.khrisna.favorite.di.favoriteModule
 import com.khrisna.favorite.ui.adapter.FavoriteSectionsPagerAdapter
+import org.koin.core.context.loadKoinModules
 
 
 class FavoritesFragment : Fragment() {
@@ -27,6 +29,8 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        loadKoinModules(favoriteModule)
 
         val sectionsPagerAdapter = FavoriteSectionsPagerAdapter(
             context as AppCompatActivity,

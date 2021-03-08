@@ -9,8 +9,8 @@ import com.khrisna.core.domain.usecase.MovieUseCase
 import com.khrisna.core.domain.usecase.TVShowUseCase
 
 class ViewAllViewModel(
-    private val moviesUseCase: MovieUseCase,
-    private val tvShowUseCase: TVShowUseCase
+    val moviesUseCase: MovieUseCase,
+    val tvShowUseCase: TVShowUseCase
 ) : ViewModel() {
 
     fun getMovies(header: String): LiveData<Movies> {

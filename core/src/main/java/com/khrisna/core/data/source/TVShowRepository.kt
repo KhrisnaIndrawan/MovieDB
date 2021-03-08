@@ -15,22 +15,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class TVShowRepository(
-    private val localDataSource: LocalDataSource,
-    private val remoteDataSource: RemoteDataSource
+    val localDataSource: LocalDataSource,
+    val remoteDataSource: RemoteDataSource
 ) : ITVShowRepository {
-
-    companion object {
-        @Volatile
-        private var instance: TVShowRepository? = null
-
-        fun getInstance(
-            localData: LocalDataSource,
-            remoteData: RemoteDataSource
-        ): TVShowRepository =
-            instance ?: synchronized(this) {
-                instance ?: TVShowRepository(localData, remoteData)
-            }
-    }
 
     override fun getTVShow(id: Int): Flow<Resource<TVShow>> =
         object : NetworkBoundResource<TVShow, TVShowResponse>() {

@@ -29,6 +29,7 @@ buildscript {
         snaphelperVersion = '1.3'
         retrofitVersion = '2.9.0'
         loggingInterceptorVersion = "4.8.0"
+        koin_version = "2.2.2"
     }
     repositories {
         google()

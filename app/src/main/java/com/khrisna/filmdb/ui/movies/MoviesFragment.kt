@@ -9,9 +9,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khrisna.core.data.source.vo.Resource
@@ -20,12 +18,12 @@ import com.khrisna.filmdb.R
 import com.khrisna.filmdb.databinding.FragmentMoviesBinding
 import com.khrisna.filmdb.ui.adapter.movie.MovieListAdapter
 import com.khrisna.filmdb.viewmodel.MoviesViewModel
-import com.khrisna.filmdb.viewmodel.ViewModelFactory
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class MoviesFragment : Fragment() {
 
-    private lateinit var model: MoviesViewModel
+    private val model: MoviesViewModel by viewModel()
     private lateinit var movieListAdapter: MovieListAdapter
     private lateinit var movies: MutableList<Movies>
     private lateinit var progressBar: ProgressBar
@@ -44,7 +42,6 @@ class MoviesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity.let { activity ->
-            model = obtainViewModel(activity as AppCompatActivity)
             model.getNowPlaying().observe(viewLifecycleOwner, { data ->
                 data.let {
                     when (it) {
@@ -162,14 +159,6 @@ class MoviesFragment : Fragment() {
                 LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = movieListAdapter
         }
-    }
-
-    private fun obtainViewModel(activity: FragmentActivity): MoviesViewModel {
-        // Use a Factory to inject dependencies into the ViewModel
-        val factory = ViewModelFactory
-            .getInstance(activity)
-
-        return ViewModelProvider(this, factory)[MoviesViewModel::class.java]
     }
 
     companion object {

@@ -12,9 +12,9 @@ import com.khrisna.core.domain.usecase.MovieUseCase
 import com.khrisna.core.domain.usecase.TVShowUseCase
 
 class DetailViewModel(
-    private val movieUseCase: MovieUseCase,
-    private val tvShowUseCase: TVShowUseCase,
-    private val favoriteUseCase: FavoriteUseCase
+    val movieUseCase: MovieUseCase,
+    val tvShowUseCase: TVShowUseCase,
+    val favoriteUseCase: FavoriteUseCase
 ) : ViewModel() {
 
     private var _movie: LiveData<Resource<Movie>>? = null

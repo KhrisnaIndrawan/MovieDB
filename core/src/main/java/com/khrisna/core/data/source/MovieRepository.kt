@@ -15,22 +15,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class MovieRepository(
-    private val localDataSource: LocalDataSource,
-    private val remoteDataSource: RemoteDataSource
+    val localDataSource: LocalDataSource,
+    val remoteDataSource: RemoteDataSource
 ) : IMovieRepository {
-
-    companion object {
-        @Volatile
-        private var instance: MovieRepository? = null
-
-        fun getInstance(
-            localData: LocalDataSource,
-            remoteData: RemoteDataSource
-        ): MovieRepository =
-            instance ?: synchronized(this) {
-                instance ?: MovieRepository(localData, remoteData)
-            }
-    }
 
     override fun getMovie(id: Int): Flow<Resource<Movie>> =
         object : NetworkBoundResource<Movie, MovieResponse>() {

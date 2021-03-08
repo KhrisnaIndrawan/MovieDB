@@ -9,7 +9,7 @@ import com.khrisna.core.domain.usecase.TVShowUseCase
 import com.khrisna.core.utils.ReleaseType
 
 class TVShowsViewModel(
-    private val tvShowUseCase: TVShowUseCase
+    val tvShowUseCase: TVShowUseCase
 ) : ViewModel() {
 
     fun getAiringToday(): LiveData<Resource<TVShows>> {

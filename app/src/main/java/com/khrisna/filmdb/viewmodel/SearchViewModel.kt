@@ -7,7 +7,7 @@ import com.khrisna.core.domain.model.Searches
 import com.khrisna.core.domain.usecase.SearchUseCase
 
 class SearchViewModel(
-    private val searchUseCase: SearchUseCase
+    val searchUseCase: SearchUseCase
 ) : ViewModel() {
 
     fun getSearches(query: String): LiveData<Searches> {

@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.request.RequestOptions
 import com.khrisna.core.BuildConfig.BASE_IMG_URL
 import com.khrisna.core.data.source.vo.Resource
@@ -21,18 +20,18 @@ import com.khrisna.core.utils.Utils.formatDate
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.databinding.ActivityDetailBinding
 import com.khrisna.filmdb.viewmodel.DetailViewModel
-import com.khrisna.filmdb.viewmodel.ViewModelFactory
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
+    private val detailViewModel: DetailViewModel by viewModel()
 
     private var isMovie: Boolean = false
     private var isFavorite: Boolean = false
     private lateinit var favorite: Favorite
     private lateinit var poster: String
-    private lateinit var detailViewModel: DetailViewModel
     private var menuItem: Menu? = null
 
     companion object {
@@ -47,8 +46,6 @@ class DetailActivity : AppCompatActivity() {
 
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        detailViewModel = obtainViewModel(this)
 
         intent.let {
             isMovie = it.getBooleanExtra(EXTRA_IS_MOVIE, false)
@@ -194,14 +191,6 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
         })
-    }
-
-    private fun obtainViewModel(activity: AppCompatActivity): DetailViewModel {
-        // Use a Factory to inject dependencies into the ViewModel
-        val factory = ViewModelFactory
-            .getInstance(activity)
-
-        return ViewModelProvider(this, factory)[DetailViewModel::class.java]
     }
 
     private fun setViewVisible(visibility: Boolean) {

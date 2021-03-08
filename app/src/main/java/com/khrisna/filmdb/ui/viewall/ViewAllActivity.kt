@@ -5,17 +5,16 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.khrisna.filmdb.databinding.ActivityViewAllBinding
 import com.khrisna.filmdb.ui.adapter.movie.MovieAdapter
 import com.khrisna.filmdb.ui.adapter.tvshow.TVShowAdapter
 import com.khrisna.filmdb.viewmodel.ViewAllViewModel
-import com.khrisna.filmdb.viewmodel.ViewModelFactory
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ViewAllActivity : AppCompatActivity() {
 
-    private lateinit var viewAllViewModel: ViewAllViewModel
+    private val viewAllViewModel: ViewAllViewModel by viewModel()
     private lateinit var movieListAdapter: MovieAdapter
     private lateinit var tvShowListAdapter: TVShowAdapter
     private var isMovie: Boolean = false
@@ -34,8 +33,6 @@ class ViewAllActivity : AppCompatActivity() {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
         }
-
-        viewAllViewModel = obtainViewModel(this)
 
         if (intent != null) {
             isMovie = intent.getBooleanExtra(EXTRA_IS_MOVIE, false)
@@ -98,14 +95,6 @@ class ViewAllActivity : AppCompatActivity() {
 
             binding.progressBar.visibility = View.INVISIBLE
         })
-    }
-
-    private fun obtainViewModel(activity: AppCompatActivity): ViewAllViewModel {
-        // Use a Factory to inject dependencies into the ViewModel
-        val factory = ViewModelFactory
-            .getInstance(activity)
-
-        return ViewModelProvider(this, factory)[ViewAllViewModel::class.java]
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

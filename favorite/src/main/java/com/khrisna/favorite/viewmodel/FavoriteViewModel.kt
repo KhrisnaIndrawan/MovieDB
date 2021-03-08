@@ -7,7 +7,7 @@ import androidx.paging.PagedList
 import com.khrisna.core.domain.model.Favorite
 import com.khrisna.core.domain.usecase.FavoriteUseCase
 
-class FavoritesViewModel(
+class FavoriteViewModel(
     private val favoriteUseCase: FavoriteUseCase
 ) : ViewModel() {
 

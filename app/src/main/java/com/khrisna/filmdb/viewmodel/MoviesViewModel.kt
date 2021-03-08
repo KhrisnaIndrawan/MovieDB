@@ -9,7 +9,7 @@ import com.khrisna.core.domain.usecase.MovieUseCase
 import com.khrisna.core.utils.ReleaseType
 
 class MoviesViewModel(
-    private val movieUseCase: MovieUseCase
+    val movieUseCase: MovieUseCase
 ) : ViewModel() {
 
     fun getNowPlaying(): LiveData<Resource<Movies>> {

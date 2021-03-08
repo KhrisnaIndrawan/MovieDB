@@ -13,23 +13,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class FavoriteRepository(
-    private val localDataSource: LocalDataSource
+    val localDataSource: LocalDataSource
 ) : IFavoriteRepository {
-
-    companion object {
-        private var INSTANCE: FavoriteRepository? = null
-
-        fun getInstance(
-            localData: LocalDataSource
-        ): FavoriteRepository =
-            INSTANCE ?: synchronized(this) {
-                INSTANCE ?: FavoriteRepository(localData)
-            }
-
-        fun destroyInstance() {
-            INSTANCE = null
-        }
-    }
 
     override fun getFavorite(id: Int): Flow<Favorite> {
         return localDataSource.getFavoriteById(id).map {

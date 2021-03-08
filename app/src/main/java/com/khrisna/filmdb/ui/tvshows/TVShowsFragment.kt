@@ -9,9 +9,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khrisna.core.data.source.vo.Resource
@@ -20,12 +18,12 @@ import com.khrisna.filmdb.R
 import com.khrisna.filmdb.databinding.FragmentTvshowsBinding
 import com.khrisna.filmdb.ui.adapter.tvshow.TVShowListAdapter
 import com.khrisna.filmdb.viewmodel.TVShowsViewModel
-import com.khrisna.filmdb.viewmodel.ViewModelFactory
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class TVShowsFragment : Fragment() {
 
-    private lateinit var model: TVShowsViewModel
+    private val model: TVShowsViewModel by viewModel()
     private lateinit var tvShowListAdapter: TVShowListAdapter
     private lateinit var tvShows: MutableList<TVShows>
     private lateinit var progressBar: ProgressBar
@@ -44,7 +42,6 @@ class TVShowsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity.let { activity ->
-            model = obtainViewModel(activity as AppCompatActivity)
             model.getAiringToday().observe(viewLifecycleOwner, Observer { data ->
                 data.let {
                     when (it) {
@@ -162,14 +159,6 @@ class TVShowsFragment : Fragment() {
                 LinearLayoutManager(context as AppCompatActivity, RecyclerView.VERTICAL, false)
             adapter = tvShowListAdapter
         }
-    }
-
-    private fun obtainViewModel(activity: FragmentActivity): TVShowsViewModel {
-        // Use a Factory to inject dependencies into the ViewModel
-        val factory = ViewModelFactory
-            .getInstance(activity)
-
-        return ViewModelProvider(this, factory)[TVShowsViewModel::class.java]
     }
 
     companion object {

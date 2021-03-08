@@ -3,14 +3,6 @@
 Ncore/src/main/java/com/khrisna/core/data/source/local/entity/FavoriteEntity.kt,3\7\3797eed8b5b516bb27ede2c33f59d6156fd26248
 v
 Fcore/src/main/java/com/khrisna/core/data/source/local/room/MovieDao.kt,0\5\055d6e8ff8d9dc0d695de1ec738a82e4042e2cad
-‡
-Wcore/src/main/java/com/khrisna/core/data/source/remote/network/service/SearchService.kt,a\3\a3a0100bf8336ea281815ea96f310704f3ee557d
-‡
-Wcore/src/main/java/com/khrisna/core/data/source/remote/network/service/TVShowService.kt,e\7\e72dcc22750ed5520176bd1322b244c738416d4b
-†
-Vcore/src/main/java/com/khrisna/core/data/source/remote/network/service/MovieService.kt,6\4\646f3c1a57ac65b80c1e7bde284616fb70259ea0
-‚
-Rcore/src/main/java/com/khrisna/core/data/source/remote/network/RetrofitServices.kt,f\6\f674e32bad564b894286ce62de2095d72e3e573b
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 @
@@ -109,8 +101,6 @@ n
 >core/src/main/java/com/khrisna/core/data/source/vo/Resource.kt,5\e\5e2b14eecfd32a3e529d4d4db05fd6bf160efb03
 l
 <core/src/main/java/com/khrisna/core/data/source/vo/Status.kt,0\2\02056c23b0787073e248bd3745803cd0435dc3e5
-c
-3core/src/main/java/com/khrisna/core/di/Injection.kt,f\b\fb6aab5f301920eeb4700e6fb9abfd2ab4b4841b
 w
 Gcore/src/main/java/com/khrisna/core/data/source/NetworkBoundResource.kt,8\e\8e8a791469ed8a379d409d540fc9f688bd24a52c
 Y
@@ -207,3 +197,9 @@ q
 Aapp/src/main/java/com/khrisna/filmdb/viewmodel/DetailViewModel.kt,4\8\48973d5c9d036bdeaa0846e4aa0bcdf8dacffe34
 r
 Bapp/src/main/java/com/khrisna/filmdb/viewmodel/ViewAllViewModel.kt,1\8\189f0f78781544045233b8996f7c4f689b4ba2bb
+e
+5app/src/main/java/com/khrisna/filmdb/MyApplication.kt,f\f\ffd1307d55ea27fd7690b951630509639f089c08
+d
+4app/src/main/java/com/khrisna/filmdb/di/AppModule.kt,3\6\3672eaec2685a4dd2c18913c147e487c32bcb7bb
+„
+Tcore/src/main/java/com/khrisna/core/data/source/remote/network/service/ApiService.kt,c\3\c3864eec5b08c1f2975b8900761efb63e35b93b9
