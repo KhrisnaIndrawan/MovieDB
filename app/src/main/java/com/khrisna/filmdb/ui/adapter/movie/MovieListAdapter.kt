@@ -23,11 +23,13 @@ class MovieListAdapter(
     ListAdapter<Movies, MovieListAdapter.MoviesViewHolder>(
         object : DiffUtil.ItemCallback<Movies>() {
             override fun areItemsTheSame(oldItem: Movies, newItem: Movies): Boolean {
-                return oldItem.header == newItem.header
+                return oldItem == newItem
             }
 
             override fun areContentsTheSame(oldItem: Movies, newItem: Movies): Boolean {
-                return oldItem == newItem
+                return oldItem.id == newItem.id
+                        && oldItem.header == newItem.header
+                        && oldItem.movies == newItem.movies
             }
         }
     ) {
@@ -57,7 +59,6 @@ class MovieListAdapter(
             adapter.submitList(item.movies)
 
             rvPoster.apply {
-                setHasFixedSize(true)
                 layoutManager =
                     LinearLayoutManager(
                         context as AppCompatActivity,

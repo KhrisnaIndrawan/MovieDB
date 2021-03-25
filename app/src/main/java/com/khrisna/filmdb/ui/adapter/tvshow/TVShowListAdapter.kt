@@ -21,11 +21,13 @@ class TVShowListAdapter(
     ListAdapter<TVShows, TVShowListAdapter.TVShowsViewHolder>(
         object : DiffUtil.ItemCallback<TVShows>() {
             override fun areItemsTheSame(oldItem: TVShows, newItem: TVShows): Boolean {
-                return oldItem.header == newItem.header
+                return oldItem == newItem
             }
 
             override fun areContentsTheSame(oldItem: TVShows, newItem: TVShows): Boolean {
-                return oldItem == newItem
+                return oldItem.id == newItem.id
+                        && oldItem.header == newItem.header
+                        && oldItem.tvShows == newItem.tvShows
             }
         }
     ) {

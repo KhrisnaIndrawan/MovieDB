@@ -85,6 +85,7 @@ class MovieAdapter(
                     RequestOptions.placeholderOf(circularProgressDrawable)
                         .error(R.drawable.ic_error)
                 )
+                .override(480)
                 .into(imgPoster)
         }
     }

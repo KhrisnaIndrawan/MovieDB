@@ -36,11 +36,12 @@ class SearchFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity.let { activity ->
+        activity.let {
 
             binding.btnSearch.setOnClickListener {
                 query = binding.edtQuery.text.toString()
-
+                binding.searchPlaceholder.visibility = View.GONE
+                progressBar.visibility = View.VISIBLE
                 model.getSearches(query).observe(viewLifecycleOwner, Observer { data ->
 
                     data.let {

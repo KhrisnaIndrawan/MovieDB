@@ -59,7 +59,7 @@ class LocalDataSource(val movieDao: MovieDao) {
         return movieDao.getTVShowById(id)
     }
 
-    fun insertTVShow(tvShows: TVShowEntity) {
+    suspend fun insertTVShow(tvShows: TVShowEntity) {
         movieDao.insertTVShow(tvShows)
     }
 

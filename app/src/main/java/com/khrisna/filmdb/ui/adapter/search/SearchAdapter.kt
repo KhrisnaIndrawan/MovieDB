@@ -76,6 +76,7 @@ class SearchAdapter(private val context: Context) :
                     RequestOptions.placeholderOf(circularProgressDrawable)
                         .error(R.drawable.ic_error)
                 )
+                .override(480)
                 .into(imgPoster)
         }
     }

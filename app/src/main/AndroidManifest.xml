@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.viewall.ViewAllActivity" />
-        <activity android:name=".ui.detail.DetailActivity" />
+        <activity
+            android:name=".ui.detail.DetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.dashboard.DashboardActivity"
             android:label="@string/app_name"

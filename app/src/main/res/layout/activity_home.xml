@@ -7,13 +7,31 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".ui.dashboard.DashboardActivity">
 
-    <FrameLayout
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginTop="56dp"
-        android:layout_marginBottom="56dp" />
+        android:layout_marginTop="56dp" />
+
+    <com.fxn.BubbleTabBar
+        android:id="@+id/bubbleTabBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/button_rounded_white_24dp"
+        android:elevation="16dp"
+        android:padding="7dp"
+        app:bubbletab_disabled_icon_color="@color/colorPrimaryDark"
+        app:bubbletab_horizontal_padding="20dp"
+        app:bubbletab_icon_padding="5sp"
+        app:bubbletab_icon_size="20dp"
+        app:bubbletab_menuResource="@menu/bottomappbar_menu"
+        app:bubbletab_title_size="16sp"
+        app:bubbletab_vertical_padding="10dp" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -28,25 +46,8 @@
             android:minHeight="?actionBarSize"
             android:padding="@dimen/appbar_padding"
             android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:textColor="@color/colorTextTertiary" />
     </com.google.android.material.appbar.AppBarLayout>
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_gravity="bottom"
-        app:backgroundTint="@color/colorPrimary"
-        app:elevation="5dp"
-        app:fabAlignmentMode="end"
-        app:menu="@menu/bottomappbar_menu" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/search_button"
-        android:src="@drawable/ic_search_white_24dp"
-        app:layout_anchor="@id/bottom_app_bar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

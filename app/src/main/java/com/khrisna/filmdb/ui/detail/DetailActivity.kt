@@ -46,6 +46,7 @@ class DetailActivity : AppCompatActivity() {
 
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.colorAccent)
 
         intent.let {
             isMovie = it.getBooleanExtra(EXTRA_IS_MOVIE, false)

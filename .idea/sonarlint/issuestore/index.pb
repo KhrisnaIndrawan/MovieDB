@@ -17,10 +17,6 @@ v
 Fapp/src/main/java/com/khrisna/filmdb/ui/dashboard/DashboardActivity.kt,5\c\5caf1595e00a578ed696486cc2e5669124a8dff8
 p
 @app/src/main/java/com/khrisna/filmdb/ui/detail/DetailActivity.kt,f\6\f6e1aae12a43d919027581429eaa5839963b536d
-r
-Bapp/src/main/java/com/khrisna/filmdb/viewmodel/ViewModelFactory.kt,b\b\bb0154ed6729aee493f90e986aa64376549bbf89
-{
-Kfavorite/src/main/java/com/khrisna/favorite/viewmodel/FavoritesViewModel.kt,b\0\b00b3bc4452da6f5dcd5dd1d725811868ef29ccf
 E
 favorite/build.gradle,8\c\8c8745bd0abadf704a7e06b644de08950e69f323
 y
@@ -33,8 +29,6 @@ Cfavorite/src/main/java/com/khrisna/favorite/ui/FavoritesFragment.kt,d\4\d4e4d9
 Nfavorite/src/main/java/com/khrisna/favorite/ui/adapter/FavoritePagedAdapter.kt,4\e\4e59883e83df72973bb3f692d13517cc105b91dd
 ?
 settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
-S
-#app/src/main/res/values/strings.xml,d\2\d2281fbb3027de2722081a53408dd77628bf080e
 }
 Mfavorite/src/androidTest/java/com/khrisna/favorite/ExampleInstrumentedTest.kt,9\3\93ca346bd39b8dd7ae3b7500e2e234cd8f946db1
 †
@@ -53,14 +47,6 @@ G
 Kcore/src/main/java/com/khrisna/core/data/source/local/entity/GenreEntity.kt,3\b\3b66fad36907669b0fac6004b1eeb2ac5b8b0646
 €
 Pcore/src/main/java/com/khrisna/core/data/source/remote/response/GenreResponse.kt,9\3\93852c5482e69b9c27704a67a7e06ecb17e9e80a
-\
-,app/src/main/res/layout/item_list_poster.xml,3\4\34051ad311f1f991760011669f1f153f540d60f0
-W
-'app/src/main/res/layout/item_poster.xml,1\2\1236ed5611d1f99fd44f55c2e6a85ee2ea74d036
-]
--app/src/main/res/layout/item_poster_small.xml,b\f\bf1023eefd7ade2f920aefcf603780fc37afee4a
-€
-Papp/src/main/java/com/khrisna/filmdb/ui/adapter/home/HomeSectionsPagerAdapter.kt,e\3\e3d7bad73646682792bc742705af7e296bd1edd6
 u
 Eapp/src/main/java/com/khrisna/filmdb/ui/adapter/movie/MovieAdapter.kt,c\e\ce1b7b8f17e97fe8843837a48a13ff6fa75c6471
 y
@@ -71,8 +57,6 @@ w
 Gapp/src/main/java/com/khrisna/filmdb/ui/adapter/tvshow/TVShowAdapter.kt,b\6\b6daae5b137fc23729b8114b91ab0452da90c043
 {
 Kapp/src/main/java/com/khrisna/filmdb/ui/adapter/tvshow/TVShowListAdapter.kt,a\a\aa4840d4a18d819b7d832f161eeb84dcc1a6603a
-l
-<app/src/main/java/com/khrisna/filmdb/ui/home/HomeFragment.kt,a\5\a59266d55b1008757566c8e00f92bb5e1a1ff40b
 p
 @app/src/main/java/com/khrisna/filmdb/ui/movies/MoviesFragment.kt,8\8\881c93a028f0d82f499427d8497f3c96d16dec12
 p
@@ -81,14 +65,6 @@ r
 Bapp/src/main/java/com/khrisna/filmdb/ui/tvshows/TVShowsFragment.kt,0\4\04875e03b1813d437cdabc7c5f505a7d3ea1364d
 r
 Bapp/src/main/java/com/khrisna/filmdb/ui/viewall/ViewAllActivity.kt,b\2\b25903ba4d4f7505fbac3d4750f4c66b0e0428a3
-[
-+app/src/main/res/layout/activity_detail.xml,f\2\f22ce1ff238aad049c933bb28da5033b974b1b1a
-Y
-)app/src/main/res/layout/fragment_home.xml,3\1\31c5880846ef63ff1963efbe141ddfd56680bb19
-[
-+app/src/main/res/layout/fragment_movies.xml,3\6\3649d18ceeefd1a834d03bdb6b3d6c0a579b3e64
-[
-+app/src/main/res/layout/fragment_search.xml,2\f\2f0ecfae4fe398a722fcad4e3b06b75ba69c589a
 P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 Q
@@ -103,8 +79,6 @@ l
 <core/src/main/java/com/khrisna/core/data/source/vo/Status.kt,0\2\02056c23b0787073e248bd3745803cd0435dc3e5
 w
 Gcore/src/main/java/com/khrisna/core/data/source/NetworkBoundResource.kt,8\e\8e8a791469ed8a379d409d540fc9f688bd24a52c
-R
-"app/src/main/res/values/styles.xml,f\7\f79cc2688e29fcbc286fda14ae07b27c9e83690f
 g
 7core/src/main/java/com/khrisna/core/utils/DataMapper.kt,7\c\7cab99508d238078a2e6c03677d201a6424c86ab
 |
@@ -201,3 +175,9 @@ d
 4app/src/main/java/com/khrisna/filmdb/di/AppModule.kt,3\6\3672eaec2685a4dd2c18913c147e487c32bcb7bb
 „
 Tcore/src/main/java/com/khrisna/core/data/source/remote/network/service/ApiService.kt,c\3\c3864eec5b08c1f2975b8900761efb63e35b93b9
+p
+@favorite/src/main/java/com/khrisna/favorite/di/FavoriteModule.kt,8\0\80161ebb67492701bd7e665bdb4d618f7942353e
+z
+Jfavorite/src/main/java/com/khrisna/favorite/viewmodel/FavoriteViewModel.kt,d\2\d2756dad3f817efa2a3c07f94aab45e7d91b464b
+d
+4core/src/main/java/com/khrisna/core/di/CoreModule.kt,6\d\6de03bc5ce8ecb94d9b6cbdf95b562b6d5af0611

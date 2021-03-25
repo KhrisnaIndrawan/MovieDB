@@ -9,7 +9,6 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khrisna.core.data.source.vo.Resource
@@ -41,107 +40,45 @@ class MoviesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity.let { activity ->
-            model.getNowPlaying().observe(viewLifecycleOwner, { data ->
-                data.let {
-                    when (it) {
-                        is Resource.Loading -> {
-                            progressBar.visibility = View.VISIBLE
-                        }
-                        is Resource.Error -> {
-                            Toast.makeText(
-                                context,
-                                "Get movies fail, please check your internet connection!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        is Resource.Success -> {
-                            if (it.data != null) {
-                                movies.add(it.data as Movies)
-                                movieListAdapter.submitList(movies)
-                                movieListAdapter.notifyDataSetChanged()
 
-                                progressBar.visibility = View.INVISIBLE
-                            }
-                        }
+        model.getNowPlaying().observe(viewLifecycleOwner, { data ->
+            showData(data)
+        })
+
+        model.getPopular().observe(viewLifecycleOwner, { data ->
+            showData(data)
+        })
+
+        model.getTopRated().observe(viewLifecycleOwner, { data ->
+            showData(data)
+        })
+
+        model.getUpComing().observe(viewLifecycleOwner, { data ->
+            showData(data)
+        })
+    }
+
+    private fun showData(data: Resource<Movies>?) {
+        data.let {
+            when (it) {
+                is Resource.Loading -> {
+                    progressBar.visibility = View.VISIBLE
+                }
+                is Resource.Error -> {
+                    Toast.makeText(
+                        context,
+                        "Get movies fail, please check your internet connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is Resource.Success -> {
+                    if (it.data != null) {
+                        movies.add(it.data as Movies)
+                        movieListAdapter.submitList(movies)
+                        progressBar.visibility = View.INVISIBLE
                     }
                 }
-            })
-            model.getUpComing().observe(viewLifecycleOwner, { data ->
-                data.let {
-                    when (it) {
-                        is Resource.Loading -> {
-                            progressBar.visibility = View.VISIBLE
-                        }
-                        is Resource.Error -> {
-                            Toast.makeText(
-                                context,
-                                "Get movies fail, please check your internet connection!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        is Resource.Success -> {
-                            if (it.data != null) {
-                                movies.add(it.data as Movies)
-                                movieListAdapter.submitList(movies)
-                                movieListAdapter.notifyDataSetChanged()
-
-                                progressBar.visibility = View.INVISIBLE
-                            }
-                        }
-                    }
-                }
-            })
-            model.getPopular().observe(viewLifecycleOwner, { data ->
-                data.let {
-                    when (it) {
-                        is Resource.Loading -> {
-                            progressBar.visibility = View.VISIBLE
-                        }
-                        is Resource.Error -> {
-                            Toast.makeText(
-                                context,
-                                "Get movies fail, please check your internet connection!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        is Resource.Success -> {
-                            if (it.data != null) {
-                                movies.add(it.data as Movies)
-                                movieListAdapter.submitList(movies)
-                                movieListAdapter.notifyDataSetChanged()
-
-                                progressBar.visibility = View.INVISIBLE
-                            }
-                        }
-                    }
-                }
-            })
-            model.getTopRated().observe(viewLifecycleOwner, Observer { data ->
-                data.let {
-                    when (it) {
-                        is Resource.Loading -> {
-                            progressBar.visibility = View.VISIBLE
-                        }
-                        is Resource.Error -> {
-                            Toast.makeText(
-                                context,
-                                "Get movies fail, please check your internet connection!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        is Resource.Success -> {
-                            if (it.data != null) {
-                                movies.add(it.data as Movies)
-                                movieListAdapter.submitList(movies)
-                                movieListAdapter.notifyDataSetChanged()
-
-                                progressBar.visibility = View.INVISIBLE
-                            }
-                        }
-                    }
-                }
-            })
+            }
         }
     }
 
@@ -154,7 +91,6 @@ class MoviesFragment : Fragment() {
         progressBar = view.findViewById(R.id.progressBar)
 
         binding.rvMovies.apply {
-            setHasFixedSize(true)
             layoutManager =
                 LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = movieListAdapter

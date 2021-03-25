@@ -57,7 +57,7 @@ interface MovieDao {
     fun getTVShowById(id: Int): Flow<TVShowEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTVShow(tvShows: TVShowEntity)
+    suspend fun insertTVShow(tvShows: TVShowEntity)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateTVShow(tvShow: TVShowEntity)

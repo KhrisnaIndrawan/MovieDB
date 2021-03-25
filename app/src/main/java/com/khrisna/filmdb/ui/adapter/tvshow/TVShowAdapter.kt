@@ -78,6 +78,7 @@ class TVShowAdapter(
                 .apply(
                     RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error)
                 )
+                .override(480)
                 .into(imgPoster)
         }
     }

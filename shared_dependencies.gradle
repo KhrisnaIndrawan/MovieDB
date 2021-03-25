@@ -18,7 +18,6 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:$androidXLegacySupport"
 
     // Dependencies for Architecture Component
-//    implementation "androidx.activity.activity-ktx:1.1.0"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
     implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$archLifecycleVersion"
@@ -54,4 +53,10 @@ dependencies {
     implementation "org.koin:koin-core:$koin_version"
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
+
+    // BubbleTabBar
+    implementation "com.github.akshay2211:BubbleTabBar:2aaa50967a"
+
+    // ViewPager2
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 }

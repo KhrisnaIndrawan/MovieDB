@@ -9,7 +9,6 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khrisna.core.data.source.vo.Resource
@@ -41,108 +40,44 @@ class TVShowsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity.let { activity ->
-            model.getAiringToday().observe(viewLifecycleOwner, Observer { data ->
-                data.let {
-                    when (it) {
-                        is Resource.Loading -> {
-                            progressBar.visibility = View.VISIBLE
-                        }
-                        is Resource.Error -> {
-                            Toast.makeText(
-                                context,
-                                "Get tv shows fail, please check your internet connection!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        is Resource.Success -> {
-                            if (it.data != null) {
-                                tvShows.add(it.data as TVShows)
-                                tvShowListAdapter.submitList(tvShows)
-                                tvShowListAdapter.notifyDataSetChanged()
+        activity.let {
+            model.getAiringToday().observe(viewLifecycleOwner, { data ->
+                showData(data)
+            })
+            model.getOnTheAir().observe(viewLifecycleOwner, { data ->
+                showData(data)
+            })
+            model.getPopular().observe(viewLifecycleOwner, { data ->
+                showData(data)
+            })
+            model.getTopRated().observe(viewLifecycleOwner, { data ->
+                showData(data)
+            })
+        }
+    }
 
-                                progressBar.visibility = View.INVISIBLE
-                            }
-                        }
+    private fun showData(data: Resource<TVShows>?) {
+        data.let {
+            when (it) {
+                is Resource.Loading -> {
+                    progressBar.visibility = View.VISIBLE
+                }
+                is Resource.Error -> {
+                    Toast.makeText(
+                        context,
+                        "Get tv shows fail, please check your internet connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is Resource.Success -> {
+                    if (it.data != null) {
+                        tvShows.add(it.data as TVShows)
+                        tvShowListAdapter.submitList(tvShows)
+
+                        progressBar.visibility = View.INVISIBLE
                     }
                 }
-            })
-            model.getOnTheAir().observe(viewLifecycleOwner, Observer { data ->
-                data.let {
-                    when (it) {
-                        is Resource.Loading -> {
-                            progressBar.visibility = View.VISIBLE
-                        }
-                        is Resource.Error -> {
-                            Toast.makeText(
-                                context,
-                                "Get tv shows fail, please check your internet connection!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        is Resource.Success -> {
-                            if (it.data != null) {
-                                tvShows.add(it.data as TVShows)
-                                tvShowListAdapter.submitList(tvShows)
-                                tvShowListAdapter.notifyDataSetChanged()
-
-                                progressBar.visibility = View.INVISIBLE
-                            }
-                        }
-                    }
-                }
-            })
-            model.getPopular().observe(viewLifecycleOwner, Observer { data ->
-                data.let {
-                    when (it) {
-                        is Resource.Loading -> {
-                            progressBar.visibility = View.VISIBLE
-                        }
-                        is Resource.Error -> {
-                            Toast.makeText(
-                                context,
-                                "Get tv shows fail, please check your internet connection!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        is Resource.Success -> {
-                            if (it.data != null) {
-                                tvShows.add(it.data as TVShows)
-                                tvShowListAdapter.submitList(tvShows)
-                                tvShowListAdapter.notifyDataSetChanged()
-
-                                progressBar.visibility = View.INVISIBLE
-                            }
-                        }
-                    }
-                }
-            })
-            model.getTopRated().observe(viewLifecycleOwner, Observer { data ->
-                data.let {
-                    when (it) {
-                        is Resource.Loading -> {
-                            progressBar.visibility = View.VISIBLE
-                        }
-                        is Resource.Error -> {
-                            Toast.makeText(
-                                context,
-                                "Get tv shows fail, please check your internet connection!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        is Resource.Success -> {
-                            if (it.data != null) {
-                                tvShows.add(it.data as TVShows)
-                                tvShowListAdapter.submitList(tvShows)
-                                tvShowListAdapter.notifyDataSetChanged()
-
-                                progressBar.visibility = View.INVISIBLE
-                            }
-                        }
-                    }
-                }
-            })
-
+            }
         }
     }
 

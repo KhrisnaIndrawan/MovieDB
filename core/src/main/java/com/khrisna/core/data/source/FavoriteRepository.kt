@@ -7,10 +7,9 @@ import com.khrisna.core.data.source.local.LocalDataSource
 import com.khrisna.core.domain.model.Favorite
 import com.khrisna.core.domain.repository.IFavoriteRepository
 import com.khrisna.core.utils.DataMapper
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
+import java.util.concurrent.Executors
 
 class FavoriteRepository(
     val localDataSource: LocalDataSource
@@ -31,21 +30,21 @@ class FavoriteRepository(
     }
 
     override fun insertFavorite(data: Favorite) {
-        GlobalScope.launch {
+        Executors.newSingleThreadExecutor().execute {
             val favorite = DataMapper.mapFavoriteDomainToEntity(data)
             localDataSource.insertFavorite(favorite)
         }
     }
 
     override fun deleteFavorite(data: Favorite) {
-        GlobalScope.launch {
+        Executors.newSingleThreadExecutor().execute {
             val favorite = DataMapper.mapFavoriteDomainToEntity(data)
             localDataSource.deleteFavorite(favorite)
         }
     }
 
     override fun updateFavorite(data: Favorite) {
-        GlobalScope.launch {
+        Executors.newSingleThreadExecutor().execute {
             val favorite = DataMapper.mapFavoriteDomainToEntity(data)
             localDataSource.updateFavorite(favorite)
         }
