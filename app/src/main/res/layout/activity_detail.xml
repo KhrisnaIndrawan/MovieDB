@@ -189,6 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/colorAccent"
+            android:contentDescription="@string/favorite_button"
             android:src="@drawable/ic_favorite_white_unchecked_24dp"
             android:tint="@color/colorPrimary"
             app:borderWidth="0dp"

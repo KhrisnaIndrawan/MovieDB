@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.khrisna.favorite.R
 import com.khrisna.favorite.databinding.FragmentFavoriteTvShowsBinding
@@ -38,7 +37,7 @@ class FavoriteTVShowsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         activity.let { _ ->
 
-            model.getFavoritesAsPaged(false).observe(viewLifecycleOwner, Observer { data ->
+            model.getFavoritesAsPaged(false).observe(viewLifecycleOwner, { data ->
                 data.let {
                     favoriteListAdapter.submitList(it)
                     favoriteListAdapter.notifyDataSetChanged()

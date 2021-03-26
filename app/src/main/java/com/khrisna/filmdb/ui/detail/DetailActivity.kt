@@ -177,7 +177,7 @@ class DetailActivity : AppCompatActivity() {
             .into(binding.imgBackdrop)
 
         binding.tvTitle.text = data.title
-        binding.tvReleaseDateText.text = "First air date: "
+        binding.tvReleaseDateText.text = getString(R.string.first_air_date_text)
         binding.tvReleaseDate.text = data.firstAir?.let { formatDate(it) }
         binding.tvRating.text = data.rating.toString()
         binding.tvOverviewBody.text = data.overview

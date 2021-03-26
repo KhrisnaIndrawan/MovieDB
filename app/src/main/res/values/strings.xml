@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">MovieDB</string>
-    <string name="tab_movies">Movies</string>
-    <string name="tab_tv_shows">TV Shows</string>
     <string name="movie_poster">Movie poster</string>
     <string name="poster">Poster</string>
     <string name="backdrop">Backdrop</string>
@@ -10,11 +8,11 @@
     <string name="release_date">Release date:</string>
     <string name="see_more">View all</string>
     <string name="favorite">Favorite</string>
-    <string name="home">Home</string>
     <string name="movies_or_tv_shows">movies or tv shows</string>
     <string name="search">Search</string>
     <string name="title_favorite">Module Title</string>
-    <string name="search_button">Search button</string>
     <string name="movie">Movie</string>
     <string name="tv_show">TV Show</string>
+    <string name="favorite_button">Favorite button</string>
+    <string name="first_air_date_text">\"First air date: \"</string>
 </resources>

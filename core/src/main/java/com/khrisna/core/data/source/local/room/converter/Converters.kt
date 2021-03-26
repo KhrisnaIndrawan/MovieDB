@@ -18,9 +18,10 @@ class Converters {
 
         @TypeConverter
         @JvmStatic
-        fun toGenres(value: String): MutableList<GenreEntity>? {
+        fun toGenres(value: String): MutableList<GenreEntity> {
 
-            val objects = Gson().fromJson(value, Array<GenreEntity>::class.java) as Array<GenreEntity>
+            val objects =
+                Gson().fromJson(value, Array<GenreEntity>::class.java) as Array<GenreEntity>
             return objects.toMutableList()
         }
 
@@ -33,9 +34,10 @@ class Converters {
 
         @TypeConverter
         @JvmStatic
-        fun toMovies(value: String): MutableList<MovieEntity>? {
+        fun toMovies(value: String): MutableList<MovieEntity> {
 
-            val objects = Gson().fromJson(value, Array<MovieEntity>::class.java) as Array<MovieEntity>
+            val objects =
+                Gson().fromJson(value, Array<MovieEntity>::class.java) as Array<MovieEntity>
             return objects.toMutableList()
         }
 
@@ -48,9 +50,10 @@ class Converters {
 
         @TypeConverter
         @JvmStatic
-        fun toTVShows(value: String): MutableList<TVShowEntity>? {
+        fun toTVShows(value: String): MutableList<TVShowEntity> {
 
-            val objects = Gson().fromJson(value, Array<TVShowEntity>::class.java) as Array<TVShowEntity>
+            val objects =
+                Gson().fromJson(value, Array<TVShowEntity>::class.java) as Array<TVShowEntity>
             return objects.toMutableList()
         }
     }

@@ -86,7 +86,7 @@ class ViewAllActivity : AppCompatActivity() {
 
     private fun showTvShowsData() {
 
-        viewAllViewModel.getTVShows(header).observe(this, Observer { data ->
+        viewAllViewModel.getTVShows(header).observe(this, { data ->
             data.let {
 
                 tvShowListAdapter.submitList(it.tvShows)

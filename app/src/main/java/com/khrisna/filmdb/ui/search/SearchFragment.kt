@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.khrisna.filmdb.R
 import com.khrisna.filmdb.databinding.FragmentSearchBinding
@@ -42,7 +41,7 @@ class SearchFragment : Fragment() {
                 query = binding.edtQuery.text.toString()
                 binding.searchPlaceholder.visibility = View.GONE
                 progressBar.visibility = View.VISIBLE
-                model.getSearches(query).observe(viewLifecycleOwner, Observer { data ->
+                model.getSearches(query).observe(viewLifecycleOwner, { data ->
 
                     data.let {
 
