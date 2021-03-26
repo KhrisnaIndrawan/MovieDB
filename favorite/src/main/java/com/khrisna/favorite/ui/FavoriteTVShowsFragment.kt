@@ -36,7 +36,7 @@ class FavoriteTVShowsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity.let { activity ->
+        activity.let { _ ->
 
             model.getFavoritesAsPaged(false).observe(viewLifecycleOwner, Observer { data ->
                 data.let {

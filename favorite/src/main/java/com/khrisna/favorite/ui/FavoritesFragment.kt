@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 import com.khrisna.favorite.databinding.FragmentFavoritesBinding
 import com.khrisna.favorite.di.favoriteModule
-import com.khrisna.favorite.ui.adapter.FavoriteSectionsPagerAdapter
 import org.koin.core.context.loadKoinModules
-
 
 class FavoritesFragment : Fragment() {
 
@@ -32,15 +33,30 @@ class FavoritesFragment : Fragment() {
 
         loadKoinModules(favoriteModule)
 
-        val sectionsPagerAdapter = FavoriteSectionsPagerAdapter(
-            context as AppCompatActivity,
-            childFragmentManager
-        )
-        binding.viewPager.adapter = sectionsPagerAdapter
-        binding.tabs.setupWithViewPager(binding.viewPager)
+        binding.viewPager.adapter = ScreenSlidePagerAdapter(context as AppCompatActivity)
+        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
+            tab.text = tabs[position]
+        }.attach()
+    }
+
+    inner class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
+        override fun getItemCount(): Int = NUM_PAGES
+
+        override fun createFragment(position: Int): Fragment =
+            when (position) {
+                0 -> FavoriteMoviesFragment.newInstance()
+                1 -> FavoriteTVShowsFragment.newInstance()
+                else -> FavoriteMoviesFragment.newInstance()
+            }
     }
 
     companion object {
+
+        private const val NUM_PAGES = 2
+        private val tabs = arrayOf(
+            "Movie",
+            "TVShow"
+        )
 
         @JvmStatic
         fun newInstance(): FavoritesFragment {
