@@ -43,6 +43,7 @@ class MoviesFragment : Fragment() {
 
         model.getNowPlaying().observe(viewLifecycleOwner, { data ->
             showData(data)
+            //test
         })
 
         model.getPopular().observe(viewLifecycleOwner, { data ->

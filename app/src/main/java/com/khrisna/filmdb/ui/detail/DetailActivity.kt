@@ -1,7 +1,6 @@
 package com.khrisna.filmdb.ui.detail
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,8 +29,7 @@ class DetailActivity : AppCompatActivity() {
     private var isMovie: Boolean = false
     private var isFavorite: Boolean = false
     private lateinit var favorite: Favorite
-    private lateinit var poster: String
-    private var menuItem: Menu? = null
+    private var poster: String? = null
 
     companion object {
         const val EXTRA_DETAIL_DATA = "extra_detail_data"
@@ -49,12 +47,13 @@ class DetailActivity : AppCompatActivity() {
 
         intent.let {
             isMovie = it.getBooleanExtra(EXTRA_IS_MOVIE, false)
-            poster = it.getStringExtra(EXTRA_POSTER) as String
+            poster = it.getStringExtra(EXTRA_POSTER)
 
             GlideApp.with(this)
                 .load(BASE_IMG_URL + poster)
                 .apply(
-                    RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error)
+                    RequestOptions.placeholderOf(R.drawable.ic_loading)
+                        .error(R.drawable.ic_error)
                 )
                 .override(480)
                 .into(binding.imgPoster)

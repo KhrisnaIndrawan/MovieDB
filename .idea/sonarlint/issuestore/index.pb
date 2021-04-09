@@ -31,8 +31,6 @@ Nfavorite/src/main/java/com/khrisna/favorite/ui/adapter/FavoritePagedAdapter.kt
 settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
 }
 Mfavorite/src/androidTest/java/com/khrisna/favorite/ExampleInstrumentedTest.kt,9\3\93ca346bd39b8dd7ae3b7500e2e234cd8f946db1
-†
-Vfavorite/src/main/java/com/khrisna/favorite/ui/adapter/FavoriteSectionsPagerAdapter.kt,c\8\c81d680379d22eae78e3e096477c0f3929a03beb
 U
 %favorite/src/main/AndroidManifest.xml,d\1\d14ee4df5184eb29655780f11be8025bc2e3d129
 n
